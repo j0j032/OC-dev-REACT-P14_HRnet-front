@@ -1,0 +1,50 @@
+.btn {
+  cursor: pointer;
+  color: $white-1;
+  border: 1px solid $white-1;
+  border-radius: 5px;
+  background-color: $black-1;
+  
+  &--large {
+	font-size: 1.8rem;
+	padding: 1.6rem 2.4rem;
+	
+	&.btn-round {
+	  @include flexCentered;
+	  font-size: 3.2rem;
+	  width: 4.8rem;
+	  height: 4.8rem;
+	  padding: 1rem;
+	  transition: border 200ms ease;
+	  border-radius: 50%;
+	  
+	  &:hover {
+		border: 2px solid $white-1;
+		box-shadow: none;
+	  }
+	}
+  }
+  
+  &--medium {
+	font-size: 1.6rem;
+	padding: 1.2rem 1.6rem;
+  }
+  
+  &--small {
+	font-size: 1.4rem;
+	padding: 1.1rem 1.6rem;
+  }
+  
+  &:hover {
+	transition: 200ms ease-in-out;
+	box-shadow: 2px 2px 0 0 $black-1;
+  }
+  
+  &--unstyled {
+	background: transparent;
+	
+	&:hover {
+	  box-shadow: none;
+	}
+  }
+}

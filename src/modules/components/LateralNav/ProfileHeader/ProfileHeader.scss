@@ -1,0 +1,26 @@
+.profile-header {
+  height: 64px;
+  cursor: pointer;
+  background-color: #47ACDF;
+  @include flexRowInline;
+  
+  > img {
+	width: 4.8rem;
+	height: 4.8rem;
+	margin: 0 1.6rem 0 1.2rem;
+	border-radius: 50%;
+	object-fit: cover;
+  }
+  
+  > div {
+	
+	> h1 {
+	  font-size: 1.8rem;
+	}
+	
+	> p {
+	  font-size: 1.4rem;
+	  color: $white-1;
+	}
+  }
+}

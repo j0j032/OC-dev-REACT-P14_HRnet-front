@@ -1,0 +1,45 @@
+.navigation {
+  &__container {
+	justify-content: space-around;
+	flex-grow: 1;
+	@include flexColumn;
+	padding-top: 1.6rem;
+	padding-bottom: 6.4rem;
+  }
+  
+  &__link {
+	@include flexRowInline;
+	padding: 0.8rem 2.4rem;
+	transition: transform 300ms ease-out;
+	gap: 1.6rem;
+	
+	&.active {
+	  margin: 0 1.6rem;
+	  border-radius: 5px;
+	  background-color: $white-1;
+	  box-shadow: inset 2px 4px 10px 1px rgba(0, 0, 0, 0.33);
+	  
+	  &:hover {
+		transform: translateX(0px);
+	  }
+	}
+	
+	&:hover {
+	  transform: translateX(1.4rem);
+	  text-shadow: 1px 1px rgba(71, 172, 223, 0.23);
+	}
+	
+	&-wrapper {
+	  > h3 {
+		font-size: 1.8rem;
+		padding: 1.8rem 2.4rem;
+	  }
+	}
+  }
+}
+
+.customHR {
+  height: 1px;
+  background-color: $white-1;
+}
+

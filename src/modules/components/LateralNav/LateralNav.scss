@@ -1,0 +1,12 @@
+.lateralNav {
+  &__container {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	overflow: hidden;
+	width: 240px;
+	height: 100%;
+	border-radius: 32px 0 32px 0;
+	background: $grey-1;
+  }
+}

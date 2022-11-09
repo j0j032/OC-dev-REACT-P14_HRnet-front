@@ -1,0 +1,17 @@
+.nav-footer {
+  justify-content: space-around;
+  height: 64px;
+  @include flexRowInline;
+  padding: 0 3.2rem 0 0.4rem;
+  transition: transform 200ms ease-out;
+  
+  background-color: $black-1;
+  
+  > img {
+	cursor: pointer;
+	
+	&:hover {
+	  transform: translateY(-2px);
+	}
+  }
+}

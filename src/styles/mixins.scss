@@ -1,0 +1,23 @@
+@mixin flexRowInline {
+  display: flex;
+  align-items: center;
+}
+
+@mixin absoluteCentered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flexCentered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
