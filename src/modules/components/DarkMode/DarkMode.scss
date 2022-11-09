@@ -33,7 +33,7 @@
   visibility: hidden;
   &:checked + .dark-mode-toggle{
 	background-color: #242424;
-	border: 2px solid black;
+	border: 2px solid #1F1F1F;
 	&:after{
 	  left: 4.9rem;
 	  transform: translateX(-60%);

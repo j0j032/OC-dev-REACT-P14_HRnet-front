@@ -16,8 +16,12 @@
 	&.active {
 	  margin: 0 1.6rem;
 	  border-radius: 5px;
+	  color: var(--ACTIVE-FONT-color);
 	  background-color: $white-1;
 	  box-shadow: inset 2px 4px 10px 1px rgba(0, 0, 0, 0.33);
+	  >.icon{
+		filter:invert(0%);
+	  }
 	  
 	  &:hover {
 		transform: translateX(0px);
@@ -40,6 +44,6 @@
 
 .customHR {
   height: 1px;
-  background-color: $white-1;
+  background-color: var(--MENU-SEPARATOR-color);
 }
 

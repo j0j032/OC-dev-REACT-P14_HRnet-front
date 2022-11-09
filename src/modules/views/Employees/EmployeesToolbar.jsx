@@ -13,7 +13,7 @@ export const EmployeesToolbar = () => {
 					<input type='text' placeholder='🔎  Employee'/>
 				</form>
 				<div className='toolbar-emp__filters'>
-					<img src={filterIcon} alt='filter icon'/>
+					<img className='icon' src={filterIcon} alt='filter icon'/>
 					{filters.map((filter, i) => (
 						<Filter key={i} text={filter.text} byAsc={filter.byAsc} byDesc={filter.byDesc}/>
 					))}

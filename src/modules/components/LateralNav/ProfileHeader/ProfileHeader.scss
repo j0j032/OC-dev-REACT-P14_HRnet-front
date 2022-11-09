@@ -1,7 +1,7 @@
 .profile-header {
   height: 64px;
   cursor: pointer;
-  background-color: #47ACDF;
+  background-color: var(--COMPANY-theme-color);
   @include flexRowInline;
   
   > img {
@@ -16,11 +16,12 @@
 	
 	> h1 {
 	  font-size: 1.8rem;
+	  color: $black-1;
 	}
 	
 	> p {
 	  font-size: 1.4rem;
-	  color: $white-1;
+	  color: var(--SUB-CONTRAST-FONT-color);
 	}
   }
 }
