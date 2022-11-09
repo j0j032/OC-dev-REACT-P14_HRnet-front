@@ -17,9 +17,12 @@
 	  padding: 1rem;
 	  transition: border 200ms ease;
 	  border-radius: 50%;
+	  border:1px solid var(--BORDER-btn-color);
+	  background: var(--ROUND-BTN-GRADIENT);
+	  color: var(--FONT-btn-color);
 	  
 	  &:hover {
-		border: 2px solid $white-1;
+		border: 2px solid var(--BORDER-btn-hover-color);
 		box-shadow: none;
 	  }
 	}

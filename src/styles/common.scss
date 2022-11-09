@@ -1,7 +1,8 @@
 html {
   font-family: Roboto, Lato, Arial, sans-serif;
   font-size: 62.5%;
-  color: $black-1; // ⚠️
+  color: var(--FONT-color);
+  background-color: var(--BG-color);
 }
 
 body {
@@ -31,4 +32,8 @@ a {
   font-weight: 400;
   text-decoration: none;
   color: inherit;
+}
+
+.icon{
+  filter:var(--ICONS-color);
 }

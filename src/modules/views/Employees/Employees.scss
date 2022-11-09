@@ -11,19 +11,17 @@
 	height: 64px;
 	padding: 0 2.4rem 0 2.4rem;
 	border-radius: 0 32px 0 0;
-	background-color: $grey-1;
+	background-color: var(--TOOLBAR-color);
   }
   
   &__filters {
 	@include flexRowInline;
 	gap: 2.4rem;
-	
 	> form {
-	  
 	  > input {
 		height: 3.2rem;
 		padding: 0.8rem 0.8rem 0.8rem 1.6rem;
-		border: 1px solid $grey-2;
+		border: 1px solid var(--INPUT-default-border-color);
 		border-radius: 20px;
 	  }
 	}
