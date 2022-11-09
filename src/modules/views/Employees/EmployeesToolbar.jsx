@@ -1,8 +1,8 @@
 import React from 'react'
-import filterIcon from '../../../assets/icons/search/filter.svg'
+import filterIcon from '../../../assets/icons/search/patter.svg'
 import {Button} from '../../components/Button/Button.jsx'
 import {Filter} from './Filter'
-import filters from './filters'
+import {idFilters} from './filters'
 
 
 export const EmployeesToolbar = () => {
@@ -14,9 +14,11 @@ export const EmployeesToolbar = () => {
 				</form>
 				<div className='toolbar-emp__filters'>
 					<img className='icon' src={filterIcon} alt='filter icon'/>
-					{filters.map((filter, i) => (
-						<Filter key={i} text={filter.text} byAsc={filter.byAsc} byDesc={filter.byDesc}/>
-					))}
+					<div className='employee-filter--bar'>
+						{idFilters.map((filter, i) => (
+							<Filter key={i} text={filter.text} byAsc={filter.byAsc} byDesc={filter.byDesc}/>
+						))}
+					</div>
 				</div>
 			</div>
 			<Button custom='btn--large btn-round' children='+'/>

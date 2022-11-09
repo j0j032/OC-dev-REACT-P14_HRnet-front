@@ -11,7 +11,7 @@ export const Header = ({company}) => {
 				<div className='header__company'>
 					<img src={ProvisoryLogo} alt='Company logo'/>
 					<h1>{company.name}</h1>
-					<img src={dropdown} alt='drop down'/>
+					<img className='icon' src={dropdown} alt='drop down'/>
 				</div>
 			</div>
 		</header>

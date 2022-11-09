@@ -1,4 +1,4 @@
-export default [
+export const idFilters = [
 	{
 		text: 'firstname',
 		byAsc: () => console.log('Sort By asc'),
@@ -23,7 +23,10 @@ export default [
 		text: 'department',
 		byAsc: () => console.log('Sort By asc'),
 		byDesc: () => console.log('Sort By desc')
-	},
+	}
+]
+
+export const addressFilters = [
 	{
 		text: 'street',
 		byAsc: () => console.log('Sort By asc'),

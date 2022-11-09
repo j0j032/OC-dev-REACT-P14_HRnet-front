@@ -4,7 +4,8 @@
 	justify-content: flex-start;
 	flex-direction: column;
 	overflow: hidden;
-	width: 240px;
+	width: 100%;
+	min-width: 240px;
 	height: 100%;
 	border-radius: 32px 0 32px 0;
 	background: var(--MENU-color);

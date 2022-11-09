@@ -3,7 +3,6 @@
   cursor: pointer;
   background-color: var(--COMPANY-theme-color);
   @include flexRowInline;
-  
   > img {
 	width: 4.8rem;
 	height: 4.8rem;

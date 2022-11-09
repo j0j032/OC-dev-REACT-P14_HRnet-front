@@ -6,6 +6,7 @@ html {
 }
 
 body {
+  width: 100vw;
   height: 100vh;
 }
 
@@ -34,6 +35,6 @@ a {
   color: inherit;
 }
 
-.icon{
-  filter:var(--ICONS-color);
+.icon {
+  filter: var(--ICONS-color);
 }
