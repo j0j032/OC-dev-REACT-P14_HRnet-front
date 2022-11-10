@@ -9,7 +9,7 @@ export const EmployeeCard = ({hired, firstname, lastname, title, department, pic
 				<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>
 			</div>
 			<div className='emp-card__heading-container'>
-				<img src='src/assets/img/Test-1.jpg' alt='profile picture'/>
+				<img src={picture} alt='profile picture'/>
 				<h1>{`${firstname} ${lastname}`}</h1>
 				<h2>{title}</h2>
 				<p>{`${department} team`}</p>
