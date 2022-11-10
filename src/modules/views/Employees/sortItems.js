@@ -1,4 +1,4 @@
-export default [
+export const identitySort = [
 	{
 		text: 'firstname',
 		byAsc: () => console.log('Sort By asc'),
@@ -13,7 +13,10 @@ export default [
 		text: 'birth',
 		byAsc: () => console.log('Sort By asc'),
 		byDesc: () => console.log('Sort By desc')
-	},
+	}
+]
+
+export const companySort = [
 	{
 		text: 'start date',
 		byAsc: () => console.log('Sort By asc'),
@@ -23,7 +26,10 @@ export default [
 		text: 'department',
 		byAsc: () => console.log('Sort By asc'),
 		byDesc: () => console.log('Sort By desc')
-	},
+	}
+]
+
+export const addressSort = [
 	{
 		text: 'street',
 		byAsc: () => console.log('Sort By asc'),
