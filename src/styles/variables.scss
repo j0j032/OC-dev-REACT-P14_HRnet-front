@@ -1,54 +1,54 @@
 // main Colors
-:root{
+:root {
   --BG-color: #FFFEFC;
+  --BG-invert-color: #262627;
   --FONT-color: #262627;
-  --SUB-FONT-color:#A4A4A4;
+  --SUB-FONT-color: #A4A4A4;
   --MENU-color: #F5F6F7;
   --TOOLBAR-color: #F5F6F7;
-  --CARD-color: #fffefc;
+  --CARD-color: #FFFEFC;
   --FOOTER-color: #262627;
-  --PAGINATION-left-color:#5F6368;
+  --PAGINATION-left-color: #5F6368;
   --ACTIVE-FONT-color: #262627;
   --SUB-CONTRAST-FONT-color: #FFFEFC;
-  --COMPANY-theme-color:#5F6368;
-  --MENU-SEPARATOR-color:#fffefc;
-  --INPUT-default-border-color:#A4A4A4;
+  --COMPANY-theme-color: #5F6368;
+  --MENU-SEPARATOR-color: #FFFEFC;
+  --INPUT-default-border-color: #A4A4A4;
   --LOGO: url('/src/assets/logos/Hrnet-heading-logo-black.svg');
-  --ROUND-BTN-GRADIENT:linear-gradient(180deg, #fffefc, #CECECE);
-  --BORDER-btn-color: #fffefc;
+  --BORDER-btn-color: #FFFEFC;
   --FONT-btn-color: #262627;
-  --BORDER-btn-hover-color: #fffefc;
-  --ICONS-color:invert(0%);
+  --BORDER-btn-hover-color: #FFFEFC;
+  --ICONS-color: invert(0%);
 }
 
-[data-theme='dark']{
+[data-theme='dark'] {
   --BG-color: #262627;
-  --FONT-color: #ffeefc;
+  --BG-invert-color: #FFFEFC;
+  --FONT-color: #FFEEFC;
   --MENU-color: #363636;
   --TOOLBAR-color: #363636;
   --CARD-color: #363636;
   --FOOTER-color: #1F1F1F;
-  --PAGINATION-left-color:#5F6368;
+  --PAGINATION-left-color: #5F6368;
   --ACTIVE-FONT-color: #262627;
-  --MENU-SEPARATOR-color:#262627;
+  --MENU-SEPARATOR-color: #262627;
   --LOGO: url('/src/assets/logos/Hrnet-heading-logo-white.svg');
-  --ROUND-BTN-GRADIENT:linear-gradient(180deg, #777, #3a3a3a);
-  --FONT-btn-color: #fffefc;
+  --FONT-btn-color: #FFFEFC;
   --BORDER-btn-color: #262627;
   --BORDER-btn-hover-color: #1F1F1F;
-  --ICONS-color:invert(100%);
+  --ICONS-color: invert(100%);
 }
 
-[user-theme='twitter']{
-  --COMPANY-theme-color:#47ACDF;
+[user-theme='twitter'] {
+  --COMPANY-theme-color: #47ACDF;
 }
 
-[user-theme='amazon']{
-  --COMPANY-theme-color:#FFAE33;
+[user-theme='amazon'] {
+  --COMPANY-theme-color: #FFAE33;
 }
 
-[user-theme='openclassrooms']{
-  --COMPANY-theme-color:#6245EC;
+[user-theme='openclassrooms'] {
+  --COMPANY-theme-color: #6245EC;
 }
 
 $black-1: #262627;

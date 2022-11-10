@@ -2,7 +2,7 @@ import React from 'react'
 import dropUp from '../../../assets/icons/arrow/chevron_up.svg'
 import dropDown from '../../../assets/icons/arrow/chevron_down.svg'
 
-export const Filter = ({byAsc, byDesc, text}) => {
+export const SortItem = ({byAsc, byDesc, text}) => {
 	return (
 		<div className='employee-filter'>
 			<p>{text}</p>
