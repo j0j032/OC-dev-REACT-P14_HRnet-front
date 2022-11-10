@@ -1,6 +1,7 @@
 .emp-gallery {
   &__container {
 	@include flexColumn;
+	position: relative;
 	justify-content: space-between;
 	flex-grow: 1;
 	width: 100%;
@@ -9,9 +10,28 @@
   }
   
   &__wrapper {
-	display: flex;
-	flex-grow: 1;
-	gap: 2.4rem;
+	display: grid;
+	align-items: center;
+	overflow: scroll;
+	height: 80vh;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 16px 16px;
+	grid-template-areas:
+    ". . . ."
+    ". . . .";
+	@include desktop {
+	  grid-template-columns: 1fr 1fr 1fr;
+	  grid-template-areas:
+    ". . ."
+    ". . .";
+	}
+	@include laptop {
+	  grid-template-columns: 1fr 1fr;
+	  grid-template-areas:
+    ". ."
+    ". .";
+	}
   }
   
   &__result {
@@ -19,16 +39,22 @@
 	font-weight: 200;
 	text-align: center;
 	
+	
 	& > span {
 	  font-weight: bold;
 	}
   }
   
   &__pagination {
+	position: absolute;
+	bottom: 0;
+	justify-content: center;
+	width: 100%;
+	height: 6.4rem;
 	@include flexRowInline;
 	// ⚠️ later space-between
-	justify-content: center;
-	height: 6.4rem;
+	background: transparent;
+	backdrop-filter: blur(5px);
   }
   
 }
