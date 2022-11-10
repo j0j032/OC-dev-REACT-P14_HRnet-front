@@ -19,11 +19,10 @@ export const EmployeesGallery = () => {
 					address={employee.address}
 				/>)}
 			</div>
-			<p className='emp-gallery__result'>
-				<span>{employees.length}</span>{employees.length > 1 ? ' Employees' : ' Employee'}
-			</p>
 			<div className='emp-gallery__pagination'>
-			
+				<p className='emp-gallery__result'>
+					<span>{employees.length}</span>{employees.length > 1 ? ' Employees' : ' Employee'}
+				</p>
 			</div>
 		</div>
 	)

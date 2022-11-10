@@ -3,6 +3,7 @@
 	@include flexColumn;
 	min-width: 26.4rem;
 	max-width: 22.4rem;
+	height: fit-content;
 	padding: 1.6rem 1.8rem;
 	border-radius: 8px;
 	background-color: var(--CARD-color);
