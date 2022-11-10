@@ -4,21 +4,21 @@ import {MainContent} from '../../components/MainContent/MainContent'
 import {LateralNav} from '../../components/LateralNav/LateralNav'
 import {EmployeesToolbar} from './EmployeesToolbar'
 import {useEffect} from 'react'
+import {EmployeesGallery} from './EmployeesGallery/EmployeesGallery'
 
 export const Employees = () => {
-	console.log('Page render')
 	const {data} = useQuery(['login'], {enabled: false})
 	const {userInfos} = data
 	const {company} = userInfos
 	
-	const setCompanyTheme =() => {
+	const setCompanyTheme = () => {
 		localStorage.setItem('company-theme', company.name.split(' ')[0])
 		document.documentElement.setAttribute('user-theme', company.name.split(' ')[0])
 	}
 	
-	useEffect(()=>{
+	useEffect(() => {
 		setCompanyTheme()
-	},[])
+	}, [])
 	
 	return (
 		<>
@@ -27,6 +27,7 @@ export const Employees = () => {
 				<LateralNav/>
 				<section className='main-section'>
 					<EmployeesToolbar/>
+					<EmployeesGallery/>
 				</section>
 			</MainContent>
 		</>
