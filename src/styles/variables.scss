@@ -19,6 +19,8 @@
   --FONT-btn-color: #262627;
   --BORDER-btn-hover-color: #FFFEFC;
   --ICONS-color: invert(0%);
+  --INFOS-card-container: #F5F6F7;
+  --CARD-shadow: rgba(51, 50, 50, 0.18);
 }
 
 [data-theme='dark'] {
@@ -37,6 +39,8 @@
   --BORDER-btn-color: #262627;
   --BORDER-btn-hover-color: #1F1F1F;
   --ICONS-color: invert(100%);
+  --INFOS-card-container: #262627;
+  --CARD-shadow: rgba(5, 5, 5, 0.2);
 }
 
 [user-theme='twitter'] {
