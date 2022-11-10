@@ -1,32 +1,67 @@
 .navigation {
   &__container {
-	justify-content: space-around;
+	// justify-content: space-around;
 	flex-grow: 1;
 	@include flexColumn;
 	padding-top: 1.6rem;
-	padding-bottom: 6.4rem;
+	padding-bottom: 2.4rem;
   }
   
   &__link {
 	@include flexRowInline;
+	position: relative;
 	padding: 0.8rem 2.4rem;
-	transition: transform 300ms ease-out;
 	gap: 1.6rem;
 	
+	> p {
+	  height: 1.8rem;
+	  transition: all 150ms ease-out;
+	}
+	
 	&.active {
-	  margin: 0 1.6rem;
-	  border-radius: 5px;
-	  background-color: $white-1;
-	  box-shadow: inset 2px 4px 10px 1px rgba(0, 0, 0, 0.33);
+	  position: relative;
+	  
+	  > p {
+		font-size: 1.7rem;
+		font-weight: bold;
+	  }
+	  
+	  &:after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 4px;
+		height: 100%;
+		content: '';
+		border-radius: 4px;
+		background: var(--COMPANY-theme-color);
+	  }
 	  
 	  &:hover {
-		transform: translateX(0px);
+		&:after {
+		  background: var(--COMPANY-theme-color);
+		}
 	  }
 	}
 	
 	&:hover {
-	  transform: translateX(1.4rem);
-	  text-shadow: 1px 1px rgba(71, 172, 223, 0.23);
+	  transition: all 300ms;
+	  
+	  > p {
+		font-size: 1.7rem;
+		font-weight: bold;
+	  }
+	  
+	  &:after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 4px;
+		height: 100%;
+		content: '';
+		border-radius: 4px;
+		background: var(--SUB-FONT-color);
+	  }
 	}
 	
 	&-wrapper {
@@ -40,6 +75,7 @@
 
 .customHR {
   height: 1px;
-  background-color: $white-1;
+  margin: 2.4rem 0 1.6rem 0;
+  background-color: var(--MENU-SEPARATOR-color);
 }
 

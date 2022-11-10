@@ -1,26 +1,39 @@
 .profile-header {
   height: 64px;
-  cursor: pointer;
-  background-color: #47ACDF;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
   @include flexRowInline;
+  background-color: var(--COMPANY-theme-color);
   
   > img {
 	width: 4.8rem;
 	height: 4.8rem;
-	margin: 0 1.6rem 0 1.2rem;
+	margin: 0 1.6rem 0 0;
 	border-radius: 50%;
 	object-fit: cover;
   }
   
   > div {
+	flex-grow: 1;
 	
-	> h1 {
-	  font-size: 1.8rem;
+	> div {
+	  @include flexRowInline;
+	  justify-content: space-between;
+	  
+	  > h1 {
+		font-size: 1.8rem;
+		color: $black-1;
+	  }
+	  
+	  > img {
+		cursor: pointer;
+		filter: invert(0%);
+	  }
 	}
 	
 	> p {
 	  font-size: 1.4rem;
-	  color: $white-1;
+	  color: var(--SUB-CONTRAST-FONT-color);
 	}
   }
 }
+

@@ -1,5 +1,6 @@
 .btn {
   cursor: pointer;
+  transition: all 200ms ease-in-out;
   color: $white-1;
   border: 1px solid $white-1;
   border-radius: 5px;
@@ -16,11 +17,13 @@
 	  height: 4.8rem;
 	  padding: 1rem;
 	  transition: border 200ms ease;
+	  border: 1px solid var(--BORDER-btn-color);
 	  border-radius: 50%;
+	  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.26);
 	  
 	  &:hover {
-		border: 2px solid $white-1;
-		box-shadow: none;
+		transform: scale(1);
+		border: 2px solid var(--BORDER-btn-hover-color);
 	  }
 	}
   }
@@ -36,8 +39,7 @@
   }
   
   &:hover {
-	transition: 200ms ease-in-out;
-	box-shadow: 2px 2px 0 0 $black-1;
+	transform: scale(0.9);
   }
   
   &--unstyled {
