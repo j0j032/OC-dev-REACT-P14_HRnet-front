@@ -1,11 +1,14 @@
-export const Paginator = ({totalOfPages, setPage}) => {
+export const Paginator = ({totalOfPages, setPage, currentPage}) => {
 	const pagination = []
 	
 	const createBtn = (i) => {
-		return <button key={i} onClick={() => setPage(i)}>{i}</button>
+		return <button key={i}
+		               onClick={() => setPage(i)}
+		               className={currentPage === i ? 'paginator__number activePage' : 'paginator__number'}
+		>{i}</button>
 	}
 	const createDots = () => {
-		return <span>...</span>
+		return <span className='paginator__dots'>...</span>
 	}
 	
 	if (!totalOfPages) return <p>No pages</p>
@@ -24,5 +27,5 @@ export const Paginator = ({totalOfPages, setPage}) => {
 	for (let i = totalOfPages - 2; i <= totalOfPages; i++) {
 		pagination.push(createBtn(i))
 	}
-	return pagination
+	return <div className='paginator__container'>{pagination}</div>
 }

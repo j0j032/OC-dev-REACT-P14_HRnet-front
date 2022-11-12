@@ -2,30 +2,22 @@ import {useGetAllEmployees} from '../../../../api/employees/useGetEmployees.js'
 import {EmployeeCard} from '../EmployeeCard/EmployeeCard'
 import {useState} from 'react'
 import {Paginator} from '../../../components/Paginator/Paginator.jsx'
-
-const options = [
-	{value: '12', text: '12'},
-	{value: '24', text: '24'},
-	{value: '36', text: '36'},
-	{value: '48', text: '48'},
-	{value: '50', text: '50'}
-]
+import {PaginationLimiter} from '../../../components/PaginationLimiter/PaginationLimiter'
 
 export const EmployeesGallery = () => {
 	
 	const [page, setPage] = useState(0)
 	const [limit, setLimit] = useState(12)
-	const [selected, setSelected] = useState(options[0].value)
 	
 	const {data, isLoading, isFetched, isError} = useGetAllEmployees(page, limit, {enabled: true})
 	
 	const [currentPage, setCurrentPage] = useState(page + 1)
-	const handleChangeLimit = e => {
-		setSelected(e.target.value)
-		setLimit(e.target.value)
-	}
+	
 	
 	const numberOfPages = Math.ceil(data?.employeesLength / limit)
+	
+	const firstPage = page === 0
+	const lastPage = page === numberOfPages - 1
 	
 	const handlePageNumber = (page) => {
 		setPage(page - 1)
@@ -70,21 +62,27 @@ export const EmployeesGallery = () => {
 			</div>
 			
 			<div className='emp-gallery__pagination'>
-				<div className='emp-gallery__pagination--limit'>
-					<p>Show </p>
-					<select value={selected} onChange={handleChangeLimit}>
-						{options.map(option => (<option key={option.value}>{option.text}</option>))}
-					</select>
-					<p>employees per page</p>
-				</div>
+				
+				<PaginationLimiter setLimit={setLimit} text='employees' defaultOption='12' option2='24' option3='36' option4='48'
+				                   option5='50'/>
 				<p className='emp-gallery__result'>
 					<span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}
 				</p>
-				<div>
-					<button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-					{<Paginator totalOfPages={numberOfPages} setPage={handlePageNumber}/>}
-					<button disabled={page === numberOfPages - 1} onClick={handleNextPage}>Next</button>
-				</div>
+				{numberOfPages > 1 ?
+					<div className='emp-gallery__pagination--nav'>
+						{!firstPage ?
+							<button className='icon' onClick={handlePrevPage}>
+								<img src='src/assets/icons/arrow/chevron_left.svg' alt='previous page'/>
+							</button> : <div></div>
+						}
+						{<Paginator totalOfPages={numberOfPages} setPage={handlePageNumber} currentPage={currentPage}/>}
+						{!lastPage ?
+							<button className='icon' onClick={handleNextPage}>
+								<img src='src/assets/icons/arrow/chevron_right.svg' alt='next page'/>
+							</button> : <div></div>
+						}
+					</div> : <div className='no-pagination'></div>
+				}
 			</div>
 		</div>
 	)
