@@ -1,6 +1,7 @@
 import {useGetAllEmployees} from '../../../../api/employees/useGetEmployees.js'
 import {EmployeeCard} from '../EmployeeCard/EmployeeCard'
 import {useState} from 'react'
+import {Paginator} from '../../../components/Paginator/Paginator.jsx'
 
 const options = [
 	{value: '12', text: '12'},
@@ -11,27 +12,48 @@ const options = [
 ]
 
 export const EmployeesGallery = () => {
+	
 	const [page, setPage] = useState(0)
 	const [limit, setLimit] = useState(12)
-	const {data, isLoading, isFetched} = useGetAllEmployees(page, limit, {enabled: true})
 	const [selected, setSelected] = useState(options[0].value)
 	
+	const {data, isLoading, isFetched, isError} = useGetAllEmployees(page, limit, {enabled: true})
+	
+	const [currentPage, setCurrentPage] = useState(page + 1)
 	const handleChangeLimit = e => {
 		setSelected(e.target.value)
 		setLimit(e.target.value)
 	}
 	
-	const numberOfPages = () => {
-		if (isLoading) {
-			return 'LOADING'
+	const numberOfPages = Math.ceil(data?.employeesLength / limit)
+	
+	const handlePageNumber = (page) => {
+		setPage(page - 1)
+		setCurrentPage(page)
+	}
+	
+	const handleNextPage = () => {
+		if (page === numberOfPages - 1) {
+			setPage(numberOfPages - 1)
+			setCurrentPage(numberOfPages)
+		} else {
+			setPage(page + 1)
+			setCurrentPage(currentPage + 1)
 		}
-		if (isFetched) {
-			return (data.employeesLength / limit)
+	}
+	
+	const handlePrevPage = () => {
+		if (page === -1) {
+			setPage(0)
+			setCurrentPage(1)
+		} else {
+			setPage(page - 1)
+			setCurrentPage(currentPage - 1)
 		}
 	}
 	
 	
-	return isLoading ? <div>LOADING</div> : (
+	return isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> : (
 		<div className='emp-gallery__container'>
 			<div className='emp-gallery__wrapper'>
 				{isFetched && data.employees.map((employee) => <EmployeeCard
@@ -59,7 +81,9 @@ export const EmployeesGallery = () => {
 					<span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}
 				</p>
 				<div>
-					{numberOfPages()}
+					<button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+					{<Paginator totalOfPages={numberOfPages} setPage={handlePageNumber}/>}
+					<button disabled={page === numberOfPages - 1} onClick={handleNextPage}>Next</button>
 				</div>
 			</div>
 		</div>
