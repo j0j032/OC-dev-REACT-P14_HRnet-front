@@ -67,15 +67,15 @@
 		border: none;
 		background: none;
 	  }
-	  
-	  > div {
-		width: 3.2rem;
-		height: 3.2rem;
-	  }
 	}
   }
 }
 
 .no-pagination {
   width: 24rem;
+}
+
+.icon.icon-disabled {
+  cursor: initial;
+  filter: var(--ICONS-disabled);
 }

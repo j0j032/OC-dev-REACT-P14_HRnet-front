@@ -1,26 +1,29 @@
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 
-export const PaginationLimiter = ({setLimit, text, defaultOption, option2, option3, option4, option5}) => {
+export const PaginationLimiter = ({setLimit, text, totalData, currentPage}) => {
+	const [selected, setSelected] = useState()
 	
-	const options = [
-		{value: defaultOption, text: defaultOption},
-		{value: option2, text: option2},
-		{value: option3, text: option3},
-		{value: option4, text: option4},
-		{value: option5, text: option5}
-	]
-	
-	const [selected, setSelected] = useState(options[0].value)
 	const handleChangeLimit = e => {
 		setSelected(e.target.value)
 		setLimit(e.target.value)
 	}
 	
+	const defineOptions = useCallback((totalData) => {
+		const allOptions = []
+		const nbrOfOptions = Math.ceil(totalData / 12)
+		for (let i = 1; i < nbrOfOptions + 1; i++) {
+			allOptions.push(i * 12)
+		}
+		// console.log(allOptions.filter(n => (totalData / n) > currentPage - 1))
+		return currentPage === 1 ? allOptions.fill(totalData, -1) : allOptions.filter(n => (totalData / n) > currentPage - 1)
+	}, [totalData, currentPage])
+	
+	
 	return (
 		<div className='pagination-limiter'>
 			<p>Show </p>
 			<select value={selected} onChange={handleChangeLimit}>
-				{options.map(option => (<option key={option.value}>{option.text}</option>))}
+				{defineOptions(totalData).map(option => (<option key={option}>{option}</option>))}
 			</select>
 			<p>{`${text} per page`}</p>
 		</div>

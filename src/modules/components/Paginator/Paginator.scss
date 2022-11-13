@@ -1,6 +1,7 @@
 .paginator {
   &__container {
 	@include flexRowInline;
+	width: fit-content;
 	gap: 0.8rem;
   }
   
