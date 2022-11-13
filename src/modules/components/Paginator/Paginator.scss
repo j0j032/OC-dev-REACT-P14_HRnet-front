@@ -1,0 +1,33 @@
+.paginator {
+  &__container {
+	@include flexRowInline;
+	width: fit-content;
+	gap: 0.8rem;
+  }
+  
+  &__number {
+	font-size: 1.4rem;
+	width: 2.4rem;
+	height: 2.4rem;
+	padding: 0.4rem;
+	cursor: pointer;
+	transition: all 100ms ease-in-out;
+	color: var(--FONT-color);
+	border: none;
+	background: none;
+	
+	&.activePage {
+	  font-size: 1.6rem;
+	  font-weight: bold;
+	  color: var(--FONT-color);
+	  border-radius: 24px;
+	  background: #47ACDF;
+	}
+  }
+  
+  &__dots {
+	font-size: 1.6rem;
+	color: var(--FONT-color);
+  }
+}
+

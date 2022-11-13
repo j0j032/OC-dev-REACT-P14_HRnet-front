@@ -48,13 +48,34 @@
   &__pagination {
 	position: absolute;
 	bottom: 0;
-	justify-content: center;
+	left: 0;
+	justify-content: space-between;
 	width: 100%;
 	height: 6.4rem;
 	@include flexRowInline;
-	// ⚠️ later space-between
+	padding: 2.4rem;
 	background: transparent;
 	backdrop-filter: blur(5px);
+	
+	&--nav {
+	  @include flexRowInline;
+	  gap: 1.2rem;
+	  
+	  > button {
+		cursor: pointer;
+		color: var(--COMPANY-theme-color);
+		border: none;
+		background: none;
+	  }
+	}
   }
-  
+}
+
+.no-pagination {
+  width: 24rem;
+}
+
+.icon.icon-disabled {
+  cursor: initial;
+  filter: var(--ICONS-disabled);
 }
