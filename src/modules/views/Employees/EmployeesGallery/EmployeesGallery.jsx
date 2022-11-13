@@ -3,8 +3,6 @@ import {useGetAllEmployees} from '../../../../api/employees/useGetEmployees.js'
 import {EmployeeCard} from '../EmployeeCard/EmployeeCard'
 import {Paginator} from '../../../components/Paginator/Paginator.jsx'
 import {PaginationLimiter} from '../../../components/PaginationLimiter/PaginationLimiter'
-import arrowLeft from '../../../../assets/icons/arrow/chevron_left.svg'
-import arrowRight from '../../../../assets/icons/arrow/chevron_right.svg'
 import {usePagination} from '../../../../hooks/usePagination.jsx'
 
 export const EmployeesGallery = () => {
@@ -14,11 +12,6 @@ export const EmployeesGallery = () => {
 	const numberOfPages = Math.ceil(data?.employeesLength / limit)
 	const firstPage = page === 0
 	const lastPage = page === numberOfPages - 1
-	
-	const nextBtn = <button disabled={lastPage} className={lastPage ? 'icon icon-disabled' : 'icon'} onClick={() => setNext(numberOfPages)}>
-		<img src={arrowRight} alt='next page'/></button>
-	const prevBtn = <button disabled={firstPage} className={firstPage ? 'icon icon-disabled' : 'icon'} onClick={setPrev}>
-		<img src={arrowLeft} alt='previous page'/></button>
 	
 	return isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> : (
 		<div className='emp-gallery__container'>
@@ -39,14 +32,14 @@ export const EmployeesGallery = () => {
 			<div className='emp-gallery__pagination'>
 				<PaginationLimiter setLimit={setLimit} text='employees' totalData={data.employeesLength} currentPage={currentPage}/>
 				<p className='emp-gallery__result'><span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}</p>
-				{numberOfPages > 1
-					? <div className='emp-gallery__pagination--nav'>
-						{prevBtn}
-						{<Paginator totalOfPages={numberOfPages} setPage={setPage} currentPage={currentPage}/>}
-						{nextBtn}
-					</div>
-					: <div className='no-pagination'></div>
-				}
+				<Paginator totalOfPages={numberOfPages}
+				           setPage={setPage}
+				           currentPage={currentPage}
+				           firstPage={firstPage}
+				           lastPage={lastPage}
+				           setPrev={setPrev}
+				           setNext={setNext}
+				/>
 			</div>
 		</div>
 	)
