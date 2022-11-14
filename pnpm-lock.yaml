@@ -12,6 +12,7 @@ specifiers:
   react-hook-form: ^7.39.1
   react-query: ^3.39.2
   react-router-dom: ^6.4.2
+  react-table: ^7.8.0
   sass: ^1.55.0
   vite: ^3.2.0
 
@@ -24,6 +25,7 @@ dependencies:
   react-hook-form: 7.39.1_react@18.2.0
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.4.2_biqbaboplfbrettd7655fr4n2y
+  react-table: 7.8.0_react@18.2.0
   sass: 1.55.0
 
 devDependencies:
@@ -1336,6 +1338,14 @@ packages:
       react: '>=16.8'
     dependencies:
       '@remix-run/router': 1.0.2
+      react: 18.2.0
+    dev: false
+
+  /react-table/7.8.0_react@18.2.0:
+    resolution: {integrity: sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==}
+    peerDependencies:
+      react: ^16.8.3 || ^17.0.0-0 || ^18.0.0
+    dependencies:
       react: 18.2.0
     dev: false
 
