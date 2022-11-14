@@ -1,4 +1,4 @@
-export const EmployeesTable = () => {
+export const EmployeesTable = ({employees}) => {
 	return (
 		<>
 			<div>

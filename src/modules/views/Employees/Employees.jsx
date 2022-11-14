@@ -43,7 +43,7 @@ export const Employees = () => {
 						<section className='employees__main-section'>
 							<EmployeesToolbar/>
 							
-							{tableView ? <EmployeesTable/> : <EmployeesGallery employees={data.employees}/>}
+							{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 							
 							<div className='employees__pagination-container'>
 								<PaginationLimiter setLimit={setLimit} text='employees' totalData={data.employeesLength} currentPage={currentPage}/>

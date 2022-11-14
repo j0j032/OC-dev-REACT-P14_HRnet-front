@@ -10,22 +10,24 @@
 	position: absolute;
 	z-index: 10;
 	bottom: 0;
-	left: 1%;
+	left: 2px;
 	justify-content: space-between;
-	width: 98%;
+	width: 100%;
 	height: 6.4rem;
 	@include flexRowInline;
 	padding: 2.4rem;
-	border-radius: 8px 8px 0 0;
-	background: transparent;
+	background: var(--BG-color);
 	backdrop-filter: blur(40px);
   }
   
   &__totalFound {
+	position: absolute;
+	bottom: 1.8rem;
+	left: 50%;
 	font-size: 2.4rem;
 	font-weight: 200;
+	transform: translateX(-50%);
 	text-align: center;
-	
 	
 	& > span {
 	  font-weight: bold;
