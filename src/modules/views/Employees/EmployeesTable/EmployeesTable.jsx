@@ -60,7 +60,7 @@ export const EmployeesTable = ({employees}) => {
 	const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance
 	return (
 		<div className='employees-table__container'>
-			<table className='employees-table__wrapper' {...getTableProps()}>
+			<table className='employees-table__wrapper' cellSpacing='0' cellPadding='0' {...getTableProps()}>
 				<thead>
 				{headerGroups.map((headerGroup) => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
