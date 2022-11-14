@@ -6,7 +6,7 @@
 	flex-grow: 1;
 	width: 100%;
 	height: 100%;
-	padding: 2.4rem 2.4rem 0 2.4rem;
+	padding: 0rem 0rem 0 0rem;
   }
   
   &__wrapper {
@@ -14,6 +14,7 @@
 	align-items: center;
 	overflow: scroll;
 	height: 80vh;
+	padding: 1.6rem 1.6rem 4rem 1.6rem;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 	gap: 16px 16px;
@@ -56,26 +57,7 @@
 	padding: 2.4rem;
 	background: transparent;
 	backdrop-filter: blur(5px);
-	
-	&--nav {
-	  @include flexRowInline;
-	  gap: 1.2rem;
-	  
-	  > button {
-		cursor: pointer;
-		color: var(--COMPANY-theme-color);
-		border: none;
-		background: none;
-	  }
-	}
   }
 }
 
-.no-pagination {
-  width: 24rem;
-}
 
-.icon.icon-disabled {
-  cursor: initial;
-  filter: var(--ICONS-disabled);
-}

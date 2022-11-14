@@ -19,12 +19,12 @@ export const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPa
 		return <span className='paginator__dots'>...</span>
 	}
 	
-	if (!totalOfPages || totalOfPages <= 1) return <div className='no-pagination'></div>
+	if (!totalOfPages || totalOfPages <= 1) return <div className='paginator__empty'></div>
 	if (totalOfPages < 7) {
 		for (let i = 1; i <= totalOfPages; i++) {
 			pagination.push(createBtn(i))
 		}
-		return (<div className='emp-gallery__pagination--nav'> {prevBtn}{pagination}{nextBtn}</div>)
+		return (<div className='paginator__container'> {prevBtn}{pagination}{nextBtn}</div>)
 	}
 	
 	for (let i = 1; i <= 3; i++) {
@@ -35,5 +35,5 @@ export const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPa
 	for (let i = totalOfPages - 2; i <= totalOfPages; i++) {
 		pagination.push(createBtn(i))
 	}
-	return (<div className='emp-gallery__pagination--nav'> {prevBtn}{pagination}{nextBtn}</div>)
+	return (<div className='paginator__container'> {prevBtn}{pagination}{nextBtn}</div>)
 }

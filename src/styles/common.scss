@@ -38,3 +38,8 @@ a {
 .icon {
   filter: var(--ICONS-color);
 }
+
+.icon.icon-disabled {
+  cursor: initial;
+  filter: var(--ICONS-disabled);
+}

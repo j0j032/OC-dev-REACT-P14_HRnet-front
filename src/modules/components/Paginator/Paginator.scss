@@ -1,8 +1,14 @@
 .paginator {
   &__container {
 	@include flexRowInline;
-	width: fit-content;
-	gap: 0.8rem;
+	gap: 1.2rem;
+	
+	> button {
+	  cursor: pointer;
+	  color: var(--COMPANY-theme-color);
+	  border: none;
+	  background: none;
+	}
   }
   
   &__number {
@@ -28,6 +34,10 @@
   &__dots {
 	font-size: 1.6rem;
 	color: var(--FONT-color);
+  }
+  
+  &__empty {
+	width: 24rem;
   }
 }
 
