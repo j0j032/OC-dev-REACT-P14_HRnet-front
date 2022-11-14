@@ -4,6 +4,7 @@ export const usePagination = () => {
 	const [page, setPage] = useState(0)
 	const [currentPage, setCurrentPage] = useState(page + 1)
 	
+	const firstPage = page === 0
 	
 	const handlePageNumber = (page) => {
 		setPage(page - 1)
@@ -30,5 +31,7 @@ export const usePagination = () => {
 		}
 	}
 	
-	return [page, currentPage, {setPrev: handlePrevPage, setNext: handleNextPage, setPage: handlePageNumber}]
+	const lastPage = (totalPages) => page === totalPages - 1
+	
+	return [page, currentPage, firstPage, lastPage, {setPrev: handlePrevPage, setNext: handleNextPage, setPage: handlePageNumber}]
 }

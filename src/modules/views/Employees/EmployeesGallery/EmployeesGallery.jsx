@@ -6,12 +6,11 @@ import {PaginationLimiter} from '../../../components/PaginationLimiter/Paginatio
 import {usePagination} from '../../../../hooks/usePagination.jsx'
 
 export const EmployeesGallery = () => {
-	const [page, currentPage, {setPrev, setNext, setPage}] = usePagination()
+	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const {data, isLoading, isFetched, isError} = useGetAllEmployees(page, limit, {enabled: true})
 	const numberOfPages = Math.ceil(data?.employeesLength / limit)
-	const firstPage = page === 0
-	const lastPage = page === numberOfPages - 1
+	
 	
 	return isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> : (
 		<div className='emp-gallery__container'>
@@ -36,7 +35,7 @@ export const EmployeesGallery = () => {
 				           setPage={setPage}
 				           currentPage={currentPage}
 				           firstPage={firstPage}
-				           lastPage={lastPage}
+				           lastPage={lastPage(numberOfPages)}
 				           setPrev={setPrev}
 				           setNext={setNext}
 				/>
