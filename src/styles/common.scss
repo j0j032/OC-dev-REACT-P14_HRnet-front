@@ -17,8 +17,7 @@ p {
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   height: 100%;
   margin: 0;
 }

@@ -1,5 +1,34 @@
-.main-section {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.employees {
+  &__main-section {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+  }
+  
+  &__pagination-container {
+	position: absolute;
+	z-index: 10;
+	bottom: 0;
+	left: 1%;
+	justify-content: space-between;
+	width: 98%;
+	height: 6.4rem;
+	@include flexRowInline;
+	padding: 2.4rem;
+	border-radius: 8px 8px 0 0;
+	background: transparent;
+	backdrop-filter: blur(40px);
+  }
+  
+  &__totalFound {
+	font-size: 2.4rem;
+	font-weight: 200;
+	text-align: center;
+	
+	
+	& > span {
+	  font-weight: bold;
+	}
+  }
 }

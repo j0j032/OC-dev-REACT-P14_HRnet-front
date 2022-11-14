@@ -1,20 +1,18 @@
 .emp-gallery {
   &__container {
 	@include flexColumn;
-	position: relative;
 	justify-content: space-between;
 	flex-grow: 1;
 	width: 100%;
-	height: 100%;
-	padding: 0rem 0rem 0 0rem;
+	height: 80vh;
   }
   
   &__wrapper {
 	display: grid;
 	align-items: center;
 	overflow: scroll;
-	height: 80vh;
-	padding: 1.6rem 1.6rem 4rem 1.6rem;
+	height: 100%;
+	padding: 1.6rem 1.6rem 7rem 1.6rem;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 	gap: 16px 16px;
@@ -33,30 +31,6 @@
     ". ."
     ". .";
 	}
-  }
-  
-  &__result {
-	font-size: 2.4rem;
-	font-weight: 200;
-	text-align: center;
-	
-	
-	& > span {
-	  font-weight: bold;
-	}
-  }
-  
-  &__pagination {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	justify-content: space-between;
-	width: 100%;
-	height: 6.4rem;
-	@include flexRowInline;
-	padding: 2.4rem;
-	background: transparent;
-	backdrop-filter: blur(5px);
   }
 }
 
