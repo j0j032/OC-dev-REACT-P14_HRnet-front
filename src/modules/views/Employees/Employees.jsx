@@ -39,7 +39,7 @@ export const Employees = () => {
 			<MainContent>
 				<LateralNav/>
 				{isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> :
-					<ViewContext.Provider value={{toggleTableView}}>
+					<ViewContext.Provider value={{tableView, toggleTableView}}>
 						<section className='employees__main-section'>
 							<EmployeesToolbar/>
 							
