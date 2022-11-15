@@ -12,6 +12,7 @@ import {PaginationLimiter} from '../../components/PaginationLimiter/PaginationLi
 import {Paginator} from '../../components/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
 import {useGetAllEmployees} from '../../../api/employees/useGetEmployees.js'
+import {Loader} from '../../components/Loader/Loader'
 
 export const Employees = () => {
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
@@ -38,29 +39,28 @@ export const Employees = () => {
 			<Header company={company}/>
 			<MainContent>
 				<LateralNav/>
-				{isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> :
-					<ViewContext.Provider value={{tableView, toggleTableView}}>
-						<section className='employees__main-section'>
-							<EmployeesToolbar/>
-							
-							{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
-							
-							<div className='employees__pagination-container'>
-								<PaginationLimiter setLimit={setLimit} text='employees' totalData={data.employeesLength} currentPage={currentPage}/>
-								<p className='employees__totalFound'><span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}</p>
-								<Paginator totalOfPages={numberOfPages}
-								           setPage={setPage}
-								           currentPage={currentPage}
-								           firstPage={firstPage}
-								           lastPage={lastPage(numberOfPages)}
-								           setPrev={setPrev}
-								           setNext={setNext}
-								/>
-							</div>
-						
-						</section>
-					</ViewContext.Provider>
-				}
+				<ViewContext.Provider value={{tableView, toggleTableView}}>
+					<section className='employees__main-section'>
+						<EmployeesToolbar/>
+						{isLoading ? <Loader/> : isError ? <div>ERROR</div> : (
+							<>
+								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
+								<div className='employees__pagination-container'>
+									<PaginationLimiter setLimit={setLimit} text='employees' totalData={data.employeesLength} currentPage={currentPage}/>
+									<p className='employees__totalFound'><span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}</p>
+									<Paginator totalOfPages={numberOfPages}
+									           setPage={setPage}
+									           currentPage={currentPage}
+									           firstPage={firstPage}
+									           lastPage={lastPage(numberOfPages)}
+									           setPrev={setPrev}
+									           setNext={setNext}
+									/>
+								</div>
+							</>
+						)}
+					</section>
+				</ViewContext.Provider>
 			</MainContent>
 		</>
 	)
