@@ -7,7 +7,7 @@ import {useEffect, useState} from 'react'
 import {EmployeesGallery} from './EmployeesGallery/EmployeesGallery'
 import {ViewContext} from '../../../context/EmpoyeesViewContext.jsx'
 import useBoolean from '../../../hooks/useBoolean.jsx'
-import {EmployeesTable} from './EmployeesTable/EmployeesTable'
+import {EmployeesTable} from './EmployeesTable/EmployeesTable.jsx'
 import {PaginationLimiter} from '../../components/PaginationLimiter/PaginationLimiter.jsx'
 import {Paginator} from '../../components/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
@@ -39,7 +39,7 @@ export const Employees = () => {
 			<MainContent>
 				<LateralNav/>
 				{isLoading ? <div>LOADING</div> : isError ? <div>ERROR</div> :
-					<ViewContext.Provider value={{toggleTableView}}>
+					<ViewContext.Provider value={{tableView, toggleTableView}}>
 						<section className='employees__main-section'>
 							<EmployeesToolbar/>
 							
