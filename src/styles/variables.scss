@@ -23,6 +23,9 @@
   --INFOS-card-container: #F5F6F7;
   --CARD-shadow: rgba(51, 50, 50, 0.18);
   --CARD-BG: #F5F6F7;
+  --404-BG: url("/src/assets/sun-1.jpg") no-repeat center center fixed;
+  --404-Font-color: #FFFEFC;
+  --404-Logo: url('/src/assets/logos/Hrnet-heading-logo-white.svg');
 }
 
 [data-theme='dark'] {
@@ -45,6 +48,7 @@
   --INFOS-card-container: #262627;
   --CARD-shadow: rgba(5, 5, 5, 0.2);
   --CARD-BG: #1F1F1F;
+  --404-BG: url("/src/assets/moon2.jpg") no-repeat center center fixed;
 }
 
 [user-theme='Twitter'] {
