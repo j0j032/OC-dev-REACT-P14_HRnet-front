@@ -1,4 +1,3 @@
-import dropdown from '../../../assets/icons/arrow/caret_down.svg'
 import {DarkMode} from '../DarkMode/DarkMode'
 
 export const Header = ({company}) => {
