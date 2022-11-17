@@ -24,7 +24,7 @@
 
 // Laptop
 @mixin laptop {
-  $breakpoints: (laptop:1024px);
+  $breakpoints: (laptop:1075px);
   @media screen and (max-width: map-get($breakpoints, laptop)) {
 	@content;
   }
@@ -32,7 +32,7 @@
 
 // Desktop
 @mixin desktop {
-  $breakpoints: (desktop:1200px);
+  $breakpoints: (desktop:1370px);
   @media screen and (max-width: map-get($breakpoints, desktop)) {
 	@content;
   }

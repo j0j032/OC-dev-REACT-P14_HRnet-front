@@ -1,4 +1,8 @@
 *, ::before, :after {
   box-sizing: border-box;
   margin: 0;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
+

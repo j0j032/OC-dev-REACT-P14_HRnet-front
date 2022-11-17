@@ -1,7 +1,7 @@
 import {LoginForm} from './LoginForm'
 import logo from '../../../assets/logos/Hrnet.so-Circle-white.png'
+
 export const Login = () => {
-	console.log('render')
 	
 	return (
 		<main className='login__background'>
