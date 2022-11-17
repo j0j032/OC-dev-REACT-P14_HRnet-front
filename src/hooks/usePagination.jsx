@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 
 export const usePagination = () => {
 	const [page, setPage] = useState(0)
@@ -6,12 +6,12 @@ export const usePagination = () => {
 	
 	const firstPage = page === 0
 	
-	const handlePageNumber = (page) => {
+	const handlePageNumber = useCallback((page) => {
 		setPage(page - 1)
 		setCurrentPage(page)
-	}
+	}, [page])
 	
-	const handleNextPage = (totalPages) => {
+	const handleNextPage = useCallback((totalPages) => {
 		if (page === totalPages - 1) {
 			setPage(totalPages - 1)
 			setCurrentPage(totalPages)
@@ -19,9 +19,9 @@ export const usePagination = () => {
 			setPage(page + 1)
 			setCurrentPage(currentPage + 1)
 		}
-	}
+	}, [page])
 	
-	const handlePrevPage = () => {
+	const handlePrevPage = useCallback(() => {
 		if (page === -1) {
 			setPage(0)
 			setCurrentPage(1)
@@ -29,7 +29,7 @@ export const usePagination = () => {
 			setPage(page - 1)
 			setCurrentPage(currentPage - 1)
 		}
-	}
+	}, [page])
 	
 	const lastPage = (totalPages) => page === totalPages - 1
 	

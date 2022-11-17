@@ -1,10 +1,11 @@
 import React from 'react'
 import eyeIcon from '../../../../assets/icons/Eye.svg'
 
-export const EmployeeCard = ({hired, firstname, lastname, title, department, picture, contact, address}) => {
-	
+export const EmployeeCard = ({data}) => {
+	const {hired, firstname, lastname, title, department, picture, contact, address} = data
 	const cardRef = React.useRef()
-	const handleMouseMove = e => {
+	
+	const handleMouseMove = (e) => {
 		let xAxis = (cardRef.current.offsetWidth / 2 - e.pageX) / 25
 		let yAxis = (cardRef.current.offsetHeight / 2 - e.pageY) / 25
 		cardRef.current.style.transform = `scale(0.95) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`

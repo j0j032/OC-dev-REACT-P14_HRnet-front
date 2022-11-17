@@ -4,6 +4,7 @@ import {getAllEmployees} from './requests.js'
 export const useGetAllEmployees = (page, limit, {enabled}) => {
 	return useQuery(['employees', page, limit], () => getAllEmployees(page, limit), {
 		enabled,
-		keepPreviousData: true
+		keepPreviousData: true,
+		refetchOnWindowFocus: false
 	})
 }
