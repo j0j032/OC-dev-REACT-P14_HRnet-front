@@ -1,13 +1,26 @@
 .emp-card {
+  &__BGfixed {
+	position: relative;
+	border-radius: 8px;
+	background-color: var(--CARD-BG);
+  }
+  
   &__container {
+	width: 100%;
 	@include flexColumn;
-	min-width: 26.4rem;
-	max-width: 22.4rem;
+	height: 100%;
 	padding: 1.6rem 1.8rem;
+	cursor: pointer;
+	transition: all 200ms ease-out;
 	border-radius: 8px;
 	background-color: var(--CARD-color);
-	box-shadow: 0 0 18px 4px var(--CARD-shadow);
+	box-shadow: 0 0 8px 4px var(--CARD-shadow);
 	gap: 2.4rem;
+	transform-style: preserve-3d;
+	
+	&:hover {
+	  box-shadow: 4px -2px 0 0px var(--BG-color);
+	}
   }
   
   &__top-container {

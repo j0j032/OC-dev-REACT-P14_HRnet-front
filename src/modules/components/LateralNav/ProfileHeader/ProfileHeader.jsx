@@ -1,5 +1,4 @@
 import {useQuery, useQueryClient} from 'react-query'
-import provisoryImg from '../../../../assets/img/matheus-ferrero-W7b3eDUb_2I-unsplash.jpg'
 import logoutIcon from '../../../../assets/icons/lateralNAv/Logout.svg'
 import {handleLogout} from '../../../../api/user/requests.js'
 import {useNavigate} from 'react-router-dom'
@@ -8,6 +7,7 @@ export const ProfileHeader = () => {
 	const queryClient = useQueryClient()
 	const navigate = useNavigate()
 	const {data} = useQuery(['login'], {enabled: false})
+	const {userInfos} = data
 	
 	const logout = async () => {
 		await queryClient.removeQueries('login')
@@ -15,10 +15,9 @@ export const ProfileHeader = () => {
 		navigate('/')
 	}
 	
-	const {userInfos} = data
 	return (
 		<div className='profile-header'>
-			<img src={provisoryImg} alt={`Profile picture of ${userInfos.firstname}`}/>
+			<img src={userInfos.picture} alt={`Profile picture of ${userInfos.firstname}`}/>
 			<div>
 				<div>
 					<h1>{userInfos.firstname}</h1>

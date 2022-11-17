@@ -1,0 +1,15 @@
+.pagination-limiter {
+  @include flexRowInline();
+  color: var(--PAGINATION-left-color);
+  gap: 0.8rem;
+  
+  > select {
+	padding: 0.4rem;
+	cursor: pointer;
+	color: var(--FONT-color);
+	border: 1px solid var(--MENU-color);
+	border-right: 3px solid var(--MENU-color);
+	border-radius: 4px;
+	background-color: var(--MENU-color);
+  }
+}

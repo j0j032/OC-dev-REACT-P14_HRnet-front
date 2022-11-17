@@ -3,6 +3,8 @@ html {
   font-size: 62.5%;
   color: var(--FONT-color);
   background-color: var(--BG-color);
+  scrollbar-width: none;
+  
 }
 
 body {
@@ -17,8 +19,7 @@ p {
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   height: 100%;
   margin: 0;
 }
@@ -37,4 +38,9 @@ a {
 
 .icon {
   filter: var(--ICONS-color);
+}
+
+.icon.icon-disabled {
+  cursor: initial;
+  filter: var(--ICONS-disabled);
 }
