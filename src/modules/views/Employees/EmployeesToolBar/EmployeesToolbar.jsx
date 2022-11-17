@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
-import {Button} from '../../../components/Button/Button.jsx'
+import Button from '../../../components/Button/Button.jsx'
 import {ViewContext} from '../../../../context/EmpoyeesViewContext.jsx'
 import listIcon from '../../../../assets/icons/list_ul.svg'
 import gridIcon from '../../../../assets/icons/grid_round.svg'
 
-export const EmployeesToolbar = () => {
+const EmployeesToolbar = () => {
 	const {toggleTableView, tableView} = useContext(ViewContext)
 	const viewIcon = <img className='icon' src={tableView ? gridIcon : listIcon} alt='Change view'/>
 	return (
@@ -19,3 +19,5 @@ export const EmployeesToolbar = () => {
 		</div>
 	)
 }
+
+export default React.memo(EmployeesToolbar)

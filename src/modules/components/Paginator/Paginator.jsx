@@ -1,20 +1,24 @@
 import arrowRight from '../../../assets/icons/arrow/chevron_right.svg'
 import arrowLeft from '../../../assets/icons/arrow/chevron_left.svg'
+import React, {useCallback} from 'react'
 
-export const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
+const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
 	const pagination = []
-	
+	console.log('paginator')
 	const nextBtn = <button disabled={lastPage} className={lastPage ? 'icon icon-disabled' : 'icon'} onClick={() => setNext(totalOfPages)}>
-		<img src={arrowRight} alt='next page'/></button>
-	const prevBtn = <button disabled={firstPage} className={firstPage ? 'icon icon-disabled' : 'icon'} onClick={setPrev}>
-		<img src={arrowLeft} alt='previous page'/></button>
+		<img src={arrowRight} alt='next page'/>
+	</button>
+	const prevBtn =
+		<button disabled={firstPage} className={firstPage ? 'icon icon-disabled' : 'icon'} onClick={setPrev}>
+			<img src={arrowLeft} alt='previous page'/></button>
 	
-	const createBtn = (i) => {
+	const createBtn = useCallback((i) => {
 		return <button key={i}
 		               onClick={() => setPage(i)}
 		               className={currentPage === i ? 'paginator__number activePage' : 'paginator__number'}
 		>{i}</button>
-	}
+	}, [currentPage])
+	
 	const createDots = () => {
 		return <span className='paginator__dots'>...</span>
 	}
@@ -37,3 +41,5 @@ export const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPa
 	}
 	return (<div className='paginator__container'> {prevBtn}{pagination}{nextBtn}</div>)
 }
+
+export default React.memo(Paginator)

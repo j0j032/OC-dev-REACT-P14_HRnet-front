@@ -1,12 +1,7 @@
-import {Button} from '../../components/Button/Button.jsx'
+import Button from '../../components/Button/Button.jsx'
 import {useForm} from 'react-hook-form'
 import useBoolean from '../../../hooks/useBoolean.jsx'
 import {useLogin} from '../../../api/user/useLogin.js'
-
-
-// Elisabeth
-// Aa$12345
-
 
 export const LoginForm = () => {
 	const [rememberSwitch, {setToggle: toggleRemember}] = useBoolean(false)

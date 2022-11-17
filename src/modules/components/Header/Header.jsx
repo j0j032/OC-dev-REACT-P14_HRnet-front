@@ -1,6 +1,7 @@
 import {DarkMode} from '../DarkMode/DarkMode'
+import React from 'react'
 
-export const Header = ({company}) => {
+const Header = ({company}) => {
 	
 	return (
 		<header className='header__container'>
@@ -15,3 +16,5 @@ export const Header = ({company}) => {
 		</header>
 	)
 }
+
+export default React.memo(Header)
