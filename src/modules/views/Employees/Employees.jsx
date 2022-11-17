@@ -13,13 +13,11 @@ import Paginator from '../../components/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
 import {useGetAllEmployees} from '../../../api/employees/useGetEmployees.js'
 import {Loader} from '../../components/Loader/Loader'
-import Modal from '../../components/Modal/Modal.jsx'
 
 export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
-	const [modalIsOpen, {setFalse: handleCloseModal, setTrue: handleOpenModal}] = useBoolean(false)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, {enabled: true})
 	const numberOfPages = Math.ceil(data?.employeesLength / limit)
@@ -43,9 +41,6 @@ export const Employees = () => {
 				<LateralNav/>
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
-						
-						<button onClick={handleOpenModal}>OPEN Modal</button>
-						
 						<EmployeesToolbar/>
 						{isLoading ? <Loader/> : isError ? <div>ERROR</div> : (
 							<>
@@ -65,9 +60,6 @@ export const Employees = () => {
 							</>
 						)}
 					</section>
-					<Modal handleClose={handleCloseModal} isOpen={modalIsOpen}>
-						This is Modal Content
-					</Modal>
 				</ViewContext.Provider>
 			</MainContent>
 		</>
