@@ -32,8 +32,6 @@ export const Employees = () => {
 	}, [])
 	
 	
-	console.log('employees')
-	
 	return (
 		<>
 			<Header company={company}/>

@@ -1,5 +1,5 @@
 import {createPortal} from 'react-dom'
-import {createWrapper} from '../../../utils/createWrapper.js'
+import {createWrapper} from './createWrapper.js'
 import {useLayoutEffect, useState} from 'react'
 
 const ReactPortal = ({children, wrapperId = 'react-portal-wrapper'}) => {
