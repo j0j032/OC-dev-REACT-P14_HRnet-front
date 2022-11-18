@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header'
 import {MainContent} from '../../components/MainContent/MainContent'
 import LateralNav from '../../components/LateralNav/LateralNav'
 import EmployeesToolbar from './EmployeesToolBar/EmployeesToolbar.jsx'
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {EmployeesGallery} from './EmployeesGallery/EmployeesGallery'
 import {ViewContext} from '../../../context/EmpoyeesViewContext.jsx'
 import useBoolean from '../../../hooks/useBoolean.jsx'
@@ -13,24 +13,34 @@ import Paginator from '../../components/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
 import {useGetAllEmployees} from '../../../api/employees/useGetEmployees.js'
 import {Loader} from '../../components/Loader/Loader'
+import {SearchContext} from '../../../context/SearchContext.jsx'
 
 export const Employees = () => {
+	const {search} = useContext(SearchContext)
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, {enabled: true})
-	const numberOfPages = Math.ceil(data?.employeesLength / limit)
+	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, search, {enabled: true})
+	const numberOfPages = search.length < 2 ? Math.ceil(data?.employeesLength / limit) : Math.ceil(data?.employees.length / limit)
+	
+	
+	useEffect(() => {
+		!isLoading && search.length > 0 ? setLimit(data.employeesLength) : setLimit(12)
+	}, [search])
 	
 	const setCompanyTheme = () => {
 		localStorage.setItem('company-theme', company.name.split(' ')[0])
 		document.documentElement.setAttribute('user-theme', company.name.split(' ')[0])
 	}
 	
+	if (!isLoading) console.log(data)
+	
 	useEffect(() => {
 		setCompanyTheme()
 	}, [])
 	
+	console.log(search)
 	
 	return (
 		<>
@@ -44,8 +54,11 @@ export const Employees = () => {
 							<>
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 								<div className='employees__pagination-container'>
-									<PaginationLimiter update={refetch} setLimit={setLimit} text='employees' totalData={data.employeesLength} currentPage={currentPage}/>
-									<p className='employees__totalFound'><span>{data.employeesLength}</span>{data.employeesLength > 1 ? ' Employees' : ' Employee'}</p>
+									<PaginationLimiter update={refetch} setLimit={setLimit} text='employees'
+									                   totalData={search.length >= 2 ? data.employees.length : data.employeesLength}
+									                   currentPage={currentPage}/>
+									<p className='employees__totalFound'>
+										<span>{search.length < 2 ? data.employeesLength : data.employees.length}</span>{data.employees.length > 1 ? ' Employees' : ' Employee'}</p>
 									<Paginator totalOfPages={numberOfPages}
 									           setPage={setPage}
 									           currentPage={currentPage}
