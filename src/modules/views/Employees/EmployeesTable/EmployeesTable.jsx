@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
 import {useTable, useSortBy} from 'react-table/src'
 import {employeesColumns} from '../../../../config/employeesTableConfig.jsx'
-import useBoolean from '../../../../hooks/useBoolean.jsx'
 import Modal from '../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
+import useModal from '../../../components/Modal/useModal.jsx'
 
 export const EmployeesTable = ({employees}) => {
-	
-	const [modalIsOpen, {setFalse: handleCloseModal, setTrue: handleOpenModal}] = useBoolean(false)
+	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const data = React.useMemo(() => [...employees], [employees])
 	const columns = React.useMemo(() => employeesColumns, [])
 	const tableInstance = useTable({columns, data}, useSortBy)
@@ -29,9 +28,10 @@ export const EmployeesTable = ({employees}) => {
 		<span className='sort-caret sort-caret--inactive'>▼</span>
 	</div>
 	
-	const showEmployeeDetails = (row) => {
-		handleOpenModal()
+	
+	const handleOpenModal = (row) => {
 		setEmployeeId(row)
+		openModal()
 	}
 	
 	return (
@@ -55,7 +55,7 @@ export const EmployeesTable = ({employees}) => {
 					{rows.map((row) => {
 						prepareRow(row)
 						return (
-							<tr key={row.original._id} {...row.getRowProps} onClick={() => showEmployeeDetails(row.original._id)}>
+							<tr key={row.original._id} {...row.getRowProps} onClick={() => handleOpenModal(row.original._id)}>
 								{
 									row.cells.map((cell, i) => (
 										<td {...cell.getCellProps()} key={`${i}:${cell.row.original._id}`}>{cell.render('Cell')}</td>
@@ -67,7 +67,10 @@ export const EmployeesTable = ({employees}) => {
 					</tbody>
 				</table>
 			</div>
-			<Modal handleClose={handleCloseModal} isOpen={modalIsOpen}>
+			<Modal handleClose={closeModal}
+			       modalId='employee-details-modal'
+			       isOpen={modalIsOpen}
+			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}>
 				<EmployeeDetails id={employeeId}/>
 			</Modal>
 		</>

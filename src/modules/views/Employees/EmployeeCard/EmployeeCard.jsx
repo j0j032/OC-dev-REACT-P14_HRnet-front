@@ -1,11 +1,11 @@
 import React from 'react'
 import eyeIcon from '../../../../assets/icons/Eye.svg'
 import Modal from '../../../components/Modal/Modal.jsx'
-import useBoolean from '../../../../hooks/useBoolean.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
+import useModal from '../../../components/Modal/useModal.jsx'
 
 export const EmployeeCard = ({data}) => {
-	const [modalIsOpen, {setFalse: handleCloseModal, setTrue: handleOpenModal}] = useBoolean(false)
+	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, picture, contact, address, _id} = data
 	const cardRef = React.useRef()
 	
@@ -22,7 +22,7 @@ export const EmployeeCard = ({data}) => {
 	return (
 		<>
 			<div className='emp-card__BGfixed'>
-				<article onClick={handleOpenModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
+				<article onClick={openModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
 					<div className='emp-card__top-container'>
 						<p><span>Hired:</span>{` ${hired.slice(0, 10)}`}</p>
 						<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>
@@ -47,7 +47,10 @@ export const EmployeeCard = ({data}) => {
 					</div>
 				</article>
 			</div>
-			<Modal handleClose={handleCloseModal} isOpen={modalIsOpen}>
+			<Modal handleClose={closeModal}
+			       modalId='employee-details-modal'
+			       isOpen={modalIsOpen}
+			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}>
 				<EmployeeDetails id={_id}/>
 			</Modal>
 		</>
