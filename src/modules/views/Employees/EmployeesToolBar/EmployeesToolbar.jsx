@@ -21,7 +21,7 @@ const EmployeesToolbar = () => {
 			<div className='toolbar-emp__container--left'>
 				<button className='btn-toggleView' onClick={toggleTableView}>{viewIcon}</button>
 				<form onSubmit={handleSearch}>
-					<input type='text' placeholder='🔎  Employee' onChange={(e) => setSearch(e.target.value)}/>
+					<input type='text' placeholder='🔎  Employee' onChange={(e) => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')}/>
 				</form>
 			</div>
 			<Button custom='btn--large btn-round' children='+'/>

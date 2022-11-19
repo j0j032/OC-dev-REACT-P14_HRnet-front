@@ -17,4 +17,15 @@ export const isIncluded = (value1, value2) => value1.toLowerCase().includes(valu
  */
 export const isFound = (array, property, value) => array.find(item => isIncluded(item[property], value))
 
-export const filterMainSearch = (employees, value) => employees.filter(item => isIncluded(item.firstname, value))
+export const filterMainSearch = (employees, value) => employees
+	.filter(item =>
+		isIncluded(item.firstname, value) ||
+		isIncluded(item.lastname, value) ||
+		isIncluded(item.hired, value) ||
+		isIncluded(item.department, value) ||
+		isIncluded(item.birthdate, value) ||
+		isIncluded(item.address.street, value) ||
+		isIncluded(item.address.city, value) ||
+		isIncluded(item.address.state, value) ||
+		isIncluded(item.address.zip, value)
+	)
