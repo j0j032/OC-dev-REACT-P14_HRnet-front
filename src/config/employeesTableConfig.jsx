@@ -1,4 +1,5 @@
 import React from 'react'
+import {formatToLocale} from '../utils/dateFormater.js'
 
 export const employeesColumns =
 	[
@@ -20,7 +21,7 @@ export const employeesColumns =
 		{
 			Header: 'Start date',
 			accessor: 'hired',
-			Cell: ({value}) => <span>{value.slice(0, 10)}</span>
+			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
 		},
 		{
 			Header: 'Department',
@@ -29,7 +30,7 @@ export const employeesColumns =
 		{
 			Header: 'Birthdate',
 			accessor: 'birthdate',
-			Cell: ({value}) => <span>{value.slice(0, 10)}</span>
+			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
 		},
 		{
 			Header: 'Street',

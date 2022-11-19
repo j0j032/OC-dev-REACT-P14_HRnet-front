@@ -3,12 +3,12 @@ import eyeIcon from '../../../../assets/icons/Eye.svg'
 import Modal from '../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
 import useModal from '../../../components/Modal/useModal.jsx'
+import {formatToLocale} from '../../../../utils/dateFormater'
 
 export const EmployeeCard = ({data}) => {
 	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, picture, contact, address, _id} = data
 	const cardRef = React.useRef()
-	
 	const handleMouseMove = (e) => {
 		let xAxis = (cardRef.current.offsetWidth / 2 - e.pageX) / 25
 		let yAxis = (cardRef.current.offsetHeight / 2 - e.pageY) / 25
@@ -24,7 +24,7 @@ export const EmployeeCard = ({data}) => {
 			<div className='emp-card__BGfixed'>
 				<article onClick={openModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
 					<div className='emp-card__top-container'>
-						<p><span>Hired:</span>{` ${hired.slice(0, 10)}`}</p>
+						<p><span>Hired: </span>{formatToLocale(hired, 'en-US')}</p>
 						<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>
 					</div>
 					<div className='emp-card__heading-container'>

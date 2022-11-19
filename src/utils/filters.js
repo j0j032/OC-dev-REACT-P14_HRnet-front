@@ -6,6 +6,7 @@
  * @returns Boolean
  */
 export const isIncluded = (value1, value2) => value1.toLowerCase().includes(value2.toLowerCase())
+export const isIncludedDate = (value1, value2) => value1.includes(value2)
 
 /**
  * returns the first element in the provided array that satisfies the provided testing function (isIncluded function).
