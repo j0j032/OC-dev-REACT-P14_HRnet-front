@@ -5,8 +5,9 @@
  * @param {String} value2
  * @returns Boolean
  */
+import {formatToLocale} from './dateFormater'
+
 export const isIncluded = (value1, value2) => value1.toLowerCase().includes(value2.toLowerCase())
-export const isIncludedDate = (value1, value2) => value1.includes(value2)
 
 /**
  * returns the first element in the provided array that satisfies the provided testing function (isIncluded function).

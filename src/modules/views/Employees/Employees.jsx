@@ -15,6 +15,7 @@ import {useGetAllEmployees} from '../../../api/employees/useGetEmployees.js'
 import {Loader} from '../../components/Loader/Loader'
 import {SearchContext} from '../../../context/SearchContext.jsx'
 import {getAllEmployees} from '../../../api/employees/requests.js'
+import {EmployeesCount} from './EmployeesCount/EmployeesCount'
 
 export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
@@ -29,8 +30,8 @@ export const Employees = () => {
 	})
 	
 	const numberOfPages = search.length < 2
-		? Math.ceil(data?.totalEmployeesLength / limit)
-		: !loadingLength ? Math.ceil(totalFound.employees.length / limit) : Math.ceil(data?.totalEmployeesLength / limit)
+		? Math.ceil(data?.totalEmployees / limit)
+		: !loadingLength ? Math.ceil(totalFound.employees.length / limit) : Math.ceil(data?.totalEmployees / limit)
 	
 	
 	const setCompanyTheme = () => {
@@ -55,11 +56,9 @@ export const Employees = () => {
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 								<div className='employees__pagination-container'>
 									<PaginationLimiter update={refetch} setLimit={setLimit} text='employees'
-									                   totalData={search.length >= 2 ? totalFound.employees.length : data.totalEmployeesLength}
+									                   totalData={search.length >= 2 ? totalFound.employees.length : data.totalEmployees}
 									                   currentPage={currentPage}/>
-									<p className='employees__totalFound'>
-										<span>{search.length < 2 ? data.totalEmployeesLength : data.employees.length}</span>{data.employees.length > 1 ? ' Employees' : ' Employee'}
-									</p>
+									<EmployeesCount total={data.totalEmployees} found={totalFound.employees.length}/>
 									<Paginator totalOfPages={numberOfPages}
 									           setPage={setPage}
 									           currentPage={currentPage}
