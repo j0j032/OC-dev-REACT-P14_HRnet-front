@@ -16,6 +16,7 @@ import {Loader} from '../../components/Loader/Loader'
 import {SearchContext} from '../../../context/SearchContext.jsx'
 import {getAllEmployees} from '../../../api/employees/requests.js'
 import {EmployeesCount} from './EmployeesCount/EmployeesCount'
+import {NoResult} from '../../components/NoResult/NoResult'
 
 export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
@@ -69,7 +70,7 @@ export const Employees = () => {
 									/>
 								</div>
 							</>
-						) : <div>No result </div>}
+						) : <NoResult/>}
 					</section>
 				</ViewContext.Provider>
 			</MainContent>
