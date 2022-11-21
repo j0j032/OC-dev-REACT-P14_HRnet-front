@@ -1,0 +1,27 @@
+.employees__total {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  font-size: 2.4rem;
+  font-weight: 200;
+  transform: translateX(-50%);
+  text-align: center;
+  
+  & > span {
+	font-weight: bold;
+  }
+}
+
+.employees__found {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  font-size: 1.8rem;
+  font-weight: 200;
+  transform: translateX(-50%);
+  text-align: center;
+  
+  & > span {
+	font-weight: bold;
+  }
+}

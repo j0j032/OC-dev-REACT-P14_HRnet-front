@@ -1,0 +1,15 @@
+.no-result {
+  &__container {
+	@include flexRowInline;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.4rem;
+	width: 100%;
+	padding: 2.4rem;
+	gap: 1.6rem;
+	
+	> p {
+	  font-size: 1.8rem;
+	}
+  }
+}
