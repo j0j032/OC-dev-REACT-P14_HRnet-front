@@ -7,21 +7,17 @@ import {SearchContext} from '../../../../context/SearchContext.jsx'
 
 const EmployeesToolbar = () => {
 	const {toggleTableView, tableView} = useContext(ViewContext)
-	const {search, setSearch} = useContext(SearchContext)
-	const viewIcon = <img className='icon' src={tableView ? gridIcon : listIcon} alt='Change view'/>
+	const {setSearch} = useContext(SearchContext)
+	const handleChange = e => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')
 	
-	const handleSearch = e => {
-		e.preventDefault()
-		console.log(search)
-		setSearch('')
-	}
+	const viewIcon = <img className='icon' src={tableView ? gridIcon : listIcon} alt='Change view'/>
 	
 	return (
 		<div className='toolbar-emp__container'>
 			<div className='toolbar-emp__container--left'>
 				<button className='btn-toggleView' onClick={toggleTableView}>{viewIcon}</button>
-				<form onSubmit={handleSearch}>
-					<input type='text' placeholder='🔎  Employee' onChange={(e) => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')}/>
+				<form onSubmit={(e) => e.preventDefault()}>
+					<input type='text' placeholder='🔎  Employee' onChange={handleChange}/>
 				</form>
 			</div>
 			<Button custom='btn--large btn-round' children='+'/>

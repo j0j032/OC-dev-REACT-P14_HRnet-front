@@ -17,16 +17,18 @@ import {SearchContext} from '../../../context/SearchContext.jsx'
 import {getAllEmployees} from '../../../api/employees/requests.js'
 import {EmployeesCount} from './EmployeesCount/EmployeesCount'
 import {NoResult} from '../../components/NoResult/NoResult'
+import useDebounce from '../../../hooks/useDebounce.jsx'
 
 export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {search} = useContext(SearchContext)
+	const debouncedSearch = useDebounce(search, 500)
 	const [limit, setLimit] = useState(12)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
-	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, search, {enabled: true})
+	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, debouncedSearch, {enabled: true})
 	
-	const {data: totalFound, isLoading: loadingLength} = useQuery(['totalFound', search], () => getAllEmployees(0, 0, search), {
+	const {data: totalFound, isLoading: loadingLength} = useQuery(['totalFound', debouncedSearch], () => getAllEmployees(0, 0, search), {
 		refetchOnWindowFocus: false
 	})
 	
