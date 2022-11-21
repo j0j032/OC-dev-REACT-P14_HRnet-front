@@ -11,26 +11,24 @@ import {EmployeesTable} from './EmployeesTable/EmployeesTable.jsx'
 import PaginationLimiter from '../../components/PaginationLimiter/PaginationLimiter.jsx'
 import Paginator from '../../components/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
-import {useGetAllEmployees} from '../../../api/employees/useGetEmployees.js'
+import {useGetEmployees} from '../../../api/employees/useGetEmployees.js'
 import {Loader} from '../../components/Loader/Loader'
 import {SearchContext} from '../../../context/SearchContext.jsx'
-import {getAllEmployees} from '../../../api/employees/requests.js'
 import {EmployeesCount} from './EmployeesCount/EmployeesCount'
 import {NoResult} from '../../components/NoResult/NoResult'
 import useDebounce from '../../../hooks/useDebounce.jsx'
 
 export const Employees = () => {
-	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	
 	const {search} = useContext(SearchContext)
 	const debouncedSearch = useDebounce(search, 500)
-	const [limit, setLimit] = useState(12)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
-	const {data, isLoading, isError, refetch} = useGetAllEmployees(page, limit, debouncedSearch, {enabled: true})
+	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
+	const [limit, setLimit] = useState(12)
 	
-	const {data: totalFound, isLoading: loadingLength} = useQuery(['totalFound', debouncedSearch], () => getAllEmployees(0, 0, search), {
-		refetchOnWindowFocus: false
-	})
+	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const {data, isLoading, isError, refetch} = useGetEmployees('employees', page, limit, debouncedSearch, {enabled: true})
+	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, {enabled: true})
 	
 	const numberOfPages = search.length < 2
 		? Math.ceil(data?.totalEmployees / limit)
@@ -58,7 +56,9 @@ export const Employees = () => {
 							<>
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 								<div className='employees__pagination-container'>
-									<PaginationLimiter update={refetch} setLimit={setLimit} text='employees'
+									<PaginationLimiter update={refetch}
+									                   setLimit={setLimit}
+									                   text='employees'
 									                   totalData={search.length >= 2 ? totalFound.employees.length : data.totalEmployees}
 									                   currentPage={currentPage}/>
 									<EmployeesCount total={data.totalEmployees} found={totalFound.employees.length}/>
