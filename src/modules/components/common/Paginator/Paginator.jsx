@@ -1,5 +1,5 @@
-import arrowRight from '../../../assets/icons/arrow/chevron_right.svg'
-import arrowLeft from '../../../assets/icons/arrow/chevron_left.svg'
+import arrowRight from '../../../../assets/icons/arrow/chevron_right.svg'
+import arrowLeft from '../../../../assets/icons/arrow/chevron_left.svg'
 import React, {useCallback} from 'react'
 
 const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {

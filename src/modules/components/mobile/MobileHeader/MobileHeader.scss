@@ -1,0 +1,25 @@
+.header {
+  &__container--mobile {
+	@include flexRowInline;
+	justify-content: center;
+	height: 2.4rem;
+	padding: 0.8rem 2rem;
+	color: var(--FONT-color);
+	background-color: var(--BG-color);
+	gap: 0.8rem;
+	
+	> p {
+	  font-size: 1.2rem;
+	  
+	  > span {
+		font-family: Roboto, "Helvetica Neue", sans-serif;
+		font-weight: bolder;
+	  }
+	}
+	
+	> img {
+	  height: 90%;
+	  margin-top: 0.2rem;
+	}
+  }
+}

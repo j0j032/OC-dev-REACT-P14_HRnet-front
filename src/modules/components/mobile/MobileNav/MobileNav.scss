@@ -1,0 +1,28 @@
+.mobile-nav {
+  &__container {
+	position: sticky;
+	@include flexRowInline;
+	justify-content: space-between;
+	width: 100%;
+	height: 5.6rem;
+	padding: 1.2rem 1.6rem;
+	background-color: var(--COMPANY-theme-color);
+  }
+  
+  &__profile {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	height: fit-content;
+	border: 2px solid white;
+	border-radius: 50%;
+	
+	> img {
+	  width: 4rem;
+	  height: 4rem;
+	  border-radius: 50%;
+	  object-fit: cover;
+	}
+  }
+}

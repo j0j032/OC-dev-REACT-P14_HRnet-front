@@ -1,6 +1,6 @@
-import {ProfileHeader} from './ProfileHeader/ProfileHeader'
-import {Footer} from './Footer/Footer'
-import {Menu} from './Menu/Menu.jsx'
+import {ProfileHeader} from '../../common/ProfileHeader/ProfileHeader.jsx'
+import {Footer} from '../../common/Footer/Footer.jsx'
+import {Menu} from '../../common/Menu/Menu.jsx'
 import {motion} from 'framer-motion'
 import React from 'react'
 
