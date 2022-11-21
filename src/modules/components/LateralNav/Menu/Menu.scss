@@ -1,16 +1,16 @@
 .navigation {
   &__container {
-	// justify-content: space-around;
+	//justify-content: space-around;
 	flex-grow: 1;
 	@include flexColumn;
-	padding-top: 1.6rem;
-	padding-bottom: 2.4rem;
+	padding-top: 4.8%;
+	//	padding-bottom: 1%;
   }
   
   &__link {
 	@include flexRowInline;
 	position: relative;
-	padding: 0.8rem 2.4rem;
+	padding: 1.8% 2.4rem;
 	gap: 1.6rem;
 	
 	> p {
@@ -75,7 +75,7 @@
 
 .customHR {
   height: 1px;
-  margin: 2.4rem 0 1.6rem 0;
+  margin: 8% 0 4% 0;
   background-color: var(--MENU-SEPARATOR-color);
 }
 

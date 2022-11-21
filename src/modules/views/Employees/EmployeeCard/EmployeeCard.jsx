@@ -1,14 +1,14 @@
 import React from 'react'
 import eyeIcon from '../../../../assets/icons/Eye.svg'
 import Modal from '../../../components/Modal/Modal.jsx'
-import useBoolean from '../../../../hooks/useBoolean.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
+import useModal from '../../../components/Modal/useModal.jsx'
+import {formatToLocale} from '../../../../utils/dateFormater'
 
 export const EmployeeCard = ({data}) => {
-	const [modalIsOpen, {setFalse: handleCloseModal, setTrue: handleOpenModal}] = useBoolean(false)
+	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, picture, contact, address, _id} = data
 	const cardRef = React.useRef()
-	
 	const handleMouseMove = (e) => {
 		let xAxis = (cardRef.current.offsetWidth / 2 - e.pageX) / 25
 		let yAxis = (cardRef.current.offsetHeight / 2 - e.pageY) / 25
@@ -22,9 +22,9 @@ export const EmployeeCard = ({data}) => {
 	return (
 		<>
 			<div className='emp-card__BGfixed'>
-				<article onClick={handleOpenModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
+				<article onClick={openModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
 					<div className='emp-card__top-container'>
-						<p><span>Hired:</span>{` ${hired.slice(0, 10)}`}</p>
+						<p><span>Hired: </span>{formatToLocale(hired, 'en-US')}</p>
 						<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>
 					</div>
 					<div className='emp-card__heading-container'>
@@ -47,7 +47,11 @@ export const EmployeeCard = ({data}) => {
 					</div>
 				</article>
 			</div>
-			<Modal handleClose={handleCloseModal} isOpen={modalIsOpen}>
+			<Modal handleClose={closeModal}
+			       modalId='employee-details-modal'
+			       isOpen={modalIsOpen}
+			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}
+			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={_id}/>
 			</Modal>
 		</>

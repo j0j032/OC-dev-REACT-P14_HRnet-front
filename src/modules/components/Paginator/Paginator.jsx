@@ -4,7 +4,7 @@ import React, {useCallback} from 'react'
 
 const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
 	const pagination = []
-	console.log('paginator')
+	
 	const nextBtn = <button disabled={lastPage} className={lastPage ? 'icon icon-disabled' : 'icon'} onClick={() => setNext(totalOfPages)}>
 		<img src={arrowRight} alt='next page'/>
 	</button>
