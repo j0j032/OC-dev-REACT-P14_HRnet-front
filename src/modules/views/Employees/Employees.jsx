@@ -17,6 +17,7 @@ import {SearchContext} from '../../../context/SearchContext.jsx'
 import {EmployeesCount} from './EmployeesCount/EmployeesCount'
 import {NoResult} from '../../components/NoResult/NoResult'
 import useDebounce from '../../../hooks/useDebounce.jsx'
+import {Error} from '../../components/Error/Error'
 
 export const Employees = () => {
 	
@@ -27,13 +28,12 @@ export const Employees = () => {
 	const [limit, setLimit] = useState(12)
 	
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {data, isLoading, isError, refetch} = useGetEmployees('employees', page, limit, debouncedSearch, {enabled: true})
+	const {data, isLoading, error, isError, refetch} = useGetEmployees('employees', page, limit, debouncedSearch, {enabled: true})
 	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, {enabled: true})
 	
 	const numberOfPages = search.length < 2
 		? Math.ceil(data?.totalEmployees / limit)
 		: !loadingLength ? Math.ceil(totalFound.employees.length / limit) : Math.ceil(data?.totalEmployees / limit)
-	
 	
 	const setCompanyTheme = () => {
 		localStorage.setItem('company-theme', company.name.split(' ')[0])
@@ -52,7 +52,7 @@ export const Employees = () => {
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
 						<EmployeesToolbar/>
-						{isLoading || loadingLength ? <Loader/> : isError ? <div>ERROR</div> : data.employees.length !== 0 ? (
+						{isLoading || loadingLength ? <Loader/> : isError ? <Error message={error.message}/> : data.employees.length !== 0 ? (
 							<>
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 								<div className='employees__pagination-container'>
