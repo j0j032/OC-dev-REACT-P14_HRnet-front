@@ -19,6 +19,10 @@
 		  padding: 0.8rem 0.8rem 0.8rem 1.6rem;
 		  border: 1px solid var(--INPUT-default-border-color);
 		  border-radius: 20px;
+		  
+		  &:focus {
+			outline-color: var(--COMPANY-theme-color);
+		  }
 		}
 	  }
 	}
