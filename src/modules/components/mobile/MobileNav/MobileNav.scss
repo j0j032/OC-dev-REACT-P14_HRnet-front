@@ -6,7 +6,7 @@
 	width: 100%;
 	height: 5.6rem;
 	padding: 1.2rem 1.6rem;
-	background-color: var(--COMPANY-theme-color);
+	background-color: var(--BG-color);
   }
   
   &__profile {
@@ -15,12 +15,12 @@
 	align-items: center;
 	width: fit-content;
 	height: fit-content;
-	border: 2px solid white;
+	border: 2px solid var(--COMPANY-theme-color);
 	border-radius: 50%;
 	
 	> img {
-	  width: 4rem;
-	  height: 4rem;
+	  width: 3.2rem;
+	  height: 3.2rem;
 	  border-radius: 50%;
 	  object-fit: cover;
 	}

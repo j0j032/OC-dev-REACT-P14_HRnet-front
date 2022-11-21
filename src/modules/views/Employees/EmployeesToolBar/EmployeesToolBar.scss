@@ -8,12 +8,26 @@
 	border-radius: 0 32px 0 0;
 	background-color: var(--TOOLBAR-color);
 	
+	@include mobile {
+	  padding: 1.2rem 1.6rem;
+	  border-radius: 0;
+	}
+	
 	&--left {
 	  @include flexRowInline;
 	  width: fit-content;
 	  gap: 2.4rem;
 	  
+	  @include mobile {
+		justify-content: space-between;
+		width: 100%;
+	  }
+	  
 	  > form {
+		@include mobile {
+		  width: 100%;
+		}
+		
 		> input {
 		  height: 3.2rem;
 		  padding: 0.8rem 0.8rem 0.8rem 1.6rem;
@@ -23,6 +37,11 @@
 		  &:focus {
 			outline-color: var(--COMPANY-theme-color);
 		  }
+		  
+		  @include mobile {
+			width: 100%;
+		  }
+		  
 		}
 	  }
 	}

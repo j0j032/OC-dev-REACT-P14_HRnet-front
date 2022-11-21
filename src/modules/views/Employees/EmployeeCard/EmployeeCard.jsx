@@ -4,8 +4,10 @@ import Modal from '../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
 import useModal from '../../../components/Modal/useModal.jsx'
 import {formatToLocale} from '../../../../utils/dateFormater'
+import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 
 export const EmployeeCard = ({data}) => {
+	const windowSize = useWindowSize()
 	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, picture, contact, address, _id} = data
 	const cardRef = React.useRef()
@@ -33,18 +35,20 @@ export const EmployeeCard = ({data}) => {
 						<h2>{title}</h2>
 						<p>{`${department} team`}</p>
 					</div>
-					<div className='emp-card__infos'>
-						<p>{`✉️\u00A0\u00A0\u00A0${contact.mail}`}</p>
-						<p>{`📱\u00A0\u00A0${contact.phone}`}</p>
-						<div className='emp-card__address'>
-							<p>📫</p>
-							<div>
-								<p>{address.street}</p>
-								<p>{`${address.city}\u00A0\u00A0${address.state}`}</p>
-								<p>{address.zip}</p>
+					{windowSize.width > 600 &&
+						<div className='emp-card__infos'>
+							<p>{`✉️\u00A0\u00A0\u00A0${contact.mail}`}</p>
+							<p>{`📱\u00A0\u00A0${contact.phone}`}</p>
+							<div className='emp-card__address'>
+								<p>📫</p>
+								<div>
+									<p>{address.street}</p>
+									<p>{`${address.city}\u00A0\u00A0${address.state}`}</p>
+									<p>{address.zip}</p>
+								</div>
 							</div>
 						</div>
-					</div>
+					}
 				</article>
 			</div>
 			<Modal handleClose={closeModal}
