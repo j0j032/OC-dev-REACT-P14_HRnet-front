@@ -34,8 +34,24 @@
   }
   
   &--small {
-	font-size: 1.4rem;
-	padding: 1.1rem 1.6rem;
+	font-size: 1.8rem;
+	padding: 1.2rem 1.8rem;
+	
+	&.btn-round {
+	  @include flexCentered;
+	  width: 2.4rem;
+	  height: 2.4rem;
+	  padding: 1.2rem;
+	  transition: border 200ms ease;
+	  border: 1px solid var(--BORDER-btn-color);
+	  border-radius: 50%;
+	  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.26);
+	  
+	  &:hover {
+		transform: scale(1);
+		border: 2px solid var(--BORDER-btn-hover-color);
+	  }
+	}
   }
   
   &:hover {

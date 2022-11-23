@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query'
 import Header from '../../components/desktop/Header/Header'
 import {MainContent} from '../../components/common/MainContent/MainContent'
-import LateralNav from '../../components/desktop/LateralNav/LateralNav'
+import LateralNav from '../../components/common/LateralNav/LateralNav'
 import EmployeesToolbar from './EmployeesToolBar/EmployeesToolbar.jsx'
 import {useContext, useEffect, useState} from 'react'
 import {EmployeesGallery} from './EmployeesGallery/EmployeesGallery'

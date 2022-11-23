@@ -11,6 +11,7 @@ export const EmployeeCard = ({data}) => {
 	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, picture, contact, address, _id} = data
 	const cardRef = React.useRef()
+	
 	const handleMouseMove = (e) => {
 		let xAxis = (cardRef.current.offsetWidth / 2 - e.pageX) / 25
 		let yAxis = (cardRef.current.offsetHeight / 2 - e.pageY) / 25
@@ -24,7 +25,11 @@ export const EmployeeCard = ({data}) => {
 	return (
 		<>
 			<div className='emp-card__BGfixed'>
-				<article onClick={openModal} ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='emp-card__container'>
+				<article onClick={openModal}
+				         ref={cardRef}
+				         onMouseMove={windowSize.width > 600 ? handleMouseMove : null}
+				         onMouseLeave={windowSize.width > 600 ? handleMouseLeave : null}
+				         className='emp-card__container'>
 					<div className='emp-card__top-container'>
 						<p><span>Hired: </span>{formatToLocale(hired, 'en-US')}</p>
 						<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>

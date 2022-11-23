@@ -49,3 +49,22 @@ export const employeesColumns =
 			accessor: 'address.zip'
 		}
 	]
+
+export const employeesColumnsMobile =
+	[
+		{
+			Header: '',
+			accessor: 'picture',
+			Cell: ({cell: {value}}) => (
+				<img className='employees-table__img' src={value} alt={value}/>
+			)
+		},
+		{
+			Header: 'Firstname',
+			accessor: 'firstname'
+		},
+		{
+			Header: 'Lastname',
+			accessor: 'lastname'
+		}
+	]

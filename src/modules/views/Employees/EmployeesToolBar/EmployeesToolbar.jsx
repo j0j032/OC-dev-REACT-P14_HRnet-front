@@ -22,7 +22,7 @@ const EmployeesToolbar = () => {
 					<input type='text' placeholder='🔎  Employee' onChange={handleChange}/>
 				</form>
 			</div>
-			{windowSize.width > 600 && <Button custom='btn--large btn-round' children='+'/>}
+			<Button custom={windowSize.width > 600 ? 'btn--large btn-round' : 'btn--small btn-round'} children='+'/>
 		</div>
 	)
 }

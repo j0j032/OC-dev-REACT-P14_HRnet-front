@@ -1,6 +1,5 @@
 .mobile-nav {
   &__container {
-	position: sticky;
 	@include flexRowInline;
 	justify-content: space-between;
 	width: 100%;
@@ -10,11 +9,13 @@
   }
   
   &__profile {
+	z-index: 1000;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: fit-content;
 	height: fit-content;
+	cursor: pointer;
 	border: 2px solid var(--COMPANY-theme-color);
 	border-radius: 50%;
 	
@@ -23,6 +24,24 @@
 	  height: 3.2rem;
 	  border-radius: 50%;
 	  object-fit: cover;
+	}
+	
+	&-menu {
+	  position: absolute;
+	  z-index: 1000;
+	  @include flexRowInline;
+	  top: 4rem;
+	  right: 13%;
+	  justify-content: flex-end;
+	  width: fit-content;
+	  height: fit-content;
+	  padding: 0.8rem;
+	  cursor: pointer;
+	  border: 2px solid var(--COMPANY-theme-color);
+	  border-radius: 8px;
+	  background-color: var(--BG-color);
+	  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+	  gap: 1.6rem;
 	}
   }
 }

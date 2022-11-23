@@ -2,7 +2,7 @@
   &__container {
 	position: relative;
 	display: grid;
-	width: 70vw;
+	width: 80vw;
 	min-width: 400px;
 	max-width: 80vw;
 	height: fit-content;
@@ -15,6 +15,7 @@
 	gap: 0 2.4rem;
 	grid-template-areas:
     ". .";
+	
 	
 	> img {
 	  width: 100%;

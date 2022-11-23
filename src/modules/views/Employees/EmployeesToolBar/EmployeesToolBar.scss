@@ -19,15 +19,10 @@
 	  gap: 2.4rem;
 	  
 	  @include mobile {
-		justify-content: space-between;
 		width: 100%;
 	  }
 	  
 	  > form {
-		@include mobile {
-		  width: 100%;
-		}
-		
 		> input {
 		  height: 3.2rem;
 		  padding: 0.8rem 0.8rem 0.8rem 1.6rem;
