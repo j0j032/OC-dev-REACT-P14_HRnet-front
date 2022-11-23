@@ -8,6 +8,19 @@
 	  color: var(--COMPANY-theme-color);
 	  border: none;
 	  background: none;
+	  @include mobile {
+		
+	  }
+	  
+	  @include mobile {
+		&.icon {
+		  padding: 0;
+		}
+	  }
+	}
+	
+	@include mobile {
+	  gap: 0.6rem;
 	}
   }
   

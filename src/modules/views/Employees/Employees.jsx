@@ -1,26 +1,29 @@
 import {useQuery} from 'react-query'
-import Header from '../../components/Header/Header'
-import {MainContent} from '../../components/MainContent/MainContent'
-import LateralNav from '../../components/LateralNav/LateralNav'
+import Header from '../../components/desktop/Header/Header'
+import {MainContent} from '../../components/common/MainContent/MainContent'
+import LateralNav from '../../components/common/LateralNav/LateralNav'
 import EmployeesToolbar from './EmployeesToolBar/EmployeesToolbar.jsx'
 import {useContext, useEffect, useState} from 'react'
 import {EmployeesGallery} from './EmployeesGallery/EmployeesGallery'
 import {ViewContext} from '../../../context/EmpoyeesViewContext.jsx'
 import useBoolean from '../../../hooks/useBoolean.jsx'
 import {EmployeesTable} from './EmployeesTable/EmployeesTable.jsx'
-import PaginationLimiter from '../../components/PaginationLimiter/PaginationLimiter.jsx'
-import Paginator from '../../components/Paginator/Paginator.jsx'
+import PaginationLimiter from '../../components/common/PaginationLimiter/PaginationLimiter.jsx'
+import Paginator from '../../components/common/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
 import {useGetEmployees} from '../../../api/employees/useGetEmployees.js'
-import {Loader} from '../../components/Loader/Loader'
+import {Loader} from '../../components/common/Loader/Loader'
 import {SearchContext} from '../../../context/SearchContext.jsx'
 import {EmployeesCount} from './EmployeesCount/EmployeesCount'
-import {NoResult} from '../../components/NoResult/NoResult'
+import {NoResult} from '../../components/common/NoResult/NoResult'
 import useDebounce from '../../../hooks/useDebounce.jsx'
-import {Error} from '../../components/Error/Error'
+import {Error} from '../../components/common/Error/Error'
+import useWindowSize from '../../../hooks/useWindowSize.jsx'
+import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader'
+import {MobileNav} from '../../components/mobile/MobileNav/MobileNav'
 
 export const Employees = () => {
-	
+	const windowSize = useWindowSize()
 	const {search} = useContext(SearchContext)
 	const debouncedSearch = useDebounce(search, 500)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
@@ -46,9 +49,9 @@ export const Employees = () => {
 	
 	return (
 		<>
-			<Header company={company}/>
+			{windowSize.width > 600 ? <Header company={company}/> : <MobileHeader company={company}/>}
 			<MainContent>
-				<LateralNav/>
+				{windowSize.width > 600 ? <LateralNav/> : <MobileNav user={userInfos}/>}
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
 						<EmployeesToolbar/>

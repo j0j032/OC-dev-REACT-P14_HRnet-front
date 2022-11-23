@@ -1,6 +1,8 @@
 import React, {useCallback, useState} from 'react'
+import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 
 const PaginationLimiter = ({setLimit, text, totalData, currentPage}) => {
+	const windowSize = useWindowSize()
 	const [selected, setSelected] = useState()
 	
 	const handleChangeLimit = useCallback((e) => {
@@ -20,11 +22,11 @@ const PaginationLimiter = ({setLimit, text, totalData, currentPage}) => {
 	
 	return (
 		<div className='pagination-limiter'>
-			<p>Show </p>
+			{windowSize.width > 600 ? <p>Show </p> : null}
 			<select value={selected} onChange={handleChangeLimit}>
 				{defineOptions(totalData).map(option => (<option key={option}>{option}</option>))}
 			</select>
-			<p>{`${text} per page`}</p>
+			{windowSize.width > 600 ? <p>{`${text} per page`}</p> : null}
 		</div>
 	)
 }

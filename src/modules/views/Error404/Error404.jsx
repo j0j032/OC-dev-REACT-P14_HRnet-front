@@ -1,4 +1,4 @@
-import {DarkMode} from '../../components/DarkMode/DarkMode'
+import {DarkMode} from '../../components/common/DarkMode/DarkMode'
 import {useNavigate} from 'react-router-dom'
 
 export const Error404 = () => {

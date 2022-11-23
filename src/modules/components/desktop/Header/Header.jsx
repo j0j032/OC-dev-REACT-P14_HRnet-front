@@ -1,4 +1,4 @@
-import {DarkMode} from '../DarkMode/DarkMode'
+import {DarkMode} from '../../common/DarkMode/DarkMode.jsx'
 import React from 'react'
 
 const Header = ({company}) => {

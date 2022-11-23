@@ -8,7 +8,7 @@
 
 // Mobile
 @mixin mobile {
-  $breakpoints: (mobile:480px);
+  $breakpoints: (mobile:600px);
   @media screen and (max-width: map-get($breakpoints, mobile)) {
 	@content;
   }

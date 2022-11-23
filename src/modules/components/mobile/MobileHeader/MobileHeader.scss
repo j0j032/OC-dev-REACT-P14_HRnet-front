@@ -1,0 +1,31 @@
+.header {
+  &__container--mobile {
+	position: absolute;
+	z-index: 1000;
+	@include flexRowInline;
+	left: 50%;
+	justify-content: center;
+	width: 60%;
+	height: 2.4rem;
+	padding: 0.8rem 2rem;
+	transform: translateX(-50%);
+	color: $white-1;
+	border-radius: 0 0 20px 20px;
+	background-color: var(--FOOTER-color);
+	gap: 0.8rem;
+	
+	> p {
+	  font-size: 1.2rem;
+	  
+	  > span {
+		font-family: Roboto, "Helvetica Neue", sans-serif;
+		font-weight: bolder;
+	  }
+	}
+	
+	> img {
+	  height: 90%;
+	  margin-top: 0.2rem;
+	}
+  }
+}

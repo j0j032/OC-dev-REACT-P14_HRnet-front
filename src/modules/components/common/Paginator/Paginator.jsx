@@ -1,8 +1,10 @@
-import arrowRight from '../../../assets/icons/arrow/chevron_right.svg'
-import arrowLeft from '../../../assets/icons/arrow/chevron_left.svg'
+import arrowRight from '../../../../assets/icons/arrow/chevron_right.svg'
+import arrowLeft from '../../../../assets/icons/arrow/chevron_left.svg'
 import React, {useCallback} from 'react'
+import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 
 const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
+	const windowSize = useWindowSize()
 	const pagination = []
 	
 	const nextBtn = <button disabled={lastPage} className={lastPage ? 'icon icon-disabled' : 'icon'} onClick={() => setNext(totalOfPages)}>
@@ -22,6 +24,9 @@ const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, set
 	const createDots = () => {
 		return <span className='paginator__dots'>...</span>
 	}
+	if (windowSize.width < 600) {
+		return (<div className='paginator__container'> {prevBtn}{nextBtn}</div>)
+	}
 	
 	if (!totalOfPages || totalOfPages <= 1) return <div className='paginator__empty'></div>
 	if (totalOfPages < 7) {
@@ -40,6 +45,7 @@ const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, set
 		pagination.push(createBtn(i))
 	}
 	return (<div className='paginator__container'> {prevBtn}{pagination}{nextBtn}</div>)
+	
 }
 
 export default React.memo(Paginator)

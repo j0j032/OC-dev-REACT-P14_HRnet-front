@@ -4,18 +4,21 @@
 @import "./mixins";
 @import "./common";
 
-@import "src/modules/components/Button/Button";
-@import "src/modules/components/Header/Header";
-@import "src/modules/components/MainContent/MainContent";
-@import "src/modules/components/LateralNav/LateralNav";
-@import "src/modules/components/LateralNav/ProfileHeader/ProfileHeader";
-@import "src/modules/components/LateralNav/Menu/Menu";
-@import "src/modules/components/LateralNav/Footer/Footer";
-@import "src/modules/components/Paginator/Paginator.scss";
-@import "src/modules/components/PaginationLimiter/PaginationLimiter.scss";
-@import "src/modules/components/Loader/Loader.scss";
-@import "src/modules/components/NoResult/NoResult.scss";
-@import "src/modules/components/Error/Error.scss";
+@import "src/modules/components/common/Button/Button";
+@import "src/modules/components/desktop/Header/Header";
+@import "src/modules/components/mobile/MobileHeader/MobileHeader.scss";
+@import "src/modules/components/common/MainContent/MainContent";
+@import "src/modules/components/common/LateralNav/LateralNav";
+@import "src/modules/components/mobile/MobileNav/MobileNav.scss";
+@import "src/modules/components/desktop/ProfileHeader/ProfileHeader";
+@import "src/modules/components/common/Menu/Menu";
+@import "src/modules/components/common/Footer/Footer";
+@import "src/modules/components/common/Paginator/Paginator.scss";
+@import "src/modules/components/common/PaginationLimiter/PaginationLimiter.scss";
+@import "src/modules/components/common/Loader/Loader.scss";
+@import "src/modules/components/common/NoResult/NoResult.scss";
+@import "src/modules/components/common/Error/Error.scss";
+@import "src/modules/components/common/BurgerMenu/BurgerMenu.scss";
 
 @import "src/modules/views/Login/Login.scss";
 @import "src/modules/views/Employees/Employees.scss";

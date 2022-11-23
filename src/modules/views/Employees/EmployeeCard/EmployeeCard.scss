@@ -6,6 +6,7 @@
   }
   
   &__container {
+	position: relative;
 	width: 100%;
 	@include flexColumn;
 	height: 100%;
@@ -21,6 +22,10 @@
 	&:hover {
 	  box-shadow: 4px -2px 0 0px var(--BG-color);
 	}
+	
+	@include mobile {
+	  padding-bottom: 3.2rem;
+	}
   }
   
   &__top-container {
@@ -34,6 +39,7 @@
 		font-weight: bold;
 	  }
 	}
+	
   }
   
   &__heading-container {
@@ -42,12 +48,17 @@
 	align-items: center;
 	gap: 0.8rem;
 	
+	
 	> img {
 	  width: 7.2rem;
 	  height: 7.2rem;
 	  margin-bottom: 0.8rem;
 	  border-radius: 50%;
 	  object-fit: cover;
+	  @include mobile {
+		width: 8.8rem;
+		height: 8.8rem;
+	  }
 	}
 	
 	> h1 {
