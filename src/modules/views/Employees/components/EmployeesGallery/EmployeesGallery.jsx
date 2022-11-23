@@ -1,4 +1,4 @@
-import {EmployeeCard} from '../EmployeeCard/EmployeeCard'
+import {EmployeeCard} from '../EmployeeCard/EmployeeCard.jsx'
 
 export const EmployeesGallery = ({employees}) => {
 	return (
