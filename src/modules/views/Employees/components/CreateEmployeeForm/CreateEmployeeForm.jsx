@@ -7,8 +7,11 @@ import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.
 import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
+import Dropzone from 'react-dropzone'
+import {useEffect, useState} from 'react'
 
 export const CreateEmployeeForm = () => {
+	const [file, setFile] = useState([])
 	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	
@@ -42,6 +45,13 @@ export const CreateEmployeeForm = () => {
 		console.log('success')
 	}
 	
+	/*const fileToSend = {...file, bucketName: `coc.png`}
+	
+	useEffect(() => {
+		console.log('spread:', fileToSend)
+		//console.log(file[0])
+	}, [file])*/
+	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
 	
@@ -72,7 +82,20 @@ export const CreateEmployeeForm = () => {
 							{errors.birthdate && <span>* This field is required</span>}
 						</div>
 					</div>
-					<ProfilePicDropzone/>
+					<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
+						{({getRootProps, getInputProps}) => (
+							<section>
+								<div className='dropzone' {...getRootProps()}
+								     role='button'
+								     aria-label='File Upload'
+								     id={name}>
+									<input {...getInputProps()} />
+									<p>Drag 'n' drop some files here, or click to select files</p>
+								</div>
+							</section>
+						)}
+					</Dropzone>
+					{/*<ProfilePicDropzone/>*/}
 				</section>
 				
 				<h4>Job</h4>
