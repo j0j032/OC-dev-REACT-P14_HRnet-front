@@ -2,7 +2,7 @@ export const teams = [
 	'Engineering', 'HR', 'Sales', 'Legal', 'Design', 'Financial', 'Security', 'Marketing'
 ]
 
-export const states = [
+export const countryStates = [
 	{
 		'name': 'Alabama',
 		'abbreviation': 'AL'
