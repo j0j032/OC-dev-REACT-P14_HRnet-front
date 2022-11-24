@@ -5,12 +5,14 @@ import {countryStates, getStateAbbreviation, teams} from '../../../../../config/
 import {useQuery} from 'react-query'
 import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
 import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
+import useNotification from '../../../../../hooks/useNotification.jsx'
+import {Toast} from '../../../../components/common/Toast/Toast'
 
 export const CreateEmployeeForm = () => {
 	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	
-	const {refetch} = useCreateEmployee({
+	const {refetch, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
 		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
@@ -40,10 +42,17 @@ export const CreateEmployeeForm = () => {
 		console.log('success')
 	}
 	
+	const notifSuccess = useNotification(isSuccess, 3000)
+	const notifError = useNotification(isError, 3000)
+	
 	return (
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
+			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
+			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
+			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
+				
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
 					<div className='create-employee__inputs-wrapper--inline'>
