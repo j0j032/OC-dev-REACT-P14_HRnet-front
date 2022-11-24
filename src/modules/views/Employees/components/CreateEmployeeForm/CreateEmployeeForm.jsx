@@ -1,33 +1,68 @@
 import Button from '../../../../components/common/Button/Button.jsx'
 import {useForm} from 'react-hook-form'
 import {ProfilePicDropzone} from '../../../../components/common/ProfilePicDropzone/ProfilePicDropzone'
-import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
+import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
+import {useQuery} from 'react-query'
+import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
+import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
+import useNotification from '../../../../../hooks/useNotification.jsx'
+import {Toast} from '../../../../components/common/Toast/Toast'
+import Dropzone from 'react-dropzone'
+import {useEffect, useState} from 'react'
 
 export const CreateEmployeeForm = () => {
-	const {register, handleSubmit, getValues, formState: {errors, isSubmitting}} = useForm()
+	const [file, setFile] = useState([])
+	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
+	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	
-	const handleForm = () => {
-		// à l'envoie, ajouter les infos de la company
-		// for twitter, id = 636d500e61f3294c11136e0a
-		console.log({
-			firstname: getValues('firstname'),
-			lastname: getValues('lastname'),
-			birthdate: getValues('birthdate'),
-			title: getValues('title'),
-			department: getValues('department'),
-			startDate: getValues('startDate'),
+	const {refetch, isSuccess, isError} = useCreateEmployee({
+		firstname: capitalize(getValues('firstname')),
+		lastname: capitalize(getValues('lastname')),
+		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
+		title: capitalize(getValues('title')),
+		department: getValues('department'),
+		hired: formatToLocale(getValues('startDate'), 'en-US'),
+		contact: {
 			mail: getValues('mail'),
-			phone: getValues('phone'),
+			phone: formatPhoneNumber(getValues('phone'))
+		},
+		address: {
 			street: getValues('street'),
-			city: getValues('city'),
-			state: getValues('state'),
+			city: capitalize(getValues('city')),
+			state: getStateAbbreviation(getValues('state')),
 			zip: getValues('zip')
-		})
+		},
+		company: {
+			id: company.id,
+			name: company.name,
+			logo: company.logo
+		}
+	}, {enabled: false})
+	
+	const submit = () => {
+		refetch()
+		reset()
+		console.log('success')
 	}
+	
+	/*const fileToSend = {...file, bucketName: `coc.png`}
+	
+	useEffect(() => {
+		console.log('spread:', fileToSend)
+		//console.log(file[0])
+	}, [file])*/
+	
+	const notifSuccess = useNotification(isSuccess, 3000)
+	const notifError = useNotification(isError, 3000)
+	
 	return (
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
-			<form onSubmit={handleSubmit(handleForm)} className='create-employee__form'>
+			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
+			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
+			
+			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
+				
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
 					<div className='create-employee__inputs-wrapper--inline'>
@@ -47,7 +82,20 @@ export const CreateEmployeeForm = () => {
 							{errors.birthdate && <span>* This field is required</span>}
 						</div>
 					</div>
-					<ProfilePicDropzone/>
+					<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
+						{({getRootProps, getInputProps}) => (
+							<section>
+								<div className='dropzone' {...getRootProps()}
+								     role='button'
+								     aria-label='File Upload'
+								     id={name}>
+									<input {...getInputProps()} />
+									<p>Drag 'n' drop some files here, or click to select files</p>
+								</div>
+							</section>
+						)}
+					</Dropzone>
+					{/*<ProfilePicDropzone/>*/}
 				</section>
 				
 				<h4>Job</h4>

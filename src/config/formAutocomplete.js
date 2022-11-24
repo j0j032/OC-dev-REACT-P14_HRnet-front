@@ -1,3 +1,5 @@
+import {isFound} from '../utils/filters.js'
+
 export const teams = [
 	'Engineering', 'HR', 'Sales', 'Legal', 'Design', 'Financial', 'Security', 'Marketing'
 ]
@@ -240,3 +242,10 @@ export const countryStates = [
 		'abbreviation': 'WY'
 	}
 ]
+
+export const getStateAbbreviation = (value) => {
+	if (value !== undefined) {
+		const result = isFound(countryStates, 'name', value)
+		return result.abbreviation
+	} else return ''
+}

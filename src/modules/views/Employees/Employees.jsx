@@ -21,6 +21,7 @@ import {Error} from '../../components/common/Error/Error'
 import useWindowSize from '../../../hooks/useWindowSize.jsx'
 import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav'
+import {formatPhoneNumber} from '../../../utils/formater'
 
 export const Employees = () => {
 	const windowSize = useWindowSize()

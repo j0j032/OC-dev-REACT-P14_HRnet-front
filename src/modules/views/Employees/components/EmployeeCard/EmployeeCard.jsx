@@ -3,7 +3,7 @@ import eyeIcon from '../../../../../assets/icons/Eye.svg'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
-import {formatToLocale} from '../../../../../utils/dateFormater.js'
+import {formatToLocale} from '../../../../../utils/formater.js'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
 
 export const EmployeeCard = ({data}) => {
