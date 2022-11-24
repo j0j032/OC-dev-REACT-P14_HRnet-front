@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {useTable, useSortBy} from 'react-table/src'
-import {employeesColumns, employeesColumnsMobile} from '../../../../config/employeesTableConfig.jsx'
-import Modal from '../../../components/Modal/Modal.jsx'
-import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails'
-import useModal from '../../../components/Modal/useModal.jsx'
-import useWindowSize from '../../../../hooks/useWindowSize.jsx'
+import {employeesColumns, employeesColumnsMobile} from '../../../../../config/employeesTableConfig.jsx'
+import Modal from '../../../../components/Modal/Modal.jsx'
+import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
+import useModal from '../../../../components/Modal/useModal.jsx'
+import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
 
 export const EmployeesTable = ({employees}) => {
 	const windowSize = useWindowSize()

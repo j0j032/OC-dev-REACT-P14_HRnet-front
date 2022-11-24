@@ -5,7 +5,6 @@
  * @param {String} value2
  * @returns Boolean
  */
-import {formatToLocale} from './dateFormater'
 
 export const isIncluded = (value1, value2) => value1.toLowerCase().includes(value2.toLowerCase())
 

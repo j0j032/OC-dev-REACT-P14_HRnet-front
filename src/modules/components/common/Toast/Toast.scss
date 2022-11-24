@@ -1,0 +1,32 @@
+.toast {
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  padding: 1.6rem 2.4rem 1.6rem 1.6rem;
+  transform: translateX(-50%);
+  border-radius: 16px;
+  
+  &__success {
+	color: #16643C;
+	background-color: #47DF8E;
+	box-shadow: 0 0 16px 0 rgb(134, 239, 136);
+  }
+  
+  &__error {
+	color: #641616;
+	background-color: #DF4747;
+	box-shadow: 0 0 16px 0 rgb(239, 134, 134);
+  }
+  
+  &__warning {
+	color: #534708;
+	background-color: #FFD611;
+	box-shadow: 0 0 16px 0 rgb(239, 222, 134);
+  }
+  
+  &__default {
+	color: var(--FONT-color);
+	background-color: var(--BG-color);
+	box-shadow: 0 0 16px 0 rgba(49, 49, 48, 0.28);
+  }
+}

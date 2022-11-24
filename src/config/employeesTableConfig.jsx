@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatToLocale} from '../utils/dateFormater.js'
+import {formatToLocale} from '../utils/formater.js'
 
 export const employeesColumns =
 	[

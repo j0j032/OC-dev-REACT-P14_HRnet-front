@@ -1,0 +1,149 @@
+.create-employee {
+  &__container {
+	width: 100vw;
+	height: 95vh;
+	padding: 4% 8%;
+	border-radius: 36px 36px 0 0;
+	background-color: var(--BG-color);
+	
+	> h1 {
+	  font-size: 2.4rem;
+	  font-weight: 300;
+	  margin-bottom: 4rem;
+	  
+	  > span {
+		font-weight: bold;
+	  }
+	}
+  }
+  
+  &__form {
+	overflow: scroll;
+	height: 80vh;
+	padding: 1.6rem;
+	
+	> h4 {
+	  font-size: 1.6rem;
+	  font-weight: 400;
+	  margin-left: 1.6rem;
+	}
+  }
+  
+  &__inputs-section {
+	margin-top: 1.2rem;
+	margin-bottom: 4.8rem;
+	padding: 2.4rem;
+	border: 1px solid var(--FONT-color);
+	border-radius: 16px;
+  }
+  
+  &__inputs-wrapper--inline {
+	@include flexRowInline;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 2.4rem;
+	gap: 2.5%;
+	
+	& > div {
+	  &:nth-child(1) {
+		width: 35%;
+	  }
+	  
+	  &:nth-child(2) {
+		width: 35%;
+	  }
+	  
+	  &:nth-child(3) {
+		width: 25%;
+	  }
+	}
+	
+	&--2 {
+	  @include flexRowInline;
+	  justify-content: flex-start;
+	  margin-bottom: 2.4rem;
+	  gap: 3%;
+	  
+	  & > div {
+		&:nth-child(1) {
+		  width: 48.5%;
+		}
+		
+		&:nth-child(2) {
+		  width: 48.5%;
+		}
+	  }
+	  
+	  @include mobile {
+		@include flexColumn;
+		justify-content: flex-start;
+		gap: 1.6rem;
+		& > div {
+		  &:nth-child(1) {
+			width: 100%;
+		  }
+		  
+		  &:nth-child(2) {
+			width: 100%;
+		  }
+		}
+	  }
+	}
+	
+	@include mobile {
+	  @include flexColumn;
+	  justify-content: flex-start;
+	  gap: 1.6rem;
+	  & > div {
+		&:nth-child(1) {
+		  width: 100%;
+		}
+		
+		&:nth-child(2) {
+		  width: 100%;
+		}
+		
+		&:nth-child(3) {
+		  width: 100%;
+		}
+	  }
+	}
+  }
+  
+  &__input-wrapper {
+	margin-top: 0;
+	
+	& > label {
+	  font-size: 1.6rem;
+	}
+	
+	& > input {
+	  height: 3.2rem;
+	  
+	  &:focus {
+		outline-color: var(--COMPANY-theme-color);
+	  }
+	}
+	
+	& > select {
+	  font-family: Lato, sans-serif;
+	  font-size: 1.6rem;
+	  height: 3.2rem;
+	  padding: 0.4rem 0.8rem;
+	  border: 1px solid var(--SUB-FONT-color);
+	  border-radius: 5px;
+	  
+	  &:focus {
+		outline-color: var(--COMPANY-theme-color);
+	  }
+	}
+	
+	&.street {
+	  margin-bottom: 2.4rem;
+	}
+  }
+}
+
+
+
+

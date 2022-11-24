@@ -19,13 +19,18 @@
 @import "src/modules/components/common/NoResult/NoResult.scss";
 @import "src/modules/components/common/Error/Error.scss";
 @import "src/modules/components/common/BurgerMenu/BurgerMenu.scss";
+@import "src/modules/components/common/ProfilePicDropzone/ProfilePicDropzone.scss";
+@import "src/modules/components/common/Toast/Toast.scss";
 
 @import "src/modules/views/Login/Login.scss";
-@import "src/modules/views/Employees/Employees.scss";
-@import "src/modules/views/Employees/EmployeesToolBar/EmployeesToolBar.scss";
-@import "src/modules/views/Employees/EmployeesGallery/EmployeesGallery.scss";
-@import "src/modules/views/Employees/EmployeesTable/EmployeesTable.scss";
-@import "src/modules/views/Employees/EmployeeCard/EmployeeCard.scss";
-@import "src/modules/views/Employees/EmployeeDetails/EmployeeDetails.scss";
-@import "src/modules/views/Employees/EmployeesCount/EmployeesCount.scss";
 @import "src/modules/views/Error404/Error404.scss";
+
+@import "src/modules/views/Employees/Employees.scss";
+@import "src/modules/views/Employees/components/EmployeesToolBar/EmployeesToolBar.scss";
+@import "src/modules/views/Employees/components/EmployeesGallery/EmployeesGallery.scss";
+@import "src/modules/views/Employees/components/EmployeesTable/EmployeesTable.scss";
+@import "src/modules/views/Employees/components/EmployeeCard/EmployeeCard.scss";
+@import "src/modules/views/Employees/components/EmployeeDetails/EmployeeDetails.scss";
+@import "src/modules/views/Employees/components/EmployeesCount/EmployeesCount.scss";
+@import "src/modules/views/Employees/components/CreateEmployeeForm/CreateEmployeeForm.scss";
+
