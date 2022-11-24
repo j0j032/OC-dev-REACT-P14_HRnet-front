@@ -1,33 +1,49 @@
 import Button from '../../../../components/common/Button/Button.jsx'
 import {useForm} from 'react-hook-form'
 import {ProfilePicDropzone} from '../../../../components/common/ProfilePicDropzone/ProfilePicDropzone'
-import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
+import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
+import {useQuery} from 'react-query'
+import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
+import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
 
 export const CreateEmployeeForm = () => {
-	const {register, handleSubmit, getValues, formState: {errors, isSubmitting}} = useForm()
+	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
+	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	
-	const handleForm = () => {
-		// à l'envoie, ajouter les infos de la company
-		// for twitter, id = 636d500e61f3294c11136e0a
-		console.log({
-			firstname: getValues('firstname'),
-			lastname: getValues('lastname'),
-			birthdate: getValues('birthdate'),
-			title: getValues('title'),
-			department: getValues('department'),
-			startDate: getValues('startDate'),
+	const {refetch} = useCreateEmployee({
+		firstname: capitalize(getValues('firstname')),
+		lastname: capitalize(getValues('lastname')),
+		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
+		title: capitalize(getValues('title')),
+		department: getValues('department'),
+		hired: formatToLocale(getValues('startDate'), 'en-US'),
+		contact: {
 			mail: getValues('mail'),
-			phone: getValues('phone'),
+			phone: formatPhoneNumber(getValues('phone'))
+		},
+		address: {
 			street: getValues('street'),
-			city: getValues('city'),
-			state: getValues('state'),
+			city: capitalize(getValues('city')),
+			state: getStateAbbreviation(getValues('state')),
 			zip: getValues('zip')
-		})
+		},
+		company: {
+			id: company.id,
+			name: company.name,
+			logo: company.logo
+		}
+	}, {enabled: false})
+	
+	const submit = () => {
+		refetch()
+		reset()
+		console.log('success')
 	}
+	
 	return (
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
-			<form onSubmit={handleSubmit(handleForm)} className='create-employee__form'>
+			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
 					<div className='create-employee__inputs-wrapper--inline'>
