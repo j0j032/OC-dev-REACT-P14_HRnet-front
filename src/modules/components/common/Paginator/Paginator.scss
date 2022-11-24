@@ -1,0 +1,56 @@
+.paginator {
+  &__container {
+	@include flexRowInline;
+	gap: 1.2rem;
+	
+	> button {
+	  cursor: pointer;
+	  color: var(--COMPANY-theme-color);
+	  border: none;
+	  background: none;
+	  @include mobile {
+		
+	  }
+	  
+	  @include mobile {
+		&.icon {
+		  padding: 0;
+		}
+	  }
+	}
+	
+	@include mobile {
+	  gap: 0.6rem;
+	}
+  }
+  
+  &__number {
+	font-size: 1.4rem;
+	width: 2.4rem;
+	height: 2.4rem;
+	padding: 0.4rem;
+	cursor: pointer;
+	transition: all 100ms ease-in-out;
+	color: var(--FONT-color);
+	border: none;
+	background: none;
+	
+	&.activePage {
+	  font-size: 1.6rem;
+	  font-weight: bold;
+	  color: var(--FONT-color);
+	  border-radius: 24px;
+	  background: var(--COMPANY-theme-color);
+	}
+  }
+  
+  &__dots {
+	font-size: 1.6rem;
+	color: var(--FONT-color);
+  }
+  
+  &__empty {
+	width: 24rem;
+  }
+}
+

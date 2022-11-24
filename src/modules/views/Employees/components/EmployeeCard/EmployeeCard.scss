@@ -1,0 +1,102 @@
+.emp-card {
+  &__BGfixed {
+	position: relative;
+	border-radius: 8px;
+	background-color: var(--CARD-BG);
+  }
+  
+  &__container {
+	position: relative;
+	width: 100%;
+	@include flexColumn;
+	height: 100%;
+	padding: 1.6rem 1.8rem;
+	cursor: pointer;
+	transition: all 200ms ease-out;
+	border-radius: 8px;
+	background-color: var(--CARD-color);
+	box-shadow: 0 0 8px 4px var(--CARD-shadow);
+	gap: 2.4rem;
+	transform-style: preserve-3d;
+	
+	&:hover {
+	  box-shadow: 4px -2px 0 0px var(--BG-color);
+	}
+	
+	@include mobile {
+	  padding-bottom: 3.2rem;
+	}
+  }
+  
+  &__top-container {
+	@include flexRowInline;
+	justify-content: space-between;
+	
+	> p {
+	  font-size: 1.4rem;
+	  
+	  > span {
+		font-weight: bold;
+	  }
+	}
+	
+  }
+  
+  &__heading-container {
+	@include flexColumn;
+	justify-content: space-around;
+	align-items: center;
+	gap: 0.8rem;
+	
+	
+	> img {
+	  width: 7.2rem;
+	  height: 7.2rem;
+	  margin-bottom: 0.8rem;
+	  border-radius: 50%;
+	  object-fit: cover;
+	  @include mobile {
+		width: 8.8rem;
+		height: 8.8rem;
+	  }
+	}
+	
+	> h1 {
+	  font-size: 1.6rem;
+	  font-weight: bold;
+	}
+	
+	> h2 {
+	  font-family: Lato, sans-serif;
+	  font-size: 1.6rem;
+	  color: var(--SUB-FONT-color);
+	}
+	
+	> p {
+	  font-size: 1.4rem;
+	}
+	
+  }
+  
+  &__infos {
+	padding: 0.8rem;
+	border-radius: 8px;
+	background-color: var(--INFOS-card-container);
+	
+	> p {
+	  font-size: 1.4rem;
+	}
+  }
+  
+  &__address {
+	margin-top: 1.6rem;
+	@include flexRowInline;
+	gap: 1.6rem;
+	
+	> div {
+	  > p {
+		font-size: 1.2rem;
+	  }
+	}
+  }
+}
