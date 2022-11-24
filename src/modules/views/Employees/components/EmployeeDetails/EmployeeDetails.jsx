@@ -1,12 +1,12 @@
-import {Loader} from '../../../components/common/Loader/Loader.jsx'
+import {Loader} from '../../../../components/common/Loader/Loader.jsx'
 import {useQuery} from 'react-query'
-import {getEmployeeById} from '../../../../api/employees/requests.js'
+import {getEmployeeById} from '../../../../../api/employees/requests.js'
 import React from 'react'
-import {Error} from '../../../components/common/Error/Error'
-import {formatToLocale} from '../../../../utils/dateFormater'
-import editIcon from '../../../../assets/icons/edit.svg'
-import deleteIcon from '../../../../assets/icons/delete.svg'
-import sendIcon from '../../../../assets/icons/send.svg'
+import {Error} from '../../../../components/common/Error/Error.jsx'
+import {formatToLocale} from '../../../../../utils/dateFormater.js'
+import editIcon from '../../../../../assets/icons/edit.svg'
+import deleteIcon from '../../../../../assets/icons/delete.svg'
+import sendIcon from '../../../../../assets/icons/send.svg'
 
 export const EmployeeDetails = ({id}) => {
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
