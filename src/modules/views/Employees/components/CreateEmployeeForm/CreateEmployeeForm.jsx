@@ -8,16 +8,21 @@ import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../util
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
 import Dropzone from 'react-dropzone'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
+import axios from 'axios'
+import {getPresignedUrl} from '../../../../../api/employees/requests.js'
 
 export const CreateEmployeeForm = () => {
-	const [file, setFile] = useState([])
+	const API_ENDPOINT = 'https://ijs7yfiy4f.execute-api.eu-west-3.amazonaws.com/getPresignedImageUrl'
+	const [fileUrl, setFileUrl] = useState('')
+	const [disabled, setDisabled] = useState(true)
 	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	
 	const {refetch, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
+		picture: fileUrl,
 		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
 		title: capitalize(getValues('title')),
 		department: getValues('department'),
@@ -45,21 +50,41 @@ export const CreateEmployeeForm = () => {
 		console.log('success')
 	}
 	
-	/*const fileToSend = {...file, bucketName: `coc.png`}
+	useEffect(() => isSubmitting || fileUrl !== '' ? setDisabled(false) : setDisabled(true), [fileUrl, isSubmitting])
 	
-	useEffect(() => {
-		console.log('spread:', fileToSend)
-		//console.log(file[0])
-	}, [file])*/
 	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
+	
+	
+	const submitPicture = async (files) => {
+		const f = files[0]
+		console.log(f)
+		
+		// Get the presigned URL
+		const response = await axios({
+			method: 'GET',
+			url: API_ENDPOINT
+		})
+		console.log('Response: ', response)
+		setFileUrl(`https://p14hrnet.s3.eu-west-3.amazonaws.com/${response.data.Key}`)
+		
+		// PUT upload file
+		const result = await fetch(response.data.uploadURL, {
+			method: 'PUT',
+			headers: {'Content-Type': 'image/jpeg'},
+			body: f
+		})
+		console.log('Result: ', result)
+		console.log(fileUrl)
+	}
 	
 	return (
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
 			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
 			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
+			
 			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
 				
@@ -82,7 +107,8 @@ export const CreateEmployeeForm = () => {
 							{errors.birthdate && <span>* This field is required</span>}
 						</div>
 					</div>
-					<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
+					
+					<Dropzone onDrop={acceptedFiles => submitPicture(acceptedFiles)}>
 						{({getRootProps, getInputProps}) => (
 							<section>
 								<div className='dropzone' {...getRootProps()}
@@ -95,7 +121,7 @@ export const CreateEmployeeForm = () => {
 							</section>
 						)}
 					</Dropzone>
-					{/*<ProfilePicDropzone/>*/}
+					{/*<input type='file' {...register('picture', {required: true})} ></input>*/}
 				</section>
 				
 				<h4>Job</h4>
@@ -164,8 +190,25 @@ export const CreateEmployeeForm = () => {
 						</div>
 					</div>
 				</section>
-				<Button disabled={isSubmitting} custom='btn--large login__btn'>Create</Button>
+				<button disabled={disabled} className={!disabled ? 'btn--large login__btn' : 'btn--disabled'}>Create</button>
 			</form>
 		</aside>
 	)
 }
+
+
+{/*<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
+						{({getRootProps, getInputProps}) => (
+							<section>
+								<div className='dropzone' {...getRootProps()}
+								     role='button'
+								     aria-label='File Upload'
+								     id={name}>
+									<input {...getInputProps()} />
+									<p>Drag 'n' drop some files here, or click to select files</p>
+								</div>
+							</section>
+						)}
+					</Dropzone>*/
+}
+{/*<ProfilePicDropzone/>*/}
