@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form'
 import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
-import {useQuery} from 'react-query'
+import {useQuery, useQueryClient} from 'react-query'
 import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
 import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
 import useNotification from '../../../../../hooks/useNotification.jsx'
@@ -13,11 +13,11 @@ import {UploadPicture} from '../../../../components/common/UploadPicture/UploadP
 export const CreateEmployeeForm = () => {
 	const API_ENDPOINT = 'https://ijs7yfiy4f.execute-api.eu-west-3.amazonaws.com/getPresignedImageUrl'
 	const [fileUrl, setFileUrl] = useState('')
-	const [disabled, setDisabled] = useState(true)
 	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const queryClient = useQueryClient()
 	
-	const {refetch, isSuccess, isError} = useCreateEmployee({
+	const {refetch: sendFormData, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
 		picture: fileUrl ? fileUrl : 'none',
@@ -42,14 +42,13 @@ export const CreateEmployeeForm = () => {
 		}
 	}, {enabled: false})
 	
-	const submit = () => {
-		refetch()
+	const submit = async () => {
+		await sendFormData()
+		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
 		reset()
 		console.log('success')
-		// ⚠️ invalidate employees queries
 	}
 	
-	/*useEffect(() => isSubmitting || fileUrl !== '' ? setDisabled(false) : setDisabled(true), [fileUrl, isSubmitting])*/
 	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
