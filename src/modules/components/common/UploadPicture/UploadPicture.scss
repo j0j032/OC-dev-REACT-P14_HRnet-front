@@ -1,0 +1,35 @@
+/* @import "src/styles/mixins.scss";
+@import "src/styles/variables.scss";
+@import "src/styles/reset.scss";
+@import "src/styles/common.scss";
+@import "src/styles/breakpoints.scss"; */
+
+.upload-pic {
+  &__container {
+	@include flexColumn;
+	gap: 1.6rem;
+	
+	> form {
+	  @include flexRowInline;
+	  
+	  > input {
+	  }
+	  
+	  > button {
+		width: 8rem;
+		margin-right: 2rem;
+	  }
+	}
+	
+	> button {
+	  width: 8rem;
+	}
+  }
+  
+  &__pic-review {
+	width: 8rem;
+	height: 8rem;
+	border-radius: 50%;
+	object-fit: cover;
+  }
+}

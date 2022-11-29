@@ -6,7 +6,7 @@ import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../util
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
 import Dropzone from 'react-dropzone'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import axios from 'axios'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
 
