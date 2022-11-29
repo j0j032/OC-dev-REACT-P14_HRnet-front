@@ -7,6 +7,7 @@ import {formatToLocale} from '../../../../../utils/formater.js'
 import editIcon from '../../../../../assets/icons/edit.svg'
 import deleteIcon from '../../../../../assets/icons/delete.svg'
 import sendIcon from '../../../../../assets/icons/send.svg'
+import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 
 export const EmployeeDetails = ({id}) => {
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
@@ -17,7 +18,7 @@ export const EmployeeDetails = ({id}) => {
 		<>
 			{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : (
 				<div className='employee-details__container'>
-					<img src={data.picture} alt={`Profile picture of ${data.firstname}`}/>
+					<img src={data.picture !== 'none' ? data.picture : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
 					<div className='employee-details__infos'>
 						<div className='employee-details__heading'>
 							<div className='employee-details__names'>

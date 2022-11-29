@@ -1,6 +1,4 @@
-import Button from '../../../../components/common/Button/Button.jsx'
 import {useForm} from 'react-hook-form'
-import {ProfilePicDropzone} from '../../../../components/common/ProfilePicDropzone/ProfilePicDropzone'
 import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
 import {useQuery} from 'react-query'
 import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
@@ -8,9 +6,9 @@ import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../util
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
 import Dropzone from 'react-dropzone'
-import {useEffect, useState, useRef} from 'react'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
-import {getPresignedUrl} from '../../../../../api/employees/requests.js'
+import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
 
 export const CreateEmployeeForm = () => {
 	const API_ENDPOINT = 'https://ijs7yfiy4f.execute-api.eu-west-3.amazonaws.com/getPresignedImageUrl'
@@ -22,7 +20,7 @@ export const CreateEmployeeForm = () => {
 	const {refetch, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
-		picture: fileUrl,
+		picture: fileUrl ? fileUrl : 'none',
 		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
 		title: capitalize(getValues('title')),
 		department: getValues('department'),
@@ -48,10 +46,10 @@ export const CreateEmployeeForm = () => {
 		refetch()
 		reset()
 		console.log('success')
+		// ⚠️ invalidate employees queries
 	}
 	
-	useEffect(() => isSubmitting || fileUrl !== '' ? setDisabled(false) : setDisabled(true), [fileUrl, isSubmitting])
-	
+	/*useEffect(() => isSubmitting || fileUrl !== '' ? setDisabled(false) : setDisabled(true), [fileUrl, isSubmitting])*/
 	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
@@ -85,6 +83,7 @@ export const CreateEmployeeForm = () => {
 			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
 			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
 			
+			<UploadPicture/>
 			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
 				
@@ -121,7 +120,6 @@ export const CreateEmployeeForm = () => {
 							</section>
 						)}
 					</Dropzone>
-					{/*<input type='file' {...register('picture', {required: true})} ></input>*/}
 				</section>
 				
 				<h4>Job</h4>
@@ -190,25 +188,8 @@ export const CreateEmployeeForm = () => {
 						</div>
 					</div>
 				</section>
-				<button disabled={disabled} className={!disabled ? 'btn--large login__btn' : 'btn--disabled'}>Create</button>
+				<button disabled={isSubmitting} className={'btn--large login__btn'}>Create</button>
 			</form>
 		</aside>
 	)
 }
-
-
-{/*<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
-						{({getRootProps, getInputProps}) => (
-							<section>
-								<div className='dropzone' {...getRootProps()}
-								     role='button'
-								     aria-label='File Upload'
-								     id={name}>
-									<input {...getInputProps()} />
-									<p>Drag 'n' drop some files here, or click to select files</p>
-								</div>
-							</section>
-						)}
-					</Dropzone>*/
-}
-{/*<ProfilePicDropzone/>*/}
