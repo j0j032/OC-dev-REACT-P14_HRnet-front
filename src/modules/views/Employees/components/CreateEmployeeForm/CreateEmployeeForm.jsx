@@ -5,22 +5,19 @@ import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.
 import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
-import Dropzone from 'react-dropzone'
-import {useState} from 'react'
-import axios from 'axios'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
+import {useUploadPicture} from '../../../../../hooks/useUploadPicture.jsx'
 
 export const CreateEmployeeForm = () => {
-	const API_ENDPOINT = 'https://ijs7yfiy4f.execute-api.eu-west-3.amazonaws.com/getPresignedImageUrl'
-	const [fileUrl, setFileUrl] = useState('')
-	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
+	const {filePreview, fileIsSupported, fileURL, getFilePreview, uploadPicture, cancelPreview} = useUploadPicture()
+	const {register, handleSubmit, getValues, reset: resetForm, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const queryClient = useQueryClient()
 	
 	const {refetch: sendFormData, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
-		picture: fileUrl ? fileUrl : 'none',
+		picture: fileURL ? fileURL : 'none',
 		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
 		title: capitalize(getValues('title')),
 		department: getValues('department'),
@@ -43,38 +40,16 @@ export const CreateEmployeeForm = () => {
 	}, {enabled: false})
 	
 	const submit = async () => {
+		fileURL && await uploadPicture()
 		await sendFormData()
 		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
-		reset()
+		resetForm()
 		console.log('success')
+		cancelPreview()
 	}
-	
 	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
-	
-	
-	const submitPicture = async (files) => {
-		const f = files[0]
-		console.log(f)
-		
-		// Get the presigned URL
-		const response = await axios({
-			method: 'GET',
-			url: API_ENDPOINT
-		})
-		console.log('Response: ', response)
-		setFileUrl(`https://p14hrnet.s3.eu-west-3.amazonaws.com/${response.data.Key}`)
-		
-		// PUT upload file
-		const result = await fetch(response.data.uploadURL, {
-			method: 'PUT',
-			headers: {'Content-Type': 'image/jpeg'},
-			body: f
-		})
-		console.log('Result: ', result)
-		console.log(fileUrl)
-	}
 	
 	return (
 		<aside className='create-employee__container'>
@@ -82,9 +57,13 @@ export const CreateEmployeeForm = () => {
 			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
 			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
 			
-			<UploadPicture/>
-			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
+				
+				<UploadPicture fileIsSupported={fileIsSupported}
+				               filePreview={filePreview}
+				               getFilePreview={getFilePreview}
+				               cancelPreview={cancelPreview}
+				/>
 				
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
@@ -105,20 +84,6 @@ export const CreateEmployeeForm = () => {
 							{errors.birthdate && <span>* This field is required</span>}
 						</div>
 					</div>
-					
-					<Dropzone onDrop={acceptedFiles => submitPicture(acceptedFiles)}>
-						{({getRootProps, getInputProps}) => (
-							<section>
-								<div className='dropzone' {...getRootProps()}
-								     role='button'
-								     aria-label='File Upload'
-								     id={name}>
-									<input {...getInputProps()} />
-									<p>Drag 'n' drop some files here, or click to select files</p>
-								</div>
-							</section>
-						)}
-					</Dropzone>
 				</section>
 				
 				<h4>Job</h4>
