@@ -5,6 +5,7 @@ import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import {formatToLocale} from '../../../../../utils/formater.js'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
+import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 
 export const EmployeeCard = ({data}) => {
 	const windowSize = useWindowSize()
@@ -35,7 +36,7 @@ export const EmployeeCard = ({data}) => {
 						<img className='icon' src={eyeIcon} alt='Have a look on this employee'/>
 					</div>
 					<div className='emp-card__heading-container'>
-						<img src={picture} alt='profile picture'/>
+						<img src={picture !== 'none' ? picture : imgPlaceholder} alt='profile picture'/>
 						<h1>{`${firstname} ${lastname}`}</h1>
 						<h2>{title}</h2>
 						<p>{`${department} team`}</p>
