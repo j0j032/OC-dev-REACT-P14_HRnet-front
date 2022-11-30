@@ -75,7 +75,7 @@ export const EmployeesTable = ({employees}) => {
 			       isOpen={modalIsOpen}
 			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
-				<EmployeeDetails id={employeeId}/>
+				<EmployeeDetails id={employeeId} closeModal={closeModal}/>
 			</Modal>
 		</>
 	)
