@@ -3,6 +3,7 @@ import {filterMainSearch} from '../../utils/filters'
 
 const employeesURL = 'http://localhost:3500/employees'
 
+
 export const getEmployeeById = (id) => axios.get(`${employeesURL}/${id}`).then(r => r.data)
 
 export const getAllEmployees = (page = 1, limit = 12, text = '', tags = []) => axios
@@ -15,3 +16,5 @@ export const getAllEmployees = (page = 1, limit = 12, text = '', tags = []) => a
 	})
 
 export const createEmployee = (formData) => axios.post(employeesURL, formData).then(r => r.data)
+
+export const deleteEmployee = (id) => axios.delete(employeesURL, {data: {id}})

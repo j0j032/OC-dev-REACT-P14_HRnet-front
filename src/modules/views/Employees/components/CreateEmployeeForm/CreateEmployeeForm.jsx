@@ -1,23 +1,23 @@
-import Button from '../../../../components/common/Button/Button.jsx'
 import {useForm} from 'react-hook-form'
-import {ProfilePicDropzone} from '../../../../components/common/ProfilePicDropzone/ProfilePicDropzone'
 import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
-import {useQuery} from 'react-query'
+import {useQuery, useQueryClient} from 'react-query'
 import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
 import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
 import useNotification from '../../../../../hooks/useNotification.jsx'
 import {Toast} from '../../../../components/common/Toast/Toast'
-import Dropzone from 'react-dropzone'
-import {useEffect, useState} from 'react'
+import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
+import {useUploadPicture} from '../../../../../hooks/useUploadPicture.jsx'
 
 export const CreateEmployeeForm = () => {
-	const [file, setFile] = useState([])
-	const {register, handleSubmit, getValues, reset, formState: {errors, isSubmitting}} = useForm()
+	const {filePreview, fileIsSupported, fileURL, getFilePreview, uploadPicture, cancelPreview} = useUploadPicture()
+	const {register, handleSubmit, getValues, reset: resetForm, formState: {errors, isSubmitting}} = useForm()
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const queryClient = useQueryClient()
 	
-	const {refetch, isSuccess, isError} = useCreateEmployee({
+	const {refetch: sendFormData, isSuccess, isError} = useCreateEmployee({
 		firstname: capitalize(getValues('firstname')),
 		lastname: capitalize(getValues('lastname')),
+		picture: fileURL ? fileURL : 'none',
 		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
 		title: capitalize(getValues('title')),
 		department: getValues('department'),
@@ -39,18 +39,14 @@ export const CreateEmployeeForm = () => {
 		}
 	}, {enabled: false})
 	
-	const submit = () => {
-		refetch()
-		reset()
+	const submit = async () => {
+		fileURL && await uploadPicture()
+		await sendFormData()
+		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+		resetForm()
 		console.log('success')
+		cancelPreview()
 	}
-	
-	/*const fileToSend = {...file, bucketName: `coc.png`}
-	
-	useEffect(() => {
-		console.log('spread:', fileToSend)
-		//console.log(file[0])
-	}, [file])*/
 	
 	const notifSuccess = useNotification(isSuccess, 3000)
 	const notifError = useNotification(isError, 3000)
@@ -62,6 +58,12 @@ export const CreateEmployeeForm = () => {
 			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
 			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
+				
+				<UploadPicture fileIsSupported={fileIsSupported}
+				               filePreview={filePreview}
+				               getFilePreview={getFilePreview}
+				               cancelPreview={cancelPreview}
+				/>
 				
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
@@ -82,20 +84,6 @@ export const CreateEmployeeForm = () => {
 							{errors.birthdate && <span>* This field is required</span>}
 						</div>
 					</div>
-					<Dropzone onDrop={acceptedFiles => setFile(acceptedFiles)}>
-						{({getRootProps, getInputProps}) => (
-							<section>
-								<div className='dropzone' {...getRootProps()}
-								     role='button'
-								     aria-label='File Upload'
-								     id={name}>
-									<input {...getInputProps()} />
-									<p>Drag 'n' drop some files here, or click to select files</p>
-								</div>
-							</section>
-						)}
-					</Dropzone>
-					{/*<ProfilePicDropzone/>*/}
 				</section>
 				
 				<h4>Job</h4>
@@ -164,7 +152,7 @@ export const CreateEmployeeForm = () => {
 						</div>
 					</div>
 				</section>
-				<Button disabled={isSubmitting} custom='btn--large login__btn'>Create</Button>
+				<button disabled={isSubmitting} className={'btn--large login__btn'}>Create</button>
 			</form>
 		</aside>
 	)

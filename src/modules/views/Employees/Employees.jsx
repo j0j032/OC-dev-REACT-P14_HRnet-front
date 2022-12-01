@@ -21,7 +21,6 @@ import {Error} from '../../components/common/Error/Error'
 import useWindowSize from '../../../hooks/useWindowSize.jsx'
 import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav'
-import {formatPhoneNumber} from '../../../utils/formater'
 
 export const Employees = () => {
 	const windowSize = useWindowSize()
@@ -32,7 +31,7 @@ export const Employees = () => {
 	const [limit, setLimit] = useState(12)
 	
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {data, isLoading, error, isError, refetch} = useGetEmployees('employees', page, limit, debouncedSearch, {enabled: true})
+	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, {enabled: true})
 	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, {enabled: true})
 	
 	const numberOfPages = search.length < 2
