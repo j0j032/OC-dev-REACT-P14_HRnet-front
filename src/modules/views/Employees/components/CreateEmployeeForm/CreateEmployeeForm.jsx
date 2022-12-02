@@ -2,17 +2,20 @@ import {useForm} from 'react-hook-form'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {ErrorMessage} from '@hookform/error-message'
 import {useQuery, useQueryClient} from 'react-query'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {sendEmployee} from '../../../../../api/employees/requests.js'
 import {capitalize} from '../../../../../utils/formater.js'
 import {formValidation} from '../../../../../utils/formValidation.js'
+import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
+import useBoolean from '../../../../../hooks/useBoolean.jsx'
 
 export const CreateEmployeeForm = () => {
 	const {isNotIncludingNumbers, isValidEmail, isValidUsNumber, isValidUsZip} = formValidation
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {register, handleSubmit, getValues, reset: resetForm, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
+	const {register, handleSubmit, getValues, setValue, reset: resetForm, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [picture, setPicture] = useState()
 	const queryClient = useQueryClient()
+	const [isShown, {setTrue: show, setFalse: hide}] = useBoolean(false)
 	
 	const companyInfo = {
 		id: company.id,
@@ -63,6 +66,29 @@ export const CreateEmployeeForm = () => {
 		)
 	}
 	
+	const giveDatePickerValue = (name, value) => {
+		setValue(name, value)
+		hide()
+		console.log(getValues('birth'))
+	}
+	
+	const requiredDateInput = (type, name, regex, specificErrorMsg, errorDisplay) => {
+		return (
+			<div className='input__wrapper create-employee__input-wrapper'>
+				<label className='input-label' htmlFor={name}>{capitalize(name)}<span> *</span></label>
+				<input onClick={show} className={errorDisplay && 'input-error'} type={type} {...register(name, {
+					required: 'This field is required',
+					pattern: {
+						value: regex,
+						message: specificErrorMsg
+					}
+				})}/>
+				{errorDisplay ? displayError(name) : <div className='form-error--false'></div>}
+				{isShown ? <Datepicker setValue={giveDatePickerValue}/> : null}
+			</div>
+		)
+	}
+	
 	const selectInput = (name, cb) => {
 		return (
 			<div className='input__wrapper create-employee__input-wrapper'>
@@ -78,6 +104,7 @@ export const CreateEmployeeForm = () => {
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
+				{requiredDateInput('text', 'birth', null, null)}
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
 					<div className='create-employee__inputs-wrapper--inline'>
