@@ -17,9 +17,16 @@ const isValidUsZip = {
 	msg: 'Invalid Zip ( need 5 digits)'
 }
 
+const isValidUsDate = {
+	regex: /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/,
+	msg: 'Invalid date format (mm/dd/yyyy)'
+}
+
+
 export const formValidation = {
 	isNotIncludingNumbers,
 	isValidEmail,
 	isValidUsNumber,
-	isValidUsZip
+	isValidUsZip,
+	isValidUsDate
 }

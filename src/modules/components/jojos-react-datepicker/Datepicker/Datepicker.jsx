@@ -3,12 +3,12 @@ import React from 'react'
 import {useEffect, useRef, useState} from 'react'
 import {weekDays, dateFormat, years, months, handleSetDays} from '../utils.js'
 
-const Datepicker = ({setValue}) => {
-	const [isDisplayed, setIsDisplayed] = useState(false)
+const Datepicker = ({locale, setInputValue, RHFinputName, currentSelectedValue, disableFuture, hide}) => {
 	const [selectedDate, setSelectedDate] = useState('')
 	const [days, setDays] = useState(handleSetDays())
 	const [month, setMonth] = useState(new Date().getMonth())
 	const [year, setYear] = useState(new Date().getFullYear())
+	
 	
 	// Update all states (month, year and days)
 	const updateDapickerUI = (value) => {
@@ -18,27 +18,27 @@ const Datepicker = ({setValue}) => {
 		setDays(handleSetDays(new Date(date.getFullYear(), date.getMonth(), 1)))
 	}
 	const openDatepicker = () => {
-		setIsDisplayed(true)
 		// in order to display allways selectedDate otherwise current date
-		updateDapickerUI(selectedDate || new Date())
+		updateDapickerUI(currentSelectedValue | new Date())
 	}
 	const handleOnChange = (e) => handleSelectedDate(e.target.value)
+	
 	const handleSelectedDate = (value) => {
-		setIsDisplayed(false)
 		// update selecteDate if value is a correct string for Date Object and also included in years range
 		const date = new Date(value)
 		if (
 			date.toString() !== 'Invalid Date' &&
 			years.includes(date.getFullYear())
 		) {
-			setSelectedDate(dateFormat('en', new Date(date)))
+			setSelectedDate(dateFormat(locale, new Date(date)))
 			// update month, year and days
 			updateDapickerUI(date)
-			// callback
-			setValue('birth', dateFormat('en', new Date(date)))
-			// onChange(dateFormat('en', new Date(date)))
+			// callback => Name if using with react-hook-form-library
+			setInputValue(dateFormat(locale, new Date(date)), RHFinputName)
 		}
+		hide()
 	}
+	
 	const handleMonthSelect = (e) => {
 		setMonth(e.target.value)
 		updateDapickerUI(new Date(year, e.target.value, 1))
@@ -61,11 +61,11 @@ const Datepicker = ({setValue}) => {
 	}
 	
 	// onclickoutside : https://blog.logrocket.com/detect-click-outside-react-component-how-to/
-	const ref = useRef(null)
+	const ref = useRef()
 	useEffect(() => {
 		const handleClickOutSide = (event) => {
 			if (ref.current && !ref.current.contains(event.target)) {
-				setIsDisplayed(false)
+				hide()
 			}
 		}
 		document.addEventListener('click', handleClickOutSide, true)
@@ -75,13 +75,22 @@ const Datepicker = ({setValue}) => {
 	}, [])
 	
 	const isSelectedDate = (value) => {
-		const dateToCheck = selectedDate || dateFormat()
+		const dateToCheck = currentSelectedValue || dateFormat()
 		return dateToCheck === value
 	}
+	
+	const isToday = (value) => {
+		const dateToCheck = dateFormat()
+		return dateToCheck === value
+	}
+	
 	
 	const computeDayClassName = (index, value) => {
 		let className = 'week-day'
 		const day = new Date(value).getDate()
+		const allDays = new Date(value)
+		
+		const isAfterToday = () => allDays > Date.now()
 		
 		if ((index < 7 && day > 7) || (index > 27 && day < 14)) {
 			className += ' other-month'
@@ -91,11 +100,21 @@ const Datepicker = ({setValue}) => {
 			className += ' selected'
 		}
 		
+		if (isToday(value)) {
+			className += ' today'
+		}
+		
+		if (disableFuture) {
+			if (isAfterToday()) className += ' disabledDay'
+		}
+		
+		
 		return className
 	}
 	
+	
 	return (
-		<div className='custom-date-picker'>
+		<div>
 			<section ref={ref} className='custom-date-picker-calendar'>
 				<nav className='calendar-header'>
 					<div
@@ -136,7 +155,7 @@ const Datepicker = ({setValue}) => {
 						{weekDays().map((weekDay, index) => (
 							<div key={`week-day-${index}`} className='week-day-name'>
 								{weekDay.charAt(0).toUpperCase() +
-									weekDay.substring(0, 3).slice(1)}
+									weekDay.substring(0, 2).slice(1)}
 							</div>
 						))}
 					</div>

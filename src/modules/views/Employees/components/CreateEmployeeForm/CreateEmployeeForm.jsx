@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {ErrorMessage} from '@hookform/error-message'
 import {useQuery, useQueryClient} from 'react-query'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {sendEmployee} from '../../../../../api/employees/requests.js'
 import {capitalize} from '../../../../../utils/formater.js'
 import {formValidation} from '../../../../../utils/formValidation.js'
@@ -10,12 +10,13 @@ import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 
 export const CreateEmployeeForm = () => {
-	const {isNotIncludingNumbers, isValidEmail, isValidUsNumber, isValidUsZip} = formValidation
+	const {isNotIncludingNumbers, isValidEmail, isValidUsNumber, isValidUsZip, isValidUsDate} = formValidation
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {register, handleSubmit, getValues, setValue, reset: resetForm, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
+	const {register, handleSubmit, getValues, setValue, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [picture, setPicture] = useState()
 	const queryClient = useQueryClient()
-	const [isShown, {setTrue: show, setFalse: hide}] = useBoolean(false)
+	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
+	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
 	
 	const companyInfo = {
 		id: company.id,
@@ -66,13 +67,12 @@ export const CreateEmployeeForm = () => {
 		)
 	}
 	
-	const giveDatePickerValue = (name, value) => {
-		setValue(name, value)
-		hide()
-		console.log(getValues('birth'))
-	}
 	
-	const requiredDateInput = (type, name, regex, specificErrorMsg, errorDisplay) => {
+	const requiredDateInput = (type, name, regex, specificErrorMsg, errorDisplay, hide, isShown, show) => {
+		const getInputValue = (value, name) => {
+			setValue(name, value)
+			clearErrors(name)
+		}
 		return (
 			<div className='input__wrapper create-employee__input-wrapper'>
 				<label className='input-label' htmlFor={name}>{capitalize(name)}<span> *</span></label>
@@ -84,7 +84,12 @@ export const CreateEmployeeForm = () => {
 					}
 				})}/>
 				{errorDisplay ? displayError(name) : <div className='form-error--false'></div>}
-				{isShown ? <Datepicker setValue={giveDatePickerValue}/> : null}
+				{isShown ? <Datepicker currentSelectedValue={getValues(name)}
+				                       RHFinputName={name} locale='en'
+				                       setInputValue={getInputValue}
+				                       disableFuture={true}
+				                       hide={hide}
+				/> : null}
 			</div>
 		)
 	}
@@ -103,21 +108,15 @@ export const CreateEmployeeForm = () => {
 	return (
 		<aside className='create-employee__container'>
 			<h1><span>Create</span> new employee</h1>
+			
+			
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
-				{requiredDateInput('text', 'birth', null, null)}
 				<h4>Identity</h4>
 				<section className='input__wrapper create-employee__inputs-section'>
 					<div className='create-employee__inputs-wrapper--inline'>
 						{requiredTextInput('text', 'firstname', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.firstname)}
 						{requiredTextInput('text', 'lastname', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.lastname)}
-						
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label className='input-label' htmlFor='birthdate'>Birthdate<span> *</span></label>
-							<input type='date'{...register('birthdate', {required: true})}/>
-							{errors.birthdate && <span>* This field is required</span>}
-						</div>
-					
-					
+						{requiredDateInput('text', 'birthdate', isValidUsDate.regex, isValidUsDate.msg, errors.birthdate, hideBirthDP, isDPBirhtdayShown, showBirthDP)}
 					</div>
 					
 					<input onChange={pictureSelected} type='file' accept='image/*'/>
@@ -130,12 +129,7 @@ export const CreateEmployeeForm = () => {
 						{selectInput('department', teams.map((item) => (
 							<option key={item} value={item}>{capitalize(item)}</option>
 						)))}
-						
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label className='input-label' htmlFor='startDate'>Start Date<span> *</span></label>
-							<input type='date'{...register('startDate', {required: true})}/>
-							{errors.startDate && <span>* This field is required</span>}
-						</div>
+						{requiredDateInput('text', 'startDate', isValidUsDate.regex, isValidUsDate.msg, errors.startDate, hideHiredDP, isDPHiredShown, showHiredDP)}
 					</div>
 				</section>
 				
