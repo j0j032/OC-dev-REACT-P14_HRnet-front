@@ -44,3 +44,25 @@ a {
   cursor: initial;
   filter: var(--ICONS-disabled);
 }
+
+.form-error {
+  font-size: 1.2rem;
+  height: 1.2rem;
+  color: palevioletred;
+  
+  &--false {
+	height: 1.2rem;
+  }
+}
+
+.input-label {
+  > span {
+	color: palevioletred;
+  }
+}
+
+input.input-error {
+  background: palevioletred;
+}
+
+
