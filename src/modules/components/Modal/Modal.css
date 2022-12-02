@@ -18,8 +18,8 @@
 .modal__closeBtn {
     position: absolute;
     z-index: 1000;
-    top: 1.6rem;
-    right: 1.6rem;
+    top: 2.4rem;
+    right: 2.4rem;
     padding: 0.4rem 0.6rem;
     cursor: pointer;
     transition: scale 200ms ease-in-out;

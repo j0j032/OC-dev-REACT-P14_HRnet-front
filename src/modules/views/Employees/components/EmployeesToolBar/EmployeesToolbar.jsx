@@ -33,7 +33,7 @@ const EmployeesToolbar = () => {
 			       handleClose={closeModal}
 			       isOpen={isOpenModal}
 			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}
-			       customBG={{display: 'flex', justifyContent: 'flex-end', flexDirection: 'column'}}>
+			       customBG={{display: 'flex', flexDirection: 'column'}}>
 				<CreateEmployeeForm/>
 			</Modal>
 		</>

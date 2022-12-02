@@ -3,7 +3,7 @@ import React from 'react'
 import {useEffect, useRef, useState} from 'react'
 import {weekDays, dateFormat, years, months, handleSetDays} from '../utils.js'
 
-const Datepicker = ({locale, setInputValue, RHFinputName, currentSelectedValue, disableFuture, hide}) => {
+const Datepicker = ({locale, setInputValue, RHFinputName, currentSelectedValue, disableFuture, hide, hideOnSelect = true}) => {
 	const [selectedDate, setSelectedDate] = useState('')
 	const [days, setDays] = useState(handleSetDays())
 	const [month, setMonth] = useState(new Date().getMonth())
@@ -36,7 +36,7 @@ const Datepicker = ({locale, setInputValue, RHFinputName, currentSelectedValue, 
 			// callback => Name if using with react-hook-form-library
 			setInputValue(dateFormat(locale, new Date(date)), RHFinputName)
 		}
-		hide()
+		hideOnSelect && hide()
 	}
 	
 	const handleMonthSelect = (e) => {

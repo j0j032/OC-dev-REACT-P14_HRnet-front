@@ -28,7 +28,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 		<>
 			{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : (
 				<div className='employee-details__container'>
-					<img src={data.picture !== 'none' ? data.picture : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
+					<img src={data.imageUrl ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
 					<div className='employee-details__infos'>
 						<div className='employee-details__heading'>
 							<div className='employee-details__names'>

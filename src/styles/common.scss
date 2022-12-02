@@ -48,7 +48,9 @@ a {
 .form-error {
   font-size: 1.2rem;
   height: 1.2rem;
-  color: palevioletred;
+  margin-top: 0.2rem;
+  text-align: right;
+  color: #8D3030;
   
   &--false {
 	height: 1.2rem;
@@ -57,12 +59,25 @@ a {
 
 .input-label {
   > span {
-	color: palevioletred;
+	color: lightgray;
   }
 }
 
 input.input-error {
-  background: palevioletred;
+  background: #F6E2E2;
+}
+
+.circle-picture {
+  width: 5.6rem;
+  height: 5.6rem;
+  border: 2px solid var(--BG-color);
+  border-radius: 32px;
+  object-fit: cover;
+  
+  &:hover {
+	outline: 2px solid var(--COMPANY-theme-color);
+	
+  }
 }
 
 

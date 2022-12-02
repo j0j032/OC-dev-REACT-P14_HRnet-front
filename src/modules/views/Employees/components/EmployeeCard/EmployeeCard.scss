@@ -20,6 +20,7 @@
 	transform-style: preserve-3d;
 	
 	&:hover {
+	  outline: 1px solid var(--COMPANY-theme-color);
 	  box-shadow: 4px -2px 0 0px var(--BG-color);
 	}
 	
