@@ -7,6 +7,10 @@
 .upload-pic {
   &__container {
 	@include flexColumn;
+	align-items: center;
+	width: 30rem;
+	border-radius: 16px;
+	background-color: var(--MENU-color);
 	gap: 1.6rem;
 	
 	> form {

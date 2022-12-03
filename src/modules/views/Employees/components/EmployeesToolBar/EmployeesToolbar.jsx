@@ -15,7 +15,6 @@ const EmployeesToolbar = () => {
 	const {setSearch} = useContext(SearchContext)
 	const [isOpenModal, {openModal, closeModal}] = useModal(false)
 	const handleChange = e => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')
-	
 	const viewIcon = <img className='icon' src={tableView ? gridIcon : listIcon} alt='Change view'/>
 	
 	return (

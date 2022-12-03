@@ -2,25 +2,27 @@ import {useForm} from 'react-hook-form'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {ErrorMessage} from '@hookform/error-message'
 import {useQuery, useQueryClient} from 'react-query'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {sendEmployee} from '../../../../../api/employees/requests.js'
 import {capitalize} from '../../../../../utils/formater.js'
 import {formValidation} from '../../../../../utils/formValidation.js'
 import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
+import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
+import useModal from '../../../../components/Modal/useModal.jsx'
+import Modal from '../../../../components/Modal/Modal.jsx'
 
 
 export const CreateEmployeeForm = () => {
-	const [filePreview, setFilePreview] = useState()
+	const [file, setFile] = useState({preview: '', data: {}})
+	const queryClient = useQueryClient()
 	const {isNotIncludingNumbers, isValidEmail, isValidUsNumber, isValidUsZip, isValidUsDate} = formValidation
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
-	const [picture, setPicture] = useState()
-	const queryClient = useQueryClient()
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
-	const [isUpdatePPicOpen, {setToggle}] = useBoolean(false)
+	const [isOpenModal, {openModal, closeModal}] = useModal(false)
 	
 	useEffect(() => {
 		setFocus('firstname')
@@ -32,22 +34,16 @@ export const CreateEmployeeForm = () => {
 		logo: company.logo
 	}
 	
-	const pictureSelected = e => {
-		const file = e.target.files[0]
-		console.log(file)
-		setPicture(file)
-		setFilePreview(URL.createObjectURL(file))
-	}
-	
 	const submit = async data => {
 		const employee = JSON.stringify(data)
 		const company = JSON.stringify(companyInfo)
 		const formData = new FormData()
 		formData.append('employee', employee)
 		formData.append('company', company)
-		formData.append('image', picture)
+		formData.append('image', file.data)
 		await sendEmployee(formData)
 		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+		setFile({preview: '', data: {}})
 		resetForm()
 	}
 	
@@ -114,15 +110,13 @@ export const CreateEmployeeForm = () => {
 	return (
 		<aside className='create-employee__container'>
 			<div className='form-heading'>
-				<img onClick={setToggle} className='circle-picture' src={filePreview ? filePreview : imgPlaceholder} alt='preview employee picture'/>
+				<img onClick={openModal} className='circle-picture' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
 				<h2>Create new employee</h2>
 			</div>
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
-				{isUpdatePPicOpen &&
-					<div className='upload-pic'>
-						<input onChange={pictureSelected} type='file' accept='image/*' required/>
-					</div>
-				}
+				
+				{isOpenModal && <UploadPicture file={file} setFile={setFile} isOpen={isOpenModal} close={closeModal}/>}
+				
 				<div className='scrollable'>
 					<div className='form-section'>
 						{requiredTextInput('text', 'firstname', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.firstname)}
