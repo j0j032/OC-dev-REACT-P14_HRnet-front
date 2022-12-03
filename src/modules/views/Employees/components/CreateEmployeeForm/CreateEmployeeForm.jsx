@@ -1,23 +1,22 @@
 import {useForm} from 'react-hook-form'
-import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
-import {ErrorMessage} from '@hookform/error-message'
+import React, {useEffect, useState} from 'react'
 import {useQuery, useQueryClient} from 'react-query'
-import {useEffect, useRef, useState} from 'react'
-import {sendEmployee} from '../../../../../api/employees/requests.js'
 import {capitalize} from '../../../../../utils/formater.js'
-import {formValidation} from '../../../../../utils/formValidation.js'
-import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
-import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
-import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
 import useModal from '../../../../components/Modal/useModal.jsx'
-import Modal from '../../../../components/Modal/Modal.jsx'
-
+import {formValidation} from '../../../../../utils/formValidation.js'
+import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
+import {createEmployee} from '../../../../../api/employees/requests.js'
+import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
+import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
+import {SelectInput} from '../../../../components/common/Inputs/SelectInput/SelectInput'
+import {TextInput} from '../../../../components/common/Inputs/SelectInput/TextInput.jsx'
+import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 
 export const CreateEmployeeForm = () => {
 	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
-	const {isNotIncludingNumbers, isValidEmail, isValidUsNumber, isValidUsZip, isValidUsDate} = formValidation
+	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber} = formValidation
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
@@ -34,78 +33,23 @@ export const CreateEmployeeForm = () => {
 		logo: company.logo
 	}
 	
+	const getInputValue = (value, name) => {
+		setValue(name, value)
+		clearErrors(name)
+	}
+	
 	const submit = async data => {
 		const employee = JSON.stringify(data)
 		const company = JSON.stringify(companyInfo)
 		const formData = new FormData()
 		formData.append('employee', employee)
 		formData.append('company', company)
-		formData.append('image', file.data)
-		await sendEmployee(formData)
+		if (file.data !== {}) formData.append('image', file.data)
+		await createEmployee(formData)
 		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
 		setFile({preview: '', data: {}})
 		resetForm()
 	}
-	
-	const displayError = (name) => {
-		return <ErrorMessage errors={errors} name={name} render={({messages}) =>
-			messages && Object.entries(messages).map(([type, message]) => (
-				<p className='form-error' key={type}>{message}</p>
-			))
-		}
-		/>
-	}
-	
-	const requiredTextInput = (type, name, regex, specificErrorMsg, errorDisplay) => {
-		return (
-			<div className='input__wrapper create-employee__input-wrapper'>
-				<label className='input-label' htmlFor={name}>{capitalize(name)}<span> *</span></label>
-				<input className={errorDisplay && 'input-error'} type={type} {...register(name, {
-					required: 'This field is required',
-					pattern: {
-						value: regex,
-						message: specificErrorMsg
-					}
-				})}/>
-				{errorDisplay ? displayError(name) : <div className='form-error--false'></div>}
-			</div>
-		)
-	}
-	
-	
-	const requiredDateInput = (type, name, regex, specificErrorMsg, errorDisplay, hide, isShown, show) => {
-		const getInputValue = (value, name) => {
-			setValue(name, value)
-			clearErrors(name)
-		}
-		return (
-			<div className='input__wrapper create-employee__input-wrapper'>
-				<label className='input-label' htmlFor={name}>{capitalize(name)}<span> *</span></label>
-				<input onClick={show} onFocus={show} className={errorDisplay && 'input-error'} type={type} {...register(name, {
-					required: 'This field is required',
-					pattern: {
-						value: regex,
-						message: specificErrorMsg
-					}
-				})}/>
-				{errorDisplay ? displayError(name) : <div className='form-error--false'></div>}
-				{isShown ? <Datepicker currentSelectedValue={getValues(name)} RHFinputName={name} locale='en'
-				                       setInputValue={getInputValue} disableFuture={true} hide={hide}
-				/> : null}
-			</div>
-		)
-	}
-	
-	const selectInput = (name, cb) => {
-		return (
-			<div className='input__wrapper create-employee__input-wrapper'>
-				<label className='input-label' htmlFor={name}>{capitalize(name)}</label>
-				<select {...register(name)}>{cb}</select>
-				<div className='form-error--false'></div>
-			</div>
-		)
-	}
-	
 	
 	return (
 		<aside className='create-employee__container'>
@@ -119,30 +63,38 @@ export const CreateEmployeeForm = () => {
 				
 				<div className='scrollable'>
 					<div className='form-section'>
-						{requiredTextInput('text', 'firstname', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.firstname)}
-						{requiredTextInput('text', 'lastname', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.lastname)}
-						{requiredDateInput('text', 'birthdate', isValidUsDate.regex, isValidUsDate.msg, errors.birthdate, hideBirthDP, isDPBirhtdayShown, showBirthDP)}
+						<TextInput inputName='firstname' errors={errors} errorDisplay={errors.firstname} {...register('firstname', RQ_ExcludeNumbers)}/>
+						<TextInput inputName='lastname' errors={errors} errorDisplay={errors.lastname} {...register('lastname', RQ_ExcludeNumbers)}/>
+						<TextInput inputName='birthdate' errors={errors} errorDisplay={errors.birthdate} {...register('birthdate', RQ_UsDate)} onClick={showBirthDP}
+						           onFocus={showBirthDP}/>
+						{isDPBirhtdayShown &&
+							<Datepicker currentSelectedValue={getValues('birthdate')} RHFinputName={'birthdate'} locale='en' setInputValue={getInputValue} disableFuture={true}
+							            hide={hideBirthDP}/>}
 					</div>
+					
 					<div className='form-section'>
-						{requiredTextInput('text', 'title', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.title)}
-						{selectInput('department', teams.map((item) => (
-							<option key={item} value={item}>{capitalize(item)}</option>
-						)))}
-						{requiredDateInput('text', 'startDate', isValidUsDate.regex, isValidUsDate.msg, errors.startDate, hideHiredDP, isDPHiredShown, showHiredDP)}
+						<TextInput inputName='title' errors={errors} errorDisplay={errors.title}{...register('title', RQ_ExcludeNumbers)}/>
+						<SelectInput inputName={'department'} {...register('department')} map={teams.map((item) => (<option key={item} value={item}>{capitalize(item)}</option>))}/>
+						<TextInput inputName='startDate' errors={errors} errorDisplay={errors.startDate} onClick={showHiredDP}
+						           onFocus={showHiredDP} {...register('startDate', RQ_UsDate)}/>
+						{isDPHiredShown &&
+							<Datepicker currentSelectedValue={getValues('startDate')} RHFinputName={'startDate'} locale='en' setInputValue={getInputValue} hide={hideHiredDP}/>}
 					</div>
+					
 					<div className='form-section'>
-						{requiredTextInput('email', 'mail', isValidEmail.regex, isValidEmail.msg, errors.mail)}
-						{requiredTextInput('text', 'phone', isValidUsNumber.regex, isValidUsNumber.msg, errors.phone)}
+						<TextInput type='email' inputName='mail' errors={errors} errorDisplay={errors.mail} {...register('mail', RQ_validEmail)}/>
+						<TextInput inputName='phone' errors={errors} errorDisplay={errors.phone} {...register('phone', RQ_validUsNumber)}/>
 					</div>
+					
 					<div className='form-section'>
-						{requiredTextInput('text', 'street', null, null, errors.street)}
-						{requiredTextInput('text', 'city', isNotIncludingNumbers.regex, isNotIncludingNumbers.msg, errors.city)}
-						{selectInput('state', countryStates.map(state => (
-							<option key={state.abbreviation} value={state.name}>{state.name}</option>
-						)))}
-						{requiredTextInput('text', 'zip', isValidUsZip.regex, isValidUsZip.msg, errors.zip)}
+						<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street')}/>
+						<TextInput inputName='city' errors={errors} errorDisplay={errors.city} {...register('city', RQ_ExcludeNumbers)}/>
+						<SelectInput inputName={'state'} {...register('state')}
+						             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
+						<TextInput inputName='zip' errors={errors} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
 					</div>
 				</div>
+				
 				<button className='submit-form-btn' disabled={isSubmitting | errors} type='submit'>Create</button>
 			</form>
 		</aside>

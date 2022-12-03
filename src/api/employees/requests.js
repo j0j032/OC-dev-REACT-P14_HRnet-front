@@ -15,8 +15,10 @@ export const getAllEmployees = (page = 1, limit = 12, text = '', tags = []) => a
 		return ({employees, totalEmployees})
 	})
 
-export const createEmployee = (formData) => axios.post(employeesURL, formData).then(r => r.data)
 
-export const sendEmployee = (formData) => axios.post(employeesURL, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+export const createEmployee = (formData) => axios.post(employeesURL, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+
+export const updateEmployee = (formData) => axios.put(employeesURL, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+
 
 export const deleteEmployee = (id) => axios.delete(employeesURL, {data: {id}})

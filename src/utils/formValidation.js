@@ -22,11 +22,57 @@ const isValidUsDate = {
 	msg: 'Invalid date format (mm/dd/yyyy)'
 }
 
+const required = 'This field is required'
+
+const RQ_ExcludeNumbers = {
+	required,
+	pattern: {
+		value: isNotIncludingNumbers.regex,
+		message: isNotIncludingNumbers.msg
+	}
+}
+
+const RQ_UsDate = {
+	required,
+	pattern: {
+		value: isValidUsDate.regex,
+		message: isValidUsDate.msg
+	}
+}
+
+const RQ_validEmail = {
+	required,
+	pattern: {
+		value: isValidEmail.regex,
+		message: isValidEmail.msg
+	}
+}
+
+const RQ_validUsZip = {
+	required,
+	pattern: {
+		value: isValidUsZip.regex,
+		message: isValidUsDate.msg
+	}
+}
+
+const RQ_validUsNumber = {
+	required,
+	pattern: {
+		value: isValidUsNumber.regex,
+		message: isValidUsNumber.msg
+	}
+}
 
 export const formValidation = {
 	isNotIncludingNumbers,
 	isValidEmail,
 	isValidUsNumber,
 	isValidUsZip,
-	isValidUsDate
+	isValidUsDate,
+	RQ_ExcludeNumbers,
+	RQ_UsDate,
+	RQ_validEmail,
+	RQ_validUsZip,
+	RQ_validUsNumber
 }
