@@ -65,11 +65,6 @@ const RQ_validUsNumber = {
 }
 
 export const formValidation = {
-	isNotIncludingNumbers,
-	isValidEmail,
-	isValidUsNumber,
-	isValidUsZip,
-	isValidUsDate,
 	RQ_ExcludeNumbers,
 	RQ_UsDate,
 	RQ_validEmail,

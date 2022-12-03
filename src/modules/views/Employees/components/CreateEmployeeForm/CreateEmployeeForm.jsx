@@ -9,8 +9,8 @@ import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 import {createEmployee} from '../../../../../api/employees/requests.js'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
-import {SelectInput} from '../../../../components/common/Inputs/SelectInput/SelectInput'
-import {TextInput} from '../../../../components/common/Inputs/SelectInput/TextInput.jsx'
+import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
+import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 
 export const CreateEmployeeForm = () => {

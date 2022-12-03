@@ -3,7 +3,7 @@ import {formatToLocale} from '../../../../../utils/formater.js'
 import React from 'react'
 import {useQuery} from 'react-query'
 import {useForm} from 'react-hook-form'
-import {TextInput} from '../../../../components/common/Inputs/SelectInput/TextInput.jsx'
+import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import {formValidation} from '../../../../../utils/formValidation.js'
 
 export const EditEmployee = ({data}) => {
@@ -18,9 +18,9 @@ export const EditEmployee = ({data}) => {
 	return (
 		<form className='employee-details__infos' onSubmit={handleSubmit(submit)}>
 			
-			<TextInput inputName='lastname' defaultValue={data.lastname} errors={errors} errorDisplay={errors.lastname}
+			<TextInput inputName='lastname' defaultValue={data.lastname} errors={errors} label={false} errorDisplay={errors.lastname}
 			           {...register('lastname', formValidation.RQ_ExcludeNumbers)}/>
-			<TextInput inputName='firstname' defaultValue={data.firstname} errors={errors} errorDisplay={errors.firstname}
+			<TextInput inputName='firstname' defaultValue={data.firstname} errors={errors} label={false} errorDisplay={errors.firstname}
 			           {...register('firstname', formValidation.RQ_ExcludeNumbers)}/>
 			
 			{/*<div className='employee-details__heading'>
