@@ -1,22 +1,28 @@
 import imgPlaceholder from '../../../../assets/imgPlaceholder.svg'
-import useBoolean from '../../../../hooks/useBoolean.jsx'
-import {useUploadPicture} from '../../../../hooks/useUploadPicture.jsx'
+import Modal from '../../Modal/Modal.jsx'
 
-export const UploadPicture = ({filePreview, getFilePreview, cancelPreview, fileIsSupported}) => {
+export const UploadPicture = ({setFile, file, isOpen, close}) => {
 	
-	const [isShown, {setFalse: hide, setTrue: show}] = useBoolean()
+	const pictureSelected = e => setFile({preview: (URL.createObjectURL(e.target.files[0])), data: e.target.files[0]})
 	
-	function cancelPicture() {
-		cancelPreview()
+	const cancel = () => setFile({preview: '', data: {}})
+	
+	const closeAndCancel = () => {
+		setFile({preview: '', data: {}})
+		close()
 	}
 	
 	return (
-		<div className='upload-pic__container'>
-			<img className='upload-pic__pic-review' src={filePreview ? filePreview : imgPlaceholder} alt='Profile picture'/>
-			<input type='file' accept='.jpeg, .jpg, .png' onChange={getFilePreview}/>
-			<div onClick={cancelPicture}>Cancel</div>
-			{fileIsSupported ? null : <div> Err</div>}
-		</div>
+		<Modal modalId='handleUpload'
+		       handleClose={closeAndCancel}
+		       isOpen={isOpen}>
+			<div className='upload-pic__container'>
+				<img className='upload-pic__pic-review' src={file.preview ? file.preview : imgPlaceholder} alt='Profile picture'/>
+				<input type='file' accept='.jpeg, .jpg, .png' onChange={pictureSelected}/>
+				<button onClick={close}>Confirm</button>
+				<button onClick={cancel}>Cancel</button>
+			</div>
+		</Modal>
 	)
 }
 

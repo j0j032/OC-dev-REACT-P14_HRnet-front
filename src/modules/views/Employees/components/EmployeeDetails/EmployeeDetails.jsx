@@ -4,19 +4,23 @@ import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requ
 import React from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatToLocale} from '../../../../../utils/formater.js'
-import editIcon from '../../../../../assets/icons/edit.svg'
-import deleteIcon from '../../../../../assets/icons/delete.svg'
-import sendIcon from '../../../../../assets/icons/send.svg'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
+import useModal from '../../../../components/Modal/useModal.jsx'
+import {EditEmployee} from '../EditEmployee/EditEmployee'
+import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
+import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
 
 export const EmployeeDetails = ({id, closeModal}) => {
 	const queryClient = useQueryClient()
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
+	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {data, isLoading, error, isError} = useQuery(['employee'], () => getEmployeeById(id), {
 		refetchOnWindowFocus: false
 	})
+	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
+	
 	
 	const handleDelete = async () => {
 		await deleteEmployee(id)
@@ -28,31 +32,36 @@ export const EmployeeDetails = ({id, closeModal}) => {
 		<>
 			{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : (
 				<div className='employee-details__container'>
-					<img src={data.picture !== 'none' ? data.picture : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
-					<div className='employee-details__infos'>
-						<div className='employee-details__heading'>
-							<div className='employee-details__names'>
-								<h1>{data.firstname}</h1>
-								<h1>{data.lastname}</h1>
+					<img src={data.imageUrl ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
+					{isEditing ? <EditEmployee employee={data} editMode={toggleEditing}/> :
+						<div className='employee-details__infos'>
+							<div className='employee-details__heading'>
+								<div className='employee-details__names'>
+									<h1>{data.firstname}</h1>
+									<h1>{data.lastname}</h1>
+								</div>
+								<p> {`Joined ${company.name} : ${formatToLocale(data.hired, 'en-US')}`}</p>
 							</div>
-							<p> {`Joined ${company.name} : ${formatToLocale(data.hired, 'en-US')}`}</p>
+							<h3> 💼 {data.title}</h3>
+							<p> 👫 {data.department} team</p>
+							<div className='employee-details__personal'>
+								<h3>Personal details:</h3>
+								<p>🎂 {formatToLocale(data.birthdate, 'en-US')}</p>
+								<p>📱 {data.contact.phone}</p>
+								<p>✉️ {data.contact.mail}</p>
+								<p>📫 Address:</p>
+								<p>{data.address.street}</p>
+								<p>{`${data.address.city} ${data.address.state} ${data.address.zip}`}</p>
+							</div>
 						</div>
-						<h3> 💼 {data.title}</h3>
-						<p> 👫 {data.department} team</p>
-						<div className='employee-details__personal'>
-							<h3>Personal details:</h3>
-							<p>🎂 {formatToLocale(data.birthdate, 'en-US')}</p>
-							<p>📱 {data.contact.phone}</p>
-							<p>✉️ {data.contact.mail}</p>
-							<p>📫 Address:</p>
-							<p>{data.address.street}</p>
-							<p>{`${data.address.city} ${data.address.state} ${data.address.zip}`}</p>
-						</div>
-					</div>
+					}
 					<div className='employee-details__options'>
-						<img className='icon' src={sendIcon} alt={`Send message to ${data.firstname}`}/>
-						<img className='icon' src={editIcon} alt={`Edit ${data.firstname} profile`}/>
-						<img onClick={openAlert} className='icon' src={deleteIcon} alt={`Delete ${data.firstname} profile`}/>
+						<TbSend className='icon-btn' alt={`Send message to ${data.firstname}`}/>
+						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn' alt={`Stop Editting ${data.firstname} profile`}/>
+							: <FiEdit onClick={openEdit} className='icon-btn' alt={`Edit ${data.firstname} profile`}/>}
+						<RiImageEditFill className='icon-btn' onClick={openChangePic}/>
+						{isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>}
+						<BsTrash2 onClick={openAlert} className='icon-btn' alt={`Delete ${data.firstname} profile`}/>
 					</div>
 					<div className='employee-details__company'>
 						<img src={company.logo} alt='Company logo'/>

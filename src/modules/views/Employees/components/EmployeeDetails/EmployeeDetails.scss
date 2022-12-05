@@ -57,6 +57,18 @@
 	margin-bottom: 0.4rem;
 	letter-spacing: -1px;
 	gap: 0.8rem;
+	
+	> input {
+	  font-size: 3.6rem;
+	  font-weight: bolder;
+	  width: 40%;
+	  letter-spacing: -1px;
+	  border: none;
+	  
+	  &:focus {
+		outline: none;
+	  }
+	}
   }
   
   &__personal {

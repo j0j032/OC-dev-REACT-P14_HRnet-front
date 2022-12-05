@@ -19,9 +19,9 @@
 @import "src/modules/components/common/NoResult/NoResult.scss";
 @import "src/modules/components/common/Error/Error.scss";
 @import "src/modules/components/common/BurgerMenu/BurgerMenu.scss";
-@import "src/modules/components/common/ProfilePicDropzone/ProfilePicDropzone.scss";
 @import "src/modules/components/common/Toast/Toast.scss";
 @import "src/modules/components/common/UploadPicture/UploadPicture.scss";
+@import "src/modules/components/common/Inputs/Input.scss";
 
 @import "src/modules/views/Login/Login.scss";
 @import "src/modules/views/Error404/Error404.scss";
@@ -34,4 +34,5 @@
 @import "src/modules/views/Employees/components/EmployeeDetails/EmployeeDetails.scss";
 @import "src/modules/views/Employees/components/EmployeesCount/EmployeesCount.scss";
 @import "src/modules/views/Employees/components/CreateEmployeeForm/CreateEmployeeForm.scss";
+@import "src/modules/views/Employees/components/EditEmployee/EditEmployee.scss";
 

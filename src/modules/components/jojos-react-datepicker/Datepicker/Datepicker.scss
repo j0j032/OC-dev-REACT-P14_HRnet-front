@@ -1,0 +1,161 @@
+@mixin row {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin box {
+  margin: auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-date-picker-calendar {
+  position: absolute;
+  z-index: 100;
+  width: 240px;
+  margin: auto;
+  padding: 0 12px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 6px 6px 15px rgb(0 0 0 / 20%);
+  
+  .calendar-header {
+	@include row;
+	
+	.calendar-header-menu {
+	  cursor: pointer;
+	}
+	
+	.calendar-header-menu-button-left {
+	  padding-right: 5px;
+	  padding-bottom: 2px;
+	  padding-left: 4px;
+	  border: 1px grey solid;
+	  border-radius: 5px;
+	}
+	
+	.calendar-header-menu-button-right {
+	  padding-right: 4px;
+	  padding-bottom: 2px;
+	  padding-left: 5px;
+	  border: 1px grey solid;
+	  border-radius: 5px;
+	}
+  }
+  
+  .custom-date-picker-calendar-days {
+	
+	.week-days-header {
+	  display: grid;
+	  padding: 12px 0 6px 0;
+	  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	  grid-auto-rows: 1fr;
+	  grid-template-areas:
+    ". . . . . . . ";
+	  
+	  & > .week-day-name {
+		font-size: 12px;
+		font-weight: bolder;
+	  }
+	  
+	}
+	
+	.week-days {
+	  display: grid;
+	  flex-wrap: wrap;
+	  padding-bottom: 12px;
+	  gap: 4px 0;
+	  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	  grid-auto-rows: 1fr 1fr 1fr 1fr 1fr;
+	  grid-template-areas:
+    ". . . . . . . "
+    ". . . . . . . "
+    ". . . . . . . "
+    ". . . . . . . "
+    ". . . . . . . ";
+	}
+	
+	.week-days,
+	.week-days-header {
+	  .week-day-name {
+		@include box;
+		cursor: default;
+	  }
+	  
+	  .week-day {
+		@include box;
+		font-size: 12px;
+		cursor: pointer;
+		
+		&:hover {
+		  cursor: pointer;
+		  color: white;
+		  background-color: orange;
+		}
+		
+		&.selected {
+		  color: white;
+		  background-color: blue;
+		  
+		  &:hover {
+			cursor: inherit;
+		  }
+		  
+		  &.today {
+			color: white;
+			background-color: blue;
+			
+			&:hover {
+			  cursor: pointer;
+			}
+		  }
+		}
+		
+		&.today {
+		  font-weight: bolder;
+		  color: white;
+		  background: lightgray;
+		  
+		  &:hover {
+			background-color: orange;
+		  }
+		}
+		
+		&.disabledDay {
+		  cursor: inherit;
+		  pointer-events: none;
+		  color: lightgray;
+		  
+		  &:hover {
+			color: lightgray;
+			background-color: transparent;
+		  }
+		}
+		
+	  }
+	  
+	  .other-month {
+		cursor: default;
+		color: gray;
+		
+		&.disabledDay {
+		  cursor: inherit;
+		  pointer-events: none;
+		  color: lightgray;
+		  
+		  &:hover {
+			color: lightgray;
+			background-color: transparent;
+		  }
+		}
+	  }
+	}
+  }
+}
