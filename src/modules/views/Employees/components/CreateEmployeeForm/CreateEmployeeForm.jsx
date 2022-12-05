@@ -44,7 +44,7 @@ export const CreateEmployeeForm = () => {
 		const formData = new FormData()
 		formData.append('employee', employee)
 		formData.append('company', company)
-		if (file.data !== {}) formData.append('image', file.data)
+		if (file.data?.name) formData.append('image', file.data)
 		await createEmployee(formData)
 		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
 		setFile({preview: '', data: {}})

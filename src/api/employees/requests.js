@@ -20,5 +20,4 @@ export const createEmployee = (formData) => axios.post(employeesURL, formData, {
 
 export const updateEmployee = (formData) => axios.put(employeesURL, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 
-
 export const deleteEmployee = (id) => axios.delete(employeesURL, {data: {id}})

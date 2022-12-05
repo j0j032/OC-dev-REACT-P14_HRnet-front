@@ -4,42 +4,27 @@ import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requ
 import React, {useState} from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatToLocale} from '../../../../../utils/formater.js'
-import editIcon from '../../../../../assets/icons/edit.svg'
-import deleteIcon from '../../../../../assets/icons/delete.svg'
-import sendIcon from '../../../../../assets/icons/send.svg'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'
+import button from '../../../../components/common/Button/Button.jsx'
+import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
+import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
 
 export const EmployeeDetails = ({id, closeModal}) => {
 	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
 	const [isOpenModal, {openModal, closeModal: close}] = useModal(false)
+	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {data, isLoading, error, isError} = useQuery(['employee'], () => getEmployeeById(id), {
 		refetchOnWindowFocus: false
 	})
-	const [isEditing, {setToggle: toggleEditing}] = useBoolean()
+	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
 	
-	const submit = async data => {
-		/*const employee = JSON.stringify(data)
-		const company = JSON.stringify(companyInfo)
-		const formData = new FormData()
-		formData.append('employee', employee)
-		formData.append('company', company)
-		if (file.data !== {}) formData.append('image', file.data)
-		await sendEmployee(formData)
-		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
-		setFile({preview: '', data: {}})
-		resetForm()*/
-	}
-	
-	const handleEdit = async () => {
-	
-	}
 	
 	const handleDelete = async () => {
 		await deleteEmployee(id)
@@ -52,7 +37,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 			{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : (
 				<div className='employee-details__container'>
 					<img src={data.imageUrl ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
-					{isEditing ? <EditEmployee data={data}/> :
+					{isEditing ? <EditEmployee employee={data} editMode={toggleEditing}/> :
 						<div className='employee-details__infos'>
 							<div className='employee-details__heading'>
 								<div className='employee-details__names'>
@@ -75,10 +60,12 @@ export const EmployeeDetails = ({id, closeModal}) => {
 						</div>
 					}
 					<div className='employee-details__options'>
-						<img className='icon' src={sendIcon} alt={`Send message to ${data.firstname}`}/>
-						<img onClick={toggleEditing} className='icon' src={editIcon} alt={`Edit ${data.firstname} profile`}/>
-						{isOpenModal && <UploadPicture file={file} setFile={setFile} isOpen={isOpenModal} close={close}/>}
-						<img onClick={openAlert} className='icon' src={deleteIcon} alt={`Delete ${data.firstname} profile`}/>
+						<TbSend className='icon-btn' alt={`Send message to ${data.firstname}`}/>
+						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn' alt={`Stop Editting ${data.firstname} profile`}/>
+							: <FiEdit onClick={openEdit} className='icon-btn' alt={`Edit ${data.firstname} profile`}/>}
+						<RiImageEditFill className='icon-btn' onClick={openChangePic}/>
+						{isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>}
+						<BsTrash2 onClick={openAlert} className='icon-btn' alt={`Delete ${data.firstname} profile`}/>
 					</div>
 					<div className='employee-details__company'>
 						<img src={company.logo} alt='Company logo'/>
