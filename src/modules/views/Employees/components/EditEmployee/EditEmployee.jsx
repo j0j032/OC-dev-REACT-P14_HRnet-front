@@ -66,26 +66,7 @@ export const EditEmployee = ({employee, editMode}) => {
 				<SelectInput inputName={'state'} defaultValue={employee.address.state} label={false}  {...register('state')}
 				             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
 				<TextInput inputName='zip' defaultValue={employee.address.zip} errors={errors} label={false} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
-				
-				{/*<div className='employee-details__heading'>
-				<div className='employee-details__names'>
-					<input type='text' defaultValue={data.firstname} {...register('firstname')}/>
-				
-				</div>
-				<p> {`Joined ${company.name} : ${formatToLocale(data.hired, 'en-US')}`}</p>
-			</div>
-			<h3> 💼 {data.title}</h3>
-			<p> 👫 {data.department} team</p>
-			<div className='employee-details__personal'>
-				<h3>Personal details:</h3>
-				<p>🎂 {formatToLocale(data.birthdate, 'en-US')}</p>
-				<p>📱 {data.contact.phone}</p>
-				<p>✉️ {data.contact.mail}</p>
-				<p>📫 Address:</p>
-				<p>{data.address.street}</p>
-				<p>{`${data.address.city} ${data.address.state} ${data.address.zip}`}</p>
-			</div>*/}
-				<button className='submit-form-btn abso' disabled={isSubmitting | errors} type='submit'>Create</button>
+				<button className='submit-form-btn abso' disabled={isSubmitting | errors} type='submit'>Update</button>
 			</form>
 		</>
 	)

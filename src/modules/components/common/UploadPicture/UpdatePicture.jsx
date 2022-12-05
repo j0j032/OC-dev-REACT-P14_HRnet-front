@@ -17,7 +17,7 @@ export const UpdatePicture = ({isOpen, close, employee}) => {
 		close()
 	}
 	
-	const submit = async (data) => {
+	const submit = async () => {
 		if (file.data?.name) {
 			const employeeUpdated = JSON.stringify({_id: employee._id, picture: employee.picture})
 			const formData = new FormData()

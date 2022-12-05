@@ -1,23 +1,19 @@
 import {Loader} from '../../../../components/common/Loader/Loader.jsx'
 import {useQuery, useQueryClient} from 'react-query'
 import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requests.js'
-import React, {useState} from 'react'
+import React from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatToLocale} from '../../../../../utils/formater.js'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
-import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'
-import button from '../../../../components/common/Button/Button.jsx'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
 
 export const EmployeeDetails = ({id, closeModal}) => {
-	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
-	const [isOpenModal, {openModal, closeModal: close}] = useModal(false)
 	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {data, isLoading, error, isError} = useQuery(['employee'], () => getEmployeeById(id), {
