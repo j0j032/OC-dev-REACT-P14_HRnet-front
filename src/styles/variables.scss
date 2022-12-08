@@ -18,8 +18,7 @@
   --BORDER-btn-color: #FFFEFC;
   --FONT-btn-color: #262627;
   --BORDER-btn-hover-color: #FFFEFC;
-  --ICONS-color: invert(0%);
-  --ICONS-disabled: invert(80%);
+  --ICONS-disabled: #CECECE;
   --INFOS-card-container: #F5F6F7;
   --CARD-shadow: rgba(51, 50, 50, 0.18);
   --CARD-BG: #F5F6F7;
@@ -43,8 +42,7 @@
   --FONT-btn-color: #FFFEFC;
   --BORDER-btn-color: #262627;
   --BORDER-btn-hover-color: #1F1F1F;
-  --ICONS-color: invert(100%);
-  --ICONS-disabled: invert(20%);
+  --ICONS-disabled: rgba(239, 239, 239, 0.18);
   --INFOS-card-container: #262627;
   --CARD-shadow: rgba(5, 5, 5, 0.2);
   --CARD-BG: #1F1F1F;
@@ -63,9 +61,13 @@
   --COMPANY-theme-color: #6245EC;
 }
 
+[user-theme='mongoDB'] {
+  --COMPANY-theme-color: #47A248;
+}
+
 $black-1: #262627;
 $black-2: #363636; // Dark mode Cards and frame
 $black-3: #1F1F1F; // Dark mode lateral-menu footer
 $white-1: #FFFEFC;
-$grey-1: #F5F6F7; //frame
+$grey-1: #353637; //frame
 $grey-2: #A4A4A4; //secondary font

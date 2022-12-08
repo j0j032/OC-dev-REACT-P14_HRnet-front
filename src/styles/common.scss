@@ -36,11 +36,19 @@ a {
   color: inherit;
 }
 
-.icon {
-  filter: var(--ICONS-color);
+
+.form-error {
+  font-size: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.2rem;
+  text-align: right;
+  color: #8D3030;
+  
+  &--false {
+	height: 1.2rem;
+  }
 }
 
-.icon.icon-disabled {
-  cursor: initial;
-  filter: var(--ICONS-disabled);
-}
+
+
+

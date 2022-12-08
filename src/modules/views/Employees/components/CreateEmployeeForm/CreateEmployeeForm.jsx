@@ -1,158 +1,101 @@
 import {useForm} from 'react-hook-form'
-import {countryStates, getStateAbbreviation, teams} from '../../../../../config/formAutocomplete.js'
+import React, {useEffect, useState} from 'react'
 import {useQuery, useQueryClient} from 'react-query'
-import {useCreateEmployee} from '../../../../../api/employees/useCreateEmployee.js'
-import {capitalize, formatPhoneNumber, formatToLocale} from '../../../../../utils/formater.js'
-import useNotification from '../../../../../hooks/useNotification.jsx'
-import {Toast} from '../../../../components/common/Toast/Toast'
+import {capitalize} from '../../../../../utils/formater.js'
+import useBoolean from '../../../../../hooks/useBoolean.jsx'
+import useModal from '../../../../components/Modal/useModal.jsx'
+import {formValidation} from '../../../../../utils/formValidation.js'
+import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
+import {createEmployee} from '../../../../../api/employees/requests.js'
+import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
-import {useUploadPicture} from '../../../../../hooks/useUploadPicture.jsx'
+import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
+import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
+import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 
 export const CreateEmployeeForm = () => {
-	const {filePreview, fileIsSupported, fileURL, getFilePreview, uploadPicture, cancelPreview} = useUploadPicture()
-	const {register, handleSubmit, getValues, reset: resetForm, formState: {errors, isSubmitting}} = useForm()
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
+	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
+	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
+	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
+	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
+	const [isOpenModal, {openModal, closeModal}] = useModal(false)
 	
-	const {refetch: sendFormData, isSuccess, isError} = useCreateEmployee({
-		firstname: capitalize(getValues('firstname')),
-		lastname: capitalize(getValues('lastname')),
-		picture: fileURL ? fileURL : 'none',
-		birthdate: formatToLocale(getValues('birthdate'), 'en-US'),
-		title: capitalize(getValues('title')),
-		department: getValues('department'),
-		hired: formatToLocale(getValues('startDate'), 'en-US'),
-		contact: {
-			mail: getValues('mail'),
-			phone: formatPhoneNumber(getValues('phone'))
-		},
-		address: {
-			street: getValues('street'),
-			city: capitalize(getValues('city')),
-			state: getStateAbbreviation(getValues('state')),
-			zip: getValues('zip')
-		},
-		company: {
-			id: company.id,
-			name: company.name,
-			logo: company.logo
-		}
-	}, {enabled: false})
+	useEffect(() => {
+		setFocus('firstname')
+	}, [setFocus])
 	
-	const submit = async () => {
-		fileURL && await uploadPicture()
-		await sendFormData()
-		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
-		resetForm()
-		console.log('success')
-		cancelPreview()
+	const companyInfo = {
+		id: company.id,
+		name: company.name,
+		logo: company.logo
 	}
 	
-	const notifSuccess = useNotification(isSuccess, 3000)
-	const notifError = useNotification(isError, 3000)
+	const getInputValue = (value, name) => {
+		setValue(name, value)
+		clearErrors(name)
+	}
+	
+	const submit = async data => {
+		const employee = JSON.stringify(data)
+		const company = JSON.stringify(companyInfo)
+		const formData = new FormData()
+		formData.append('employee', employee)
+		formData.append('company', company)
+		if (file.data?.name) formData.append('image', file.data)
+		await createEmployee(formData)
+		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+		setFile({preview: '', data: {}})
+		resetForm()
+	}
 	
 	return (
 		<aside className='create-employee__container'>
-			<h1><span>Create</span> new employee</h1>
-			{notifSuccess && <Toast type='success' message='✨ New Employee Created !'/>}
-			{notifError && <Toast type='error' message='✨ Oups! an error has occurred'/>}
-			
+			<div className='form-heading'>
+				<img onClick={openModal} className='profile-picture picture-m' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
+				<h2>Create new employee</h2>
+			</div>
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
 				
-				<UploadPicture fileIsSupported={fileIsSupported}
-				               filePreview={filePreview}
-				               getFilePreview={getFilePreview}
-				               cancelPreview={cancelPreview}
-				/>
+				{isOpenModal && <UploadPicture file={file} setFile={setFile} isOpen={isOpenModal} close={closeModal}/>}
 				
-				<h4>Identity</h4>
-				<section className='input__wrapper create-employee__inputs-section'>
-					<div className='create-employee__inputs-wrapper--inline'>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='firstname'>Firstname</label>
-							<input type='text' {...register('firstname', {required: true})}/>
-							{errors.firstname && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='lastname'>Lastname</label>
-							<input type='text' {...register('lastname', {required: true})}/>
-							{errors.lastname && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='birthdate'>Birthdate</label>
-							<input type='date'{...register('birthdate', {required: true})}/>
-							{errors.birthdate && <span>* This field is required</span>}
-						</div>
+				<div className='scrollable'>
+					<div className='form-section'>
+						<TextInput inputName='firstname' errors={errors} errorDisplay={errors.firstname} {...register('firstname', RQ_ExcludeNumbers)}/>
+						<TextInput inputName='lastname' errors={errors} errorDisplay={errors.lastname} {...register('lastname', RQ_ExcludeNumbers)}/>
+						<TextInput inputName='birthdate' errors={errors} errorDisplay={errors.birthdate} {...register('birthdate', RQ_UsDate)} onClick={showBirthDP}
+						           onFocus={showBirthDP}/>
+						{isDPBirhtdayShown &&
+							<Datepicker currentSelectedValue={getValues('birthdate')} RHFinputName={'birthdate'} locale='en' setInputValue={getInputValue} disableFuture={true}
+							            hide={hideBirthDP}/>}
 					</div>
-				</section>
+					
+					<div className='form-section'>
+						<TextInput inputName='title' errors={errors} errorDisplay={errors.title}{...register('title', RQ_ExcludeNumbers)}/>
+						<SelectInput inputName={'department'} {...register('department')} map={teams.map((item) => (<option key={item} value={item}>{capitalize(item)}</option>))}/>
+						<TextInput inputName='startDate' errors={errors} errorDisplay={errors.startDate} onClick={showHiredDP}
+						           onFocus={showHiredDP} {...register('startDate', RQ_UsDate)}/>
+						{isDPHiredShown &&
+							<Datepicker currentSelectedValue={getValues('startDate')} RHFinputName={'startDate'} locale='en' setInputValue={getInputValue} hide={hideHiredDP}/>}
+					</div>
+					
+					<div className='form-section'>
+						<TextInput type='email' inputName='mail' errors={errors} errorDisplay={errors.mail} {...register('mail', RQ_validEmail)}/>
+						<TextInput inputName='phone' errors={errors} errorDisplay={errors.phone} {...register('phone', RQ_validUsNumber)}/>
+					</div>
+					
+					<div className='form-section'>
+						<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street', RQ_only)}/>
+						<TextInput inputName='city' errors={errors} errorDisplay={errors.city} {...register('city', RQ_ExcludeNumbers)}/>
+						<SelectInput inputName={'state'} {...register('state')}
+						             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
+						<TextInput inputName='zip' errors={errors} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
+					</div>
+				</div>
 				
-				<h4>Job</h4>
-				<section className='input__wrapper create-employee__inputs-section'>
-					<div className='create-employee__inputs-wrapper--inline'>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='title'>Title</label>
-							<input type='text' {...register('title', {required: true})}/>
-							{errors.title && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='department'>Department</label>
-							<select {...register('department', {required: true})}>
-								{teams.map(team => (
-									<option key={team} value={team}>{team}</option>
-								))}
-							</select>
-							{errors.department && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='startDate'>Start Date</label>
-							<input type='date'{...register('startDate', {required: true})}/>
-							{errors.startDate && <span>* This field is required</span>}
-						</div>
-					</div>
-				</section>
-				
-				<h4>Contact</h4>
-				<section className='input__wrapper create-employee__inputs-section'>
-					<div className='create-employee__inputs-wrapper--inline--2'>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='mail'>Email</label>
-							<input type='email' {...register('mail', {required: true})}/>
-							{errors.mail && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='phone'>Phone</label>
-							<input type='tel' {...register('phone', {required: true})}/>
-							{errors.phone && <span>* This field is required</span>}
-						</div>
-					</div>
-					<div className='input__wrapper create-employee__input-wrapper street'>
-						<label htmlFor='street'>Street</label>
-						<input type='text' {...register('street', {required: true})}/>
-						{errors.street && <span>* This field is required</span>}
-					</div>
-					<div className='create-employee__inputs-wrapper--inline'>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='city'>City</label>
-							<input type='text' {...register('city', {required: true})}/>
-							{errors.city && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='state'>State</label>
-							<select {...register('state', {required: true})}>
-								{countryStates.map(state => (
-									<option key={state.abbreviation} value={state.name}>{state.name}</option>
-								))}
-							</select>
-							{errors.state && <span>* This field is required</span>}
-						</div>
-						<div className='input__wrapper create-employee__input-wrapper'>
-							<label htmlFor='zip'>Zip</label>
-							<input type='text'{...register('zip', {required: true})}/>
-							{errors.zip && <span>* This field is required</span>}
-						</div>
-					</div>
-				</section>
-				<button disabled={isSubmitting} className={'btn--large login__btn'}>Create</button>
+				<button className='form-btn align-right' disabled={isSubmitting | errors} type='submit'>Create</button>
 			</form>
 		</aside>
 	)

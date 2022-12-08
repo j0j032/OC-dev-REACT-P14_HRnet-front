@@ -16,12 +16,12 @@ const Modal = ({modalId = 'new-modal', children, isOpen, handleClose, customBG, 
 	
 	return (
 		<ReactPortal wrapperId={modalId}>
-			<div onClick={handleClose} className='modal__bg' style={customBG}>
+			<dialog onClick={handleClose} className='modal__bg' style={customBG}>
 				<div onClick={(e) => e.stopPropagation()} className='modal__container'>
 					<button onClick={handleClose} className='modal__closeBtn' style={customBtn}>✕</button>
 					{children}
 				</div>
-			</div>
+			</dialog>
 		</ReactPortal>
 	)
 }

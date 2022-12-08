@@ -5,6 +5,7 @@ import Modal from '../../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
+import {useQueryClient} from 'react-query'
 
 export const EmployeesTable = ({employees}) => {
 	const windowSize = useWindowSize()
@@ -14,7 +15,7 @@ export const EmployeesTable = ({employees}) => {
 	const columns = React.useMemo(() => windowSize.width > 600 ? employeesColumns : employeesColumnsMobile, [windowSize.width])
 	const tableInstance = useTable({columns, data}, useSortBy)
 	const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance
-	
+	const queryClient = useQueryClient()
 	
 	const displayActiveSortCaret = (condition) => condition
 		? <div className='sort-caret__container'>
@@ -35,6 +36,11 @@ export const EmployeesTable = ({employees}) => {
 	const handleOpenModal = (row) => {
 		setEmployeeId(row)
 		openModal()
+	}
+	
+	const handleCloseModal = async () => {
+		await queryClient.removeQueries('employee')
+		closeModal()
 	}
 	
 	return (
@@ -70,12 +76,12 @@ export const EmployeesTable = ({employees}) => {
 					</tbody>
 				</table>
 			</div>
-			<Modal handleClose={closeModal}
+			<Modal handleClose={handleCloseModal}
 			       modalId='employee-details-modal'
 			       isOpen={modalIsOpen}
-			       customBtn={{color: 'var(--FONT-color)', border: '1px solid var(--BG-invert-color)'}}
+			       customBtn={{color: 'var(--FONT-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
-				<EmployeeDetails id={employeeId} closeModal={closeModal}/>
+				<EmployeeDetails id={employeeId} closeModal={handleCloseModal}/>
 			</Modal>
 		</>
 	)

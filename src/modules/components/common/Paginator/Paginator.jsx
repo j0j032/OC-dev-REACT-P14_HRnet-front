@@ -1,18 +1,18 @@
-import arrowRight from '../../../../assets/icons/arrow/chevron_right.svg'
-import arrowLeft from '../../../../assets/icons/arrow/chevron_left.svg'
 import React, {useCallback} from 'react'
 import useWindowSize from '../../../../hooks/useWindowSize.jsx'
+import {BiChevronLeft, BiChevronRight} from 'react-icons/all.js'
 
 const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
 	const windowSize = useWindowSize()
 	const pagination = []
 	
-	const nextBtn = <button disabled={lastPage} className={lastPage ? 'icon icon-disabled' : 'icon'} onClick={() => setNext(totalOfPages)}>
-		<img src={arrowRight} alt='next page'/>
+	const nextBtn = <button disabled={lastPage} onClick={() => setNext(totalOfPages)}>
+		<BiChevronRight className={lastPage ? 'icon icon-disabled' : 'icon font-color'}/>
 	</button>
 	const prevBtn =
-		<button disabled={firstPage} className={firstPage ? 'icon icon-disabled' : 'icon'} onClick={setPrev}>
-			<img src={arrowLeft} alt='previous page'/></button>
+		<button disabled={firstPage} onClick={setPrev}>
+			<BiChevronLeft className={firstPage ? 'icon icon-disabled' : 'icon font-color'}/>
+		</button>
 	
 	const createBtn = useCallback((i) => {
 		return <button key={i}

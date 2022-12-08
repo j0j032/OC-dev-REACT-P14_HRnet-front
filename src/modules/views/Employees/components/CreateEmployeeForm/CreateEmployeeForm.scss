@@ -1,26 +1,39 @@
+.form-heading {
+  @include flexRowInline;
+  position: relative;
+  width: 100%;
+  margin-bottom: 4.4rem;
+  padding: 2.4rem 2.4rem 0 2.4rem;
+  
+  > img {
+	position: absolute;
+	cursor: pointer;
+  }
+  
+  > h2 {
+	@include absoluteCentered;
+	align-self: center;
+	font-size: 2rem;
+	font-weight: 400;
+	color: var(--FONT-color);
+  }
+}
+
 .create-employee {
   &__container {
-	width: 100vw;
-	height: 95vh;
-	padding: 4% 8%;
-	border-radius: 36px 36px 0 0;
+	display: flex;
+	flex-direction: column;
+	width: 50vw;
+	padding: 2.4rem 0;
+	border-radius: 32px;
 	background-color: var(--BG-color);
 	
-	> h1 {
-	  font-size: 2.4rem;
-	  font-weight: 300;
-	  margin-bottom: 4rem;
-	  
-	  > span {
-		font-weight: bold;
-	  }
-	}
+	
   }
   
   &__form {
-	overflow: scroll;
-	height: 80vh;
-	padding: 1.6rem;
+	display: flex;
+	flex-direction: column;
 	
 	> h4 {
 	  font-size: 1.6rem;
@@ -144,7 +157,14 @@
   }
 }
 
+.form-section {
+  padding: 0 0 2.4rem 0;
+}
 
-.btn--disabled {
-  background-color: #FFAE33;
+.scrollable {
+  overflow: scroll;
+  height: 70vh;
+  padding: 1.6rem 2.4rem 0 2.4rem;
+  border-top: 2px solid var(--MENU-color);
+  border-bottom: 2px solid var(--MENU-color);
 }
