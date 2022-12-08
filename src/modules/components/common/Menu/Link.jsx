@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 export const Link = ({path, text, icon}) => {
 	return (
 		<NavLink className='navigation__link' activeclassname='navigation__link active' to={path}>
-			<img className='icon' src={icon} alt={text}/>
+			{icon}
 			<p>{text}</p>
 		</NavLink>
 	)

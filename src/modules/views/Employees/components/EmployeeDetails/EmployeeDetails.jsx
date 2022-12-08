@@ -56,12 +56,12 @@ export const EmployeeDetails = ({id, closeModal}) => {
 						</div>
 					}
 					<div className='employee-details__options'>
-						<TbSend className='icon-btn' alt={`Send message to ${data.firstname}`}/>
-						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn' alt={`Stop Editting ${data.firstname} profile`}/>
-							: <FiEdit onClick={openEdit} className='icon-btn' alt={`Edit ${data.firstname} profile`}/>}
-						<RiImageEditFill className='icon-btn' onClick={openChangePic}/>
+						<TbSend className='icon-btn icon-btn--invert' alt={`Send message to ${data.firstname}`}/>
+						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn icon-btn--invert' alt={`Stop Editting ${data.firstname} profile`}/>
+							: <FiEdit onClick={openEdit} className='icon-btn icon-btn--invert' alt={`Edit ${data.firstname} profile`}/>}
+						<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openChangePic}/>
 						{isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>}
-						<BsTrash2 onClick={openAlert} className='icon-btn' alt={`Delete ${data.firstname} profile`}/>
+						<BsTrash2 onClick={openAlert} className='icon-btn icon-btn--invert' alt={`Delete ${data.firstname} profile`}/>
 					</div>
 					<div className='employee-details__company'>
 						<img src={company.logo} alt='Company logo'/>

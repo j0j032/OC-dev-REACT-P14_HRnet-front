@@ -1,0 +1,22 @@
+.icon {
+  font-size: 2rem;
+  color: var(--FONT-color);
+  
+  &.icon-disabled {
+	cursor: initial;
+	color: $grey-1;
+  }
+  
+  &-btn {
+	font-size: 2rem;
+	cursor: pointer;
+	
+	&--invert {
+	  color: var(--SUB-CONTRAST-FONT-color);
+	}
+	
+	&--font {
+	  color: var(--FONT-color);
+	}
+  }
+}
