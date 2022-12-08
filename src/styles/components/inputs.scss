@@ -1,0 +1,32 @@
+.input-label {
+  color: var(--FONT-color);
+  
+  > span {
+	color: var(--COMPANY-theme-color);
+  }
+}
+
+input.input-error {
+  background: #F6E2E2;
+}
+
+.input.search {
+  width: 24rem;
+  height: 3.2rem;
+  padding: 0.8rem 0.8rem 0.8rem 1.6rem;
+  border: none;
+  border-radius: 20px;
+  outline: 1px solid var(--FONT-color);
+  
+  &:focus {
+	outline: 2px solid var(--COMPANY-theme-color);
+  }
+  
+  @include mobile {
+	width: 100%;
+  }
+}
+
+.display-none {
+  display: none;
+}

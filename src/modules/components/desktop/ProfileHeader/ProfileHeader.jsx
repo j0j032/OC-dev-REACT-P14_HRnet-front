@@ -1,7 +1,7 @@
 import {useQuery, useQueryClient} from 'react-query'
-import logoutIcon from '../../../../assets/icons/lateralNAv/Logout.svg'
 import {handleLogout} from '../../../../api/user/requests.js'
 import {useNavigate} from 'react-router-dom'
+import {BiLogOut} from 'react-icons/all.js'
 
 export const ProfileHeader = () => {
 	const queryClient = useQueryClient()
@@ -17,11 +17,11 @@ export const ProfileHeader = () => {
 	
 	return (
 		<div className='profile-header'>
-			<img src={userInfos.picture} alt={`Profile picture of ${userInfos.firstname}`}/>
+			<img className='profile-picture picture-s' src={userInfos.picture} alt={`Profile picture of ${userInfos.firstname}`}/>
 			<div>
 				<div>
 					<h1>{userInfos.firstname}</h1>
-					<img onClick={logout} className='icon' src={logoutIcon} alt='Log out'/>
+					<BiLogOut onClick={logout} className='icon-btn icon-btn--font'/>
 				</div>
 				<p>{userInfos.title}</p>
 			</div>

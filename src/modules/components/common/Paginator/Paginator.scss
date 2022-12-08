@@ -1,7 +1,7 @@
 .paginator {
   &__container {
 	@include flexRowInline;
-	gap: 1.2rem;
+	gap: 0.4rem;
 	
 	> button {
 	  cursor: pointer;

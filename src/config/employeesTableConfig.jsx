@@ -1,13 +1,15 @@
 import React from 'react'
 import {formatToLocale} from '../utils/formater.js'
+import imgPlaceholder from '../assets/imgPlaceholder.svg'
+import {parseImgUrl} from '../utils/parseImgUrl.js'
 
 export const employeesColumns =
 	[
 		{
 			Header: '',
-			accessor: 'picture',
+			accessor: 'imageUrl',
 			Cell: ({cell: {value}}) => (
-				<img className='employees-table__img' src={value} alt={value}/>
+				<img className='profile-picture picture-xs' src={parseImgUrl(value) !== 'none' ? value : imgPlaceholder} alt={value}/>
 			)
 		},
 		{

@@ -21,38 +21,7 @@
 	  @include mobile {
 		width: 100%;
 	  }
-	  
-	  > form {
-		> input {
-		  height: 3.2rem;
-		  padding: 0.8rem 0.8rem 0.8rem 1.6rem;
-		  border: 1px solid var(--INPUT-default-border-color);
-		  border-radius: 20px;
-		  
-		  &:focus {
-			outline-color: var(--COMPANY-theme-color);
-		  }
-		  
-		  @include mobile {
-			width: 100%;
-		  }
-		  
-		}
-	  }
 	}
   }
 }
 
-.btn-toggleView {
-  width: 4rem;
-  height: 4rem;
-  cursor: pointer;
-  transition: all 300ms ease-out;
-  border: 1px solid var(--MENU-color);
-  border-radius: 50%;
-  background: transparent;
-  
-  &:hover {
-	border: 1px solid var(--COMPANY-theme-color);
-  }
-}

@@ -4,7 +4,13 @@
 @import "./mixins";
 @import "./common";
 
-@import "src/modules/components/common/Button/Button";
+@import "./components/icons.scss";
+@import "./components/buttons.scss";
+@import "./components/inputs.scss";
+@import "./components/profilePictures.scss";
+
+@import "./generic/colors.scss";
+
 @import "src/modules/components/desktop/Header/Header";
 @import "src/modules/components/mobile/MobileHeader/MobileHeader.scss";
 @import "src/modules/components/common/MainContent/MainContent";

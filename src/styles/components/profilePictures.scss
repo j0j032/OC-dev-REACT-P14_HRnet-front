@@ -1,0 +1,32 @@
+.profile-picture {
+  
+  border: 2px solid var(--BG-color);
+  border-radius: 50%;
+  background-color: var(--COMPANY-theme-color);
+  object-fit: cover;
+  
+  &.picture-xs {
+	width: 4rem;
+	height: 4rem;
+  }
+  
+  &.picture-s {
+	width: 4.8rem;
+	height: 4.8rem;
+  }
+  
+  &.picture-m {
+	width: 5.6rem;
+	height: 5.6rem;
+	
+	&:hover {
+	  outline: 2px solid var(--COMPANY-theme-color);
+	}
+  }
+  
+  &.picture-l {
+	width: 8rem;
+	height: 8rem;
+  }
+  
+}

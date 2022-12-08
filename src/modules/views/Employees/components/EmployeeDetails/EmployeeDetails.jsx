@@ -1,7 +1,7 @@
 import {Loader} from '../../../../components/common/Loader/Loader.jsx'
 import {useQuery, useQueryClient} from 'react-query'
 import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requests.js'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatToLocale} from '../../../../../utils/formater.js'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
@@ -10,6 +10,7 @@ import useModal from '../../../../components/Modal/useModal.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
+
 
 export const EmployeeDetails = ({id, closeModal}) => {
 	const queryClient = useQueryClient()
@@ -21,7 +22,6 @@ export const EmployeeDetails = ({id, closeModal}) => {
 	})
 	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
 	
-	
 	const handleDelete = async () => {
 		await deleteEmployee(id)
 		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
@@ -32,7 +32,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 		<>
 			{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : (
 				<div className='employee-details__container'>
-					<img src={data.imageUrl ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>
+					{isLoading ? <Loader/> : <img src={data.picture !== 'none' ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>}
 					{isEditing ? <EditEmployee employee={data} editMode={toggleEditing}/> :
 						<div className='employee-details__infos'>
 							<div className='employee-details__heading'>
@@ -56,12 +56,12 @@ export const EmployeeDetails = ({id, closeModal}) => {
 						</div>
 					}
 					<div className='employee-details__options'>
-						<TbSend className='icon-btn' alt={`Send message to ${data.firstname}`}/>
-						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn' alt={`Stop Editting ${data.firstname} profile`}/>
-							: <FiEdit onClick={openEdit} className='icon-btn' alt={`Edit ${data.firstname} profile`}/>}
-						<RiImageEditFill className='icon-btn' onClick={openChangePic}/>
+						<TbSend className='icon-btn icon-btn--invert' alt={`Send message to ${data.firstname}`}/>
+						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn icon-btn--invert' alt={`Stop Editting ${data.firstname} profile`}/>
+							: <FiEdit onClick={openEdit} className='icon-btn icon-btn--invert' alt={`Edit ${data.firstname} profile`}/>}
+						<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openChangePic}/>
 						{isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>}
-						<BsTrash2 onClick={openAlert} className='icon-btn' alt={`Delete ${data.firstname} profile`}/>
+						<BsTrash2 onClick={openAlert} className='icon-btn icon-btn--invert' alt={`Delete ${data.firstname} profile`}/>
 					</div>
 					<div className='employee-details__company'>
 						<img src={company.logo} alt='Company logo'/>

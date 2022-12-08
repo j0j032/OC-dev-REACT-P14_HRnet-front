@@ -18,18 +18,19 @@
 .modal__closeBtn {
     position: absolute;
     z-index: 1000;
-    top: 2.4rem;
-    right: 2.4rem;
-    padding: 0.4rem 0.6rem;
+    top: 24px;
+    right: 24px;
+    font-size: 24px;
+    padding: 4px 6px;
     cursor: pointer;
     transition: scale 200ms ease-in-out;
     color: black;
-    border: 1px solid black;
+    border: none;
     border-radius: 50px;
     background: transparent;
 }
 
 .modal__closeBtn:hover {
-    transform: scale(0.95);
+    font-size: 23px;
 }
 

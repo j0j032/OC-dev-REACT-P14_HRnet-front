@@ -1,5 +1,7 @@
 import imgPlaceholder from '../../../../assets/imgPlaceholder.svg'
 import Modal from '../../Modal/Modal.jsx'
+import {BsCloudUpload} from 'react-icons/all.js'
+import React from 'react'
 
 export const UploadPicture = ({setFile, file, isOpen, close}) => {
 	
@@ -15,12 +17,21 @@ export const UploadPicture = ({setFile, file, isOpen, close}) => {
 	return (
 		<Modal modalId='handleUpload'
 		       handleClose={closeAndCancel}
+		       customBtn={{'color': 'var(--FONT-color)', 'top': '1rem', 'right': '1rem', 'fontSize': '1.4rem'}}
 		       isOpen={isOpen}>
 			<div className='upload-pic__container'>
-				<img className='upload-pic__pic-review' src={file.preview ? file.preview : imgPlaceholder} alt='Profile picture'/>
-				<input type='file' accept='.jpeg, .jpg, .png' onChange={pictureSelected}/>
-				<button onClick={close}>Confirm</button>
-				<button onClick={cancel}>Cancel</button>
+				<img className='profile-picture picture-l' src={file.preview ? file.preview : imgPlaceholder} alt='Profile picture'/>
+				<input className='display-none' id='input-file-upload' multiple={false} type='file' accept='.jpeg, .jpg, .png' onChange={pictureSelected}/>
+				<label className='drag-and-drop-files' htmlFor='input-file-upload'>
+					<div>
+						<p>Drop your file or <span>browse</span></p>
+						<BsCloudUpload className='icon icon-bigger'/>
+					</div>
+				</label>
+				<div className='upload-pic__btns-container'>
+					<button className='form-btn' onClick={close}>Confirm</button>
+					<button className='form-btn' onClick={cancel}>Cancel</button>
+				</div>
 			</div>
 		</Modal>
 	)
