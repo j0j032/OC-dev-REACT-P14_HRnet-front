@@ -1,0 +1,33 @@
+.btn {
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  
+  &.btn-transparent {
+	color: var(--FONT-color);
+	border: none;
+	background: transparent;
+	
+	&:hover {
+	  color: var(--COMPANY-theme-color);
+	}
+  }
+  
+  &.btn-round {
+	width: 4rem;
+	height: 4rem;
+	transition: all 200ms ease-out;
+	@include flexCentered;
+	border: none;
+	border-radius: 50%;
+	outline: 3px solid $black-1;
+	
+	&:hover {
+	  outline: 1px solid $black-1;
+	}
+  }
+  
+  &.btn-black {
+	color: $white-1;
+	background-color: $black-1;
+  }
+}

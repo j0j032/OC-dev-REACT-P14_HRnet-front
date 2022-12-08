@@ -1,6 +1,5 @@
 .icon {
   font-size: 2rem;
-  color: var(--FONT-color);
   
   &.icon-disabled {
 	cursor: initial;
@@ -10,13 +9,26 @@
   &-btn {
 	font-size: 2rem;
 	cursor: pointer;
+	transition: all 300ms ease-in-out;
+	
+	&:hover {
+	  color: var(--COMPANY-theme-color);
+	}
 	
 	&--invert {
 	  color: var(--SUB-CONTRAST-FONT-color);
+	  
+	  &.icon-bigger {
+		font-size: 3rem;
+	  }
 	}
 	
 	&--font {
 	  color: var(--FONT-color);
+	  
+	  &.icon-bigger {
+		font-size: 2.8rem;
+	  }
 	}
   }
 }
