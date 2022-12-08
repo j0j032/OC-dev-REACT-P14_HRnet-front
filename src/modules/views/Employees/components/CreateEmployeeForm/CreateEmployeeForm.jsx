@@ -16,7 +16,7 @@ import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker
 export const CreateEmployeeForm = () => {
 	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
-	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber} = formValidation
+	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
@@ -54,7 +54,7 @@ export const CreateEmployeeForm = () => {
 	return (
 		<aside className='create-employee__container'>
 			<div className='form-heading'>
-				<img onClick={openModal} className='circle-picture' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
+				<img onClick={openModal} className='profile-picture picture-m' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
 				<h2>Create new employee</h2>
 			</div>
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
@@ -87,7 +87,7 @@ export const CreateEmployeeForm = () => {
 					</div>
 					
 					<div className='form-section'>
-						<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street')}/>
+						<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street', RQ_only)}/>
 						<TextInput inputName='city' errors={errors} errorDisplay={errors.city} {...register('city', RQ_ExcludeNumbers)}/>
 						<SelectInput inputName={'state'} {...register('state')}
 						             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
@@ -95,7 +95,7 @@ export const CreateEmployeeForm = () => {
 					</div>
 				</div>
 				
-				<button className='submit-form-btn' disabled={isSubmitting | errors} type='submit'>Create</button>
+				<button className='form-btn align-right' disabled={isSubmitting | errors} type='submit'>Create</button>
 			</form>
 		</aside>
 	)

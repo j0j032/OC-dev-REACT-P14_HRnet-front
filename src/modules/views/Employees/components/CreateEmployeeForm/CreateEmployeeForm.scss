@@ -15,6 +15,7 @@
 	align-self: center;
 	font-size: 2rem;
 	font-weight: 400;
+	color: var(--FONT-color);
   }
 }
 
@@ -153,28 +154,6 @@
 	&.street {
 	  margin-bottom: 2.4rem;
 	}
-  }
-}
-
-.submit-form-btn {
-  align-self: flex-end;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-weight: 600;
-  height: 3.2rem;
-  margin-top: 1.6rem;
-  margin-right: 2.4rem;
-  padding: 0.6rem 1.6rem;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
-  color: $white-1;
-  border: none;
-  border-radius: 16px;
-  background-color: var(--COMPANY-theme-color);
-  
-  &:hover {
-	color: var(--FONT-color);
-	outline: 1px solid var(--FONT-color);
-	background-color: var(--BG-color);
   }
 }
 

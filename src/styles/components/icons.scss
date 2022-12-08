@@ -1,9 +1,10 @@
 .icon {
   font-size: 2rem;
+  padding-bottom: -2px;
   
   &.icon-disabled {
 	cursor: initial;
-	color: $grey-1;
+	color: var(--ICONS-disabled);
   }
   
   &-btn {

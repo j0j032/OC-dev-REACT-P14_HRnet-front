@@ -1,16 +1,13 @@
-/* @import "src/styles/mixins.scss";
-@import "src/styles/variables.scss";
-@import "src/styles/reset.scss";
-@import "src/styles/common.scss";
-@import "src/styles/breakpoints.scss"; */
-
 .upload-pic {
   &__container {
 	@include flexColumn;
 	align-items: center;
 	width: 30rem;
-	border-radius: 16px;
+	padding: 2.4rem 3.2rem;
+	color: var(--FONT-color);
+	border-radius: 8px;
 	background-color: var(--MENU-color);
+	box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.32);
 	gap: 1.6rem;
 	
 	> form {
@@ -35,5 +32,36 @@
 	height: 8rem;
 	border-radius: 50%;
 	object-fit: cover;
+  }
+  
+  &__btns-container {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	padding: 0 3.2rem 0 3.2rem;
+  }
+}
+
+.drag-and-drop-files {
+  padding: 2.4rem;
+  color: var(--FONT-color);
+  border: 3px dashed var(--ICONS-disabled);
+  border-radius: 8px;
+  background-color: var(--BG-color);
+  
+  > div {
+	@include flexColumn;
+	align-items: center;
+	gap: 0.8rem;
+	
+	> p > span {
+	  cursor: pointer;
+	  text-decoration: underline var(--COMPANY-theme-color);
+	  color: var(--COMPANY-theme-color);
+	  
+	  &:hover {
+		filter: blur(0.5px);
+	  }
+	}
   }
 }

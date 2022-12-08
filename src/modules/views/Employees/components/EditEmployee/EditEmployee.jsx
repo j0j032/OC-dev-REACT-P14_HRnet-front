@@ -66,7 +66,7 @@ export const EditEmployee = ({employee, editMode}) => {
 				<SelectInput inputName={'state'} defaultValue={employee.address.state} label={false}  {...register('state')}
 				             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
 				<TextInput inputName='zip' defaultValue={employee.address.zip} errors={errors} label={false} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
-				<button className='submit-form-btn abso' disabled={isSubmitting | errors} type='submit'>Update</button>
+				<button className='form-btn abso' disabled={isSubmitting | errors} type='submit'>Update</button>
 			</form>
 		</>
 	)

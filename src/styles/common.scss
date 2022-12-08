@@ -50,16 +50,5 @@ a {
 }
 
 
-.circle-picture {
-  width: 5.6rem;
-  height: 5.6rem;
-  border: 2px solid var(--BG-color);
-  border-radius: 32px;
-  object-fit: cover;
-  
-  &:hover {
-	outline: 2px solid var(--COMPANY-theme-color);
-  }
-}
 
 

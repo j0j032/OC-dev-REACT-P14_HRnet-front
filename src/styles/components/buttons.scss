@@ -31,3 +31,29 @@
 	background-color: $black-1;
   }
 }
+
+.align-right {
+  align-self: flex-end;
+  margin-right: 2.4rem;
+}
+
+.form-btn {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  height: 3.2rem;
+  margin-top: 1.6rem;
+  padding: 0.6rem 1.6rem;
+  
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  color: $white-1;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--COMPANY-theme-color);
+  
+  &:hover {
+	color: var(--FONT-color);
+	outline: 1px solid var(--FONT-color);
+	background-color: var(--BG-color);
+  }
+}

@@ -17,7 +17,7 @@ export const ProfileHeader = () => {
 	
 	return (
 		<div className='profile-header'>
-			<img src={userInfos.picture} alt={`Profile picture of ${userInfos.firstname}`}/>
+			<img className='profile-picture picture-s' src={userInfos.picture} alt={`Profile picture of ${userInfos.firstname}`}/>
 			<div>
 				<div>
 					<h1>{userInfos.firstname}</h1>

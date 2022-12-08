@@ -1,6 +1,8 @@
 .input-label {
+  color: var(--FONT-color);
+  
   > span {
-	color: lightgray;
+	color: var(--COMPANY-theme-color);
   }
 }
 
@@ -23,4 +25,8 @@ input.input-error {
   @include mobile {
 	width: 100%;
   }
+}
+
+.display-none {
+  display: none;
 }

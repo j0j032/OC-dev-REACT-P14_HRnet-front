@@ -64,10 +64,15 @@ const RQ_validUsNumber = {
 	}
 }
 
+const RQ_only = {
+	required
+}
+
 export const formValidation = {
 	RQ_ExcludeNumbers,
 	RQ_UsDate,
 	RQ_validEmail,
 	RQ_validUsZip,
-	RQ_validUsNumber
+	RQ_validUsNumber,
+	RQ_only
 }
