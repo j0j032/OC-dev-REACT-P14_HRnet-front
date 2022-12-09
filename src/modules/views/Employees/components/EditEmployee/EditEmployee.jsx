@@ -9,7 +9,6 @@ import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {updateEmployee} from '../../../../../api/employees/requests.js'
-import button from '../../../../components/common/Button/Button.jsx'
 
 export const EditEmployee = ({employee, editMode}) => {
 	const queryClient = useQueryClient()

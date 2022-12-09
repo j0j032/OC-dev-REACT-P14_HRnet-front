@@ -1,21 +1,24 @@
-import {LoginForm} from './LoginForm'
-import logo from '../../../assets/logos/Hrnet.so-Circle-white.png'
+import {TextInput} from '../../components/common/Inputs/TextInput.jsx'
+import React from 'react'
+import {useForm} from 'react-hook-form'
+import {useLogin} from '../../../api/user/useLogin.js'
+import {formValidation} from '../../../utils/formValidation.js'
 
 export const Login = () => {
+	
+	const {register, handleSubmit, getValues, formState: {errors, isSubmitting}} = useForm()
+	const {refetch} = useLogin({user: getValues('username'), pwd: getValues('password')}, {enabled: false})
+	const {RQ_only} = formValidation
 	
 	return (
 		<main className='login__background'>
 			<section className='login__container'>
-				<div className='login__heading'>
-					<img src={logo} alt='logo Hr net'/>
-					<h1>Hello again !</h1>
-					<p>Login and get your amazing tools for you and your team !</p>
-				</div>
-				<LoginForm/>
-				<div className='login__links'>
-					<a href=''>First time login ?</a>
-					<a href=''>Help ?</a>
-				</div>
+				<h1>Hello again !</h1>
+				<form className='login-form' onSubmit={handleSubmit(refetch)}>
+					<TextInput inputName='username' errors={errors} errorDisplay={errors.username} {...register('username', RQ_only)}/>
+					<TextInput inputName='password' type='password' errors={errors} errorDisplay={errors.password} {...register('password', RQ_only)}/>
+					<button disabled={isSubmitting} className='form-btn align-right'>Login</button>
+				</form>
 			</section>
 		</main>
 	)
