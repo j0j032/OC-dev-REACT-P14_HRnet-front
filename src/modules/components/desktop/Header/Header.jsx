@@ -20,4 +20,4 @@ const Header = ({company}) => {
 	)
 }
 
-export default React.memo(Header)
+export default Header

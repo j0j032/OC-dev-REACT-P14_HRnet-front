@@ -44,7 +44,7 @@ export const employeesColumns =
 		},
 		{
 			Header: 'State',
-			accessor: 'address.state'
+			accessor: 'address.stateAbb'
 		},
 		{
 			Header: 'Zip',

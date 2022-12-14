@@ -54,7 +54,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 								<p>✉️ {data.contact.mail}</p>
 								<p>📫 Address:</p>
 								<p>{data.address.street}</p>
-								<p>{`${data.address.city} ${data.address.state} ${data.address.zip}`}</p>
+								<p>{`${data.address.city} ${data.address.stateAbb} ${data.address.zip}`}</p>
 							</div>
 						</div>
 						//</editor-fold>
