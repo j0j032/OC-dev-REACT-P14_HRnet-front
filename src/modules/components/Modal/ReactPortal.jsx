@@ -11,7 +11,9 @@ const ReactPortal = ({children, wrapperId = 'react-portal-wrapper'}) => {
 		if (!element) {
 			systemCreated = true
 			element = createWrapper(wrapperId)
-			
+			requestAnimationFrame(() => {
+				element.classList.remove('animation')
+			})
 		}
 		setWrapperElement(element)
 		

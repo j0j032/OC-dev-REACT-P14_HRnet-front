@@ -34,3 +34,12 @@
     font-size: 23px;
 }
 
+.modal-wrapper {
+    transition: opacity 300ms;
+    will-change: opacity;
+}
+
+.modal-wrapper.animation {
+    opacity: 0;
+}
+
