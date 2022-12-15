@@ -65,39 +65,97 @@ export const CreateEmployeeForm = () => {
 				<div className='scrollable'>
 					<editor-fold desc='IDENTITY'>
 						<div className='form-section'>
-							<TextInput inputName='firstname' errors={errors} errorDisplay={errors.firstname} {...register('firstname', RQ_ExcludeNumbers)}/>
-							<TextInput inputName='lastname' errors={errors} errorDisplay={errors.lastname} {...register('lastname', RQ_ExcludeNumbers)}/>
-							<TextInput inputName='birthdate' errors={errors} errorDisplay={errors.birthdate} {...register('birthdate', RQ_UsDate)} onClick={showBirthDP}
+							<TextInput inputName='firstname'
+							           errors={errors}
+							           errorDisplay={errors.firstname}
+							           {...register('firstname', RQ_ExcludeNumbers)}
+							/>
+							<TextInput inputName='lastname'
+							           errors={errors}
+							           errorDisplay={errors.lastname}
+							           {...register('lastname', RQ_ExcludeNumbers)}
+							/>
+							<TextInput inputName='birthdate'
+							           errors={errors}
+							           errorDisplay={errors.birthdate}
+							           {...register('birthdate', RQ_UsDate)}
+							           onClick={showBirthDP}
 							           onFocus={showBirthDP}/>
 							{isDPBirhtdayShown &&
-								<Datepicker currentSelectedValue={getValues('birthdate')} RHFinputName={'birthdate'} locale='en' setInputValue={getInputValue} disableFuture={true}
-								            hide={hideBirthDP}/>}
+								<Datepicker currentSelectedValue={getValues('birthdate')}
+								            RHFinputName='birthdate'
+								            locale='en'
+								            setInputValue={getInputValue}
+								            disableFuture={true}
+								            hide={hideBirthDP}
+								/>
+							}
 						</div>
 					</editor-fold>
 					<editor-fold desc='JOB'>
 						<div className='form-section'>
-							<TextInput inputName='title' errors={errors} errorDisplay={errors.title}{...register('title', RQ_ExcludeNumbers)}/>
-							<SelectInput inputName={'department'} {...register('department')}
-							             map={teams.map((item) => (<option key={item} value={item}>{capitalize(item)}</option>))}/>
-							<TextInput inputName='startDate' errors={errors} errorDisplay={errors.startDate} onClick={showHiredDP}
-							           onFocus={showHiredDP} {...register('startDate', RQ_UsDate)}/>
+							<TextInput inputName='title'
+							           errors={errors}
+							           errorDisplay={errors.title}
+							           {...register('title', RQ_ExcludeNumbers)}
+							/>
+							<SelectInput inputName={'department'}
+							             {...register('department')}
+							             map={teams.map(item => <option key={item} value={item}>{capitalize(item)}</option>)}
+							/>
+							<TextInput inputName='startDate'
+							           specifyLabel='Hired'
+							           errors={errors}
+							           errorDisplay={errors.startDate}
+							           onClick={showHiredDP}
+							           onFocus={showHiredDP}
+							           {...register('startDate', RQ_UsDate)}/>
 							{isDPHiredShown &&
-								<Datepicker currentSelectedValue={getValues('startDate')} RHFinputName={'startDate'} locale='en' setInputValue={getInputValue} hide={hideHiredDP}/>}
+								<Datepicker currentSelectedValue={getValues('startDate')}
+								            RHFinputName='startDate'
+								            locale='en'
+								            setInputValue={getInputValue}
+								            hide={hideHiredDP}
+								/>
+							}
 						</div>
 					</editor-fold>
 					<editor-fold desc='CONTACT'>
 						<div className='form-section'>
-							<TextInput type='email' inputName='mail' errors={errors} errorDisplay={errors.mail} {...register('mail', RQ_validEmail)}/>
-							<TextInput inputName='phone' errors={errors} errorDisplay={errors.phone} {...register('phone', RQ_validUsNumber)}/>
+							<TextInput type='email'
+							           inputName='mail'
+							           errors={errors}
+							           errorDisplay={errors.mail}
+							           {...register('mail', RQ_validEmail)}
+							/>
+							<TextInput inputName='phone'
+							           errors={errors}
+							           errorDisplay={errors.phone}
+							           {...register('phone', RQ_validUsNumber)}
+							/>
 						</div>
 					</editor-fold>
 					<editor-fold desc='ADDRESS'>
 						<div className='form-section'>
-							<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street', RQ_only)}/>
-							<TextInput inputName='city' errors={errors} errorDisplay={errors.city} {...register('city', RQ_ExcludeNumbers)}/>
-							<SelectInput inputName={'state'} {...register('state')}
-							             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
-							<TextInput inputName='zip' errors={errors} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
+							<TextInput inputName='street'
+							           errors={errors}
+							           errorDisplay={errors.street}
+							           {...register('street', RQ_only)}
+							/>
+							<TextInput inputName='city'
+							           errors={errors}
+							           errorDisplay={errors.city}
+							           {...register('city', RQ_ExcludeNumbers)}
+							/>
+							<SelectInput inputName={'state'}
+							             {...register('state')}
+							             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}
+							/>
+							<TextInput inputName='zip'
+							           errors={errors}
+							           errorDisplay={errors.zip}
+							           {...register('zip', RQ_validUsZip)}
+							/>
 						</div>
 					</editor-fold>
 				</div>
