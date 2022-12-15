@@ -1,16 +1,14 @@
 import React, {useContext} from 'react'
 import {ViewContext} from '../../../../../context/EmpoyeesViewContext.jsx'
-import {SearchContext} from '../../../../../context/SearchContext.jsx'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {CreateEmployeeForm} from '../CreateEmployeeForm/CreateEmployeeForm'
 import {BsGrid3X3Gap, BsPlusLg, HiOutlineQueueList} from 'react-icons/all.js'
 
-const EmployeesToolbar = () => {
+const EmployeesToolbar = ({setSearch}) => {
 	const windowSize = useWindowSize()
 	const {toggleTableView, tableView} = useContext(ViewContext)
-	const {setSearch} = useContext(SearchContext)
 	const [isOpenModal, {openModal, closeModal}] = useModal(false)
 	const handleChange = e => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')
 	const viewIcon = tableView
@@ -23,7 +21,7 @@ const EmployeesToolbar = () => {
 				<div className='toolbar-emp__container--left'>
 					<button className='btn btn-transparent' onClick={toggleTableView}>{viewIcon}</button>
 					<form onSubmit={(e) => e.preventDefault()}>
-						<input className='input search' type='text' placeholder='🔎  Employee' onChange={handleChange}/>
+						<input className='input search' type='text' placeholder='🔎  Search' onChange={handleChange}/>
 					</form>
 				</div>
 				<button className='btn btn-round btn-black' onClick={openModal}>

@@ -3,7 +3,7 @@ import Header from '../../components/desktop/Header/Header'
 import {MainContent} from '../../components/common/MainContent/MainContent'
 import LateralNav from '../../components/common/LateralNav/LateralNav'
 import EmployeesToolbar from './components/EmployeesToolBar/EmployeesToolbar.jsx'
-import {useContext, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {EmployeesGallery} from './components/EmployeesGallery/EmployeesGallery'
 import {ViewContext} from '../../../context/EmpoyeesViewContext.jsx'
 import useBoolean from '../../../hooks/useBoolean.jsx'
@@ -13,7 +13,6 @@ import Paginator from '../../components/common/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
 import {useGetEmployees} from '../../../api/employees/useGetEmployees.js'
 import {Loader} from '../../components/common/Loader/Loader'
-import {SearchContext} from '../../../context/SearchContext.jsx'
 import {EmployeesCount} from './components/EmployeesCount/EmployeesCount'
 import {NoResult} from '../../components/common/NoResult/NoResult'
 import useDebounce from '../../../hooks/useDebounce.jsx'
@@ -24,12 +23,11 @@ import {MobileNav} from '../../components/mobile/MobileNav/MobileNav'
 
 export const Employees = () => {
 	const windowSize = useWindowSize()
-	const {search} = useContext(SearchContext)
+	const [search, setSearch] = useState('')
 	const debouncedSearch = useDebounce(search, 500)
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
-	
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, {enabled: true})
 	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, {enabled: true})
@@ -54,7 +52,7 @@ export const Employees = () => {
 				{windowSize.width > 600 ? <LateralNav/> : <MobileNav user={userInfos}/>}
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
-						<EmployeesToolbar/>
+						<EmployeesToolbar setSearch={setSearch}/>
 						{isLoading || loadingLength ? <Loader/> : isError ? <Error message={error.message}/> : data.employees.length !== 0 ? (
 							<>
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
