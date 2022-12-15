@@ -22,12 +22,14 @@
   --INFOS-card-container: #F5F6F7;
   --CARD-shadow: rgba(51, 50, 50, 0.18);
   --CARD-BG: #F5F6F7;
+  --BTN-BG-Gradient: linear-gradient(180deg, #FFFEFC, #EEEEEF);
   --404-BG: url("/src/assets/sun-1.jpg") no-repeat center center fixed;
   --404-Font-color: #FFFEFC;
   --404-Logo: url('/src/assets/logoHrnetW.svg');
 }
 
 [data-theme='dark'] {
+  --BTN-BG-Gradient: linear-gradient(180deg, #3E3D3D, #262627);
   --BG-color: #262627;
   --BG-invert-color: #FFFEFC;
   --FONT-color: #FFEEFC;
