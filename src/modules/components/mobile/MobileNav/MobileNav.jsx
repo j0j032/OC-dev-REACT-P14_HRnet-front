@@ -1,7 +1,6 @@
 import {BurgerMenu} from '../../common/BurgerMenu/BurgerMenu'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
 import LateralNav from '../../common/LateralNav/LateralNav'
-import logoutIcon from '../../../../assets/icons/lateralNAv/Logout.svg'
 import {handleLogout} from '../../../../api/user/requests.js'
 import {useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
@@ -28,7 +27,6 @@ export const MobileNav = ({user}) => {
 			{isProfileOpen ?
 				<>
 					<div className='mobile-nav__profile-menu'>
-						<img onClick={logout} className='icon' src={logoutIcon} alt='Log out'/>
 						<DarkMode/>
 					</div>
 				</>

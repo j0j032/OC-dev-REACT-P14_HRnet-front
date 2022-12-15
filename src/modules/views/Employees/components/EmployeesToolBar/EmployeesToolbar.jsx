@@ -1,5 +1,4 @@
 import React, {useContext} from 'react'
-import Button from '../../../../components/common/Button/Button.jsx'
 import {ViewContext} from '../../../../../context/EmpoyeesViewContext.jsx'
 import {SearchContext} from '../../../../../context/SearchContext.jsx'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'

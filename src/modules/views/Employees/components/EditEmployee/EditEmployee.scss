@@ -1,5 +1,19 @@
-.abso {
-  position: absolute;
-  right: 0;
-  bottom: 2.4rem;
+.edit-employee {
+  &__form {
+	overflow: scroll;
+	height: 80%;
+	margin-top: 2.4rem;
+	padding-right: 1.4rem;
+	
+	> p {
+	  font-weight: bold;
+	  margin-bottom: 1.2rem;
+	}
+  }
+  
+  &__btn {
+	position: absolute;
+	bottom: 2.4rem;
+	left: 45%;
+  }
 }
