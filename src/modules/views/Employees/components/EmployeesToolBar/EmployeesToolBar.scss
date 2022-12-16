@@ -25,13 +25,10 @@
   }
   
   &__sortBtns-container {
-	@include flexRowInline();
-	flex-grow: 1;
-	overflow-x: hidden;
-	width: 100%;
-	height: 100%;
-	padding: 0 2.4rem;
-	gap: 0.8rem;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 0 2.4rem 0 2.4rem;
   }
 }
 
