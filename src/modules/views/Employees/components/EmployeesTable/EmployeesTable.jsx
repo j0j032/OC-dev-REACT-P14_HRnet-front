@@ -14,24 +14,8 @@ export const EmployeesTable = ({employees}) => {
 	const data = React.useMemo(() => [...employees], [employees])
 	const columns = React.useMemo(() => windowSize.width > 600 ? employeesColumns : employeesColumnsMobile, [windowSize.width])
 	const tableInstance = useTable({columns, data}, useSortBy)
-	const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance
+	const {getTableProps, getTableBodyProps, rows, prepareRow} = tableInstance
 	const queryClient = useQueryClient()
-	
-	const displayActiveSortCaret = (condition) => condition
-		? <div className='sort-caret__container'>
-			<span className='sort-caret sort-caret--inactive'>▲</span>
-			<span className='sort-caret'>▼</span>
-		</div>
-		: <div className='sort-caret__container'>
-			<span className='sort-caret'>▲</span>
-			<span className='sort-caret sort-caret--inactive'>▼</span>
-		</div>
-	
-	const inactiveSortCaret = <div className='sort-caret__container'>
-		<span className='sort-caret sort-caret--inactive'>▲</span>
-		<span className='sort-caret sort-caret--inactive'>▼</span>
-	</div>
-	
 	
 	const handleOpenModal = (row) => {
 		setEmployeeId(row)
@@ -47,19 +31,6 @@ export const EmployeesTable = ({employees}) => {
 		<>
 			<div className='employees-table__container'>
 				<table className='employees-table__wrapper' cellSpacing='0' cellPadding='0' {...getTableProps()}>
-					<thead>
-					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.filter((header) => header.Header !== '').map((column) => (
-								<th {...column.getHeaderProps(column.getSortByToggleProps())}>
-									{column.render('Header')}
-									{column.isSorted ? displayActiveSortCaret(column.isSortedDesc) : inactiveSortCaret}
-								</th>
-							))}
-						</tr>
-					))}
-					</thead>
-					
 					<tbody {...getTableBodyProps()}>
 					{rows.map((row) => {
 						prepareRow(row)

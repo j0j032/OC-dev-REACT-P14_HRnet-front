@@ -6,8 +6,8 @@ const employeesURL = 'http://localhost:3500/employees'
 
 export const getEmployeeById = (id) => axios.get(`${employeesURL}/${id}`).then(r => r.data)
 
-export const getAllEmployees = (page = 1, limit = 12, text = '') => axios
-	.get(employeesURL, {params: {text, page, limit}})
+export const getAllEmployees = (page = 1, limit = 12, text = '', sortMethod = {'lastname': 1}) => axios
+	.get(employeesURL, {params: {text, page, limit, sortMethod}})
 	.then(r => {
 		const employees = text.length >= 2 ? filterMainSearch(r.data.employees, text) : r.data.employees
 		const totalEmployees = r.data.employeesLength
