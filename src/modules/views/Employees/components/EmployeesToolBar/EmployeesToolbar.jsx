@@ -1,17 +1,15 @@
 import React, {useContext} from 'react'
-import Button from '../../../../components/common/Button/Button.jsx'
 import {ViewContext} from '../../../../../context/EmpoyeesViewContext.jsx'
-import {SearchContext} from '../../../../../context/SearchContext.jsx'
-import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {CreateEmployeeForm} from '../CreateEmployeeForm/CreateEmployeeForm'
 import {BsGrid3X3Gap, BsPlusLg, HiOutlineQueueList} from 'react-icons/all.js'
+import {SortButton} from '../../../../components/common/SortButton.jsx'
+import {sortItems} from '../../../../../config/sortBtns.js'
 
-const EmployeesToolbar = () => {
-	const windowSize = useWindowSize()
+
+const EmployeesToolbar = ({setSearch, setSort}) => {
 	const {toggleTableView, tableView} = useContext(ViewContext)
-	const {setSearch} = useContext(SearchContext)
 	const [isOpenModal, {openModal, closeModal}] = useModal(false)
 	const handleChange = e => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')
 	const viewIcon = tableView
@@ -24,8 +22,11 @@ const EmployeesToolbar = () => {
 				<div className='toolbar-emp__container--left'>
 					<button className='btn btn-transparent' onClick={toggleTableView}>{viewIcon}</button>
 					<form onSubmit={(e) => e.preventDefault()}>
-						<input className='input search' type='text' placeholder='🔎  Employee' onChange={handleChange}/>
+						<input className='input search' type='text' placeholder='🔎  Search' onChange={handleChange}/>
 					</form>
+				</div>
+				<div className='toolbar-emp__sortBtns-container'>
+					{sortItems.map(item => <SortButton inputName={item.value} key={item.sort} sortName={item.sort} setSort={setSort}/>)}
 				</div>
 				<button className='btn btn-round btn-black' onClick={openModal}>
 					<BsPlusLg className='icon-btn icon-btn--font white'/>
@@ -42,4 +43,4 @@ const EmployeesToolbar = () => {
 	)
 }
 
-export default React.memo(EmployeesToolbar)
+export default EmployeesToolbar

@@ -12,9 +12,7 @@
 	
 	> form {
 	  @include flexRowInline;
-	  
-	  > input {
-	  }
+	  position: relative;
 	  
 	  > button {
 		width: 8rem;
@@ -64,4 +62,15 @@
 	  }
 	}
   }
+}
+
+#drag-file-element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 2.4rem;
+  color: var(--FONT-color);
+  border: 3px dashed var(--COMPANY-theme-color);
+  border-radius: 8px;
+  
 }

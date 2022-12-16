@@ -1,11 +1,14 @@
 import {DarkMode} from '../../common/DarkMode/DarkMode.jsx'
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 
 const Header = ({company}) => {
 	
 	return (
 		<header className='header__container'>
-			<div className='header__logo'></div>
+			<NavLink to={'/employees'}>
+				<div className='header__logo'></div>
+			</NavLink>
 			<div className='header__R-container'>
 				<DarkMode/>
 				<div className='header__company'>
@@ -17,4 +20,4 @@ const Header = ({company}) => {
 	)
 }
 
-export default React.memo(Header)
+export default Header

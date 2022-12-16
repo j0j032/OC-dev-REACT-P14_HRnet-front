@@ -23,5 +23,12 @@
 	  }
 	}
   }
+  
+  &__sortBtns-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 0 2.4rem 0 2.4rem;
+  }
 }
 

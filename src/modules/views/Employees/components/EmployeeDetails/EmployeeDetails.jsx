@@ -11,8 +11,9 @@ import {EditEmployee} from '../EditEmployee/EditEmployee'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
 
-
 export const EmployeeDetails = ({id, closeModal}) => {
+	
+	//<editor-fold desc="STARTERS">
 	const queryClient = useQueryClient()
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
 	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
@@ -21,6 +22,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 		refetchOnWindowFocus: false
 	})
 	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
+	//</editor-fold>
 	
 	const handleDelete = async () => {
 		await deleteEmployee(id)
@@ -34,6 +36,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 				<div className='employee-details__container'>
 					{isLoading ? <Loader/> : <img src={data.picture !== 'none' ? data.imageUrl : imgPlaceholder} alt={`Profile picture of ${data.firstname}`}/>}
 					{isEditing ? <EditEmployee employee={data} editMode={toggleEditing}/> :
+						//<editor-fold desc="EMPLOYEE DETAILS">
 						<div className='employee-details__infos'>
 							<div className='employee-details__heading'>
 								<div className='employee-details__names'>
@@ -51,30 +54,44 @@ export const EmployeeDetails = ({id, closeModal}) => {
 								<p>✉️ {data.contact.mail}</p>
 								<p>📫 Address:</p>
 								<p>{data.address.street}</p>
-								<p>{`${data.address.city} ${data.address.state} ${data.address.zip}`}</p>
+								<p>{`${data.address.city} ${data.address.stateAbb} ${data.address.zip}`}</p>
 							</div>
 						</div>
+						//</editor-fold>
 					}
 					<div className='employee-details__options'>
 						<TbSend className='icon-btn icon-btn--invert' alt={`Send message to ${data.firstname}`}/>
-						{isEditing ? <RiCloseFill onClick={closeEdit} className='icon-btn icon-btn--invert' alt={`Stop Editting ${data.firstname} profile`}/>
-							: <FiEdit onClick={openEdit} className='icon-btn icon-btn--invert' alt={`Edit ${data.firstname} profile`}/>}
-						<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openChangePic}/>
-						{isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>}
+						<editor-fold desc='_TOGGLE EDIT BTN_'>
+							{isEditing
+								? <RiCloseFill onClick={closeEdit}
+								               className='icon-btn icon-btn--invert'
+								               alt={`Stop Editting ${data.firstname} profile`}/>
+								: <FiEdit onClick={openEdit}
+								          className='icon-btn icon-btn--invert'
+								          alt={`Edit ${data.firstname} profile`}/>
+							}
+						</editor-fold>
+						<editor-fold desc='_OPEN UPDATE PIC_'>
+							<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openChangePic}/>
+							{
+								isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>
+							}
+						</editor-fold>
 						<BsTrash2 onClick={openAlert} className='icon-btn icon-btn--invert' alt={`Delete ${data.firstname} profile`}/>
 					</div>
-					<div className='employee-details__company'>
-						<img src={company.logo} alt='Company logo'/>
-					</div>
-					{alertIsOpen ?
-						<div className='confirm-container'>
-							<p>{`⚠️ Are you sure you want to delete ${data.firstname} ?`}</p>
-							<div>
-								<button onClick={handleDelete}>Confirm</button>
-								<button onClick={closeAlert}>Cancel</button>
+					<div className='employee-details__company'><img src={company.logo} alt='Company logo'/></div>
+					<editor-fold desc='_CONFIRM OR CANCEL DELETE_'>
+						{alertIsOpen
+							? <div className='confirm-container'>
+								<p>{`⚠️ Are you sure you want to delete ${data.firstname} ?`}</p>
+								<div>
+									<button onClick={handleDelete}>Confirm</button>
+									<button onClick={closeAlert}>Cancel</button>
+								</div>
 							</div>
-						</div>
-						: null}
+							: null
+						}
+					</editor-fold>
 				</div>
 			)}
 		</>

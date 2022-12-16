@@ -14,6 +14,8 @@ import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
 
 export const CreateEmployeeForm = () => {
+	
+	//<editor-fold desc="_STARTERS_">
 	const [file, setFile] = useState({preview: '', data: {}})
 	const queryClient = useQueryClient()
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
@@ -22,6 +24,7 @@ export const CreateEmployeeForm = () => {
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
 	const [isOpenModal, {openModal, closeModal}] = useModal(false)
+	//</editor-fold>
 	
 	useEffect(() => {
 		setFocus('firstname')
@@ -58,43 +61,104 @@ export const CreateEmployeeForm = () => {
 				<h2>Create new employee</h2>
 			</div>
 			<form onSubmit={handleSubmit(submit)} className='create-employee__form'>
-				
 				{isOpenModal && <UploadPicture file={file} setFile={setFile} isOpen={isOpenModal} close={closeModal}/>}
-				
 				<div className='scrollable'>
-					<div className='form-section'>
-						<TextInput inputName='firstname' errors={errors} errorDisplay={errors.firstname} {...register('firstname', RQ_ExcludeNumbers)}/>
-						<TextInput inputName='lastname' errors={errors} errorDisplay={errors.lastname} {...register('lastname', RQ_ExcludeNumbers)}/>
-						<TextInput inputName='birthdate' errors={errors} errorDisplay={errors.birthdate} {...register('birthdate', RQ_UsDate)} onClick={showBirthDP}
-						           onFocus={showBirthDP}/>
-						{isDPBirhtdayShown &&
-							<Datepicker currentSelectedValue={getValues('birthdate')} RHFinputName={'birthdate'} locale='en' setInputValue={getInputValue} disableFuture={true}
-							            hide={hideBirthDP}/>}
-					</div>
-					
-					<div className='form-section'>
-						<TextInput inputName='title' errors={errors} errorDisplay={errors.title}{...register('title', RQ_ExcludeNumbers)}/>
-						<SelectInput inputName={'department'} {...register('department')} map={teams.map((item) => (<option key={item} value={item}>{capitalize(item)}</option>))}/>
-						<TextInput inputName='startDate' errors={errors} errorDisplay={errors.startDate} onClick={showHiredDP}
-						           onFocus={showHiredDP} {...register('startDate', RQ_UsDate)}/>
-						{isDPHiredShown &&
-							<Datepicker currentSelectedValue={getValues('startDate')} RHFinputName={'startDate'} locale='en' setInputValue={getInputValue} hide={hideHiredDP}/>}
-					</div>
-					
-					<div className='form-section'>
-						<TextInput type='email' inputName='mail' errors={errors} errorDisplay={errors.mail} {...register('mail', RQ_validEmail)}/>
-						<TextInput inputName='phone' errors={errors} errorDisplay={errors.phone} {...register('phone', RQ_validUsNumber)}/>
-					</div>
-					
-					<div className='form-section'>
-						<TextInput inputName='street' errors={errors} errorDisplay={errors.street} {...register('street', RQ_only)}/>
-						<TextInput inputName='city' errors={errors} errorDisplay={errors.city} {...register('city', RQ_ExcludeNumbers)}/>
-						<SelectInput inputName={'state'} {...register('state')}
-						             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}/>
-						<TextInput inputName='zip' errors={errors} errorDisplay={errors.zip} {...register('zip', RQ_validUsZip)}/>
-					</div>
+					<editor-fold desc='IDENTITY'>
+						<div className='form-section'>
+							<TextInput inputName='firstname'
+							           errors={errors}
+							           errorDisplay={errors.firstname}
+							           {...register('firstname', RQ_ExcludeNumbers)}
+							/>
+							<TextInput inputName='lastname'
+							           errors={errors}
+							           errorDisplay={errors.lastname}
+							           {...register('lastname', RQ_ExcludeNumbers)}
+							/>
+							<TextInput inputName='birthdate'
+							           errors={errors}
+							           errorDisplay={errors.birthdate}
+							           {...register('birthdate', RQ_UsDate)}
+							           onClick={showBirthDP}
+							           onFocus={showBirthDP}/>
+							{isDPBirhtdayShown &&
+								<Datepicker currentSelectedValue={getValues('birthdate')}
+								            RHFinputName='birthdate'
+								            locale='en'
+								            setInputValue={getInputValue}
+								            disableFuture={true}
+								            hide={hideBirthDP}
+								/>
+							}
+						</div>
+					</editor-fold>
+					<editor-fold desc='JOB'>
+						<div className='form-section'>
+							<TextInput inputName='title'
+							           errors={errors}
+							           errorDisplay={errors.title}
+							           {...register('title', RQ_ExcludeNumbers)}
+							/>
+							<SelectInput inputName={'department'}
+							             {...register('department')}
+							             map={teams.map(item => <option key={item} value={item}>{capitalize(item)}</option>)}
+							/>
+							<TextInput inputName='startDate'
+							           specifyLabel='Hired'
+							           errors={errors}
+							           errorDisplay={errors.startDate}
+							           onClick={showHiredDP}
+							           onFocus={showHiredDP}
+							           {...register('startDate', RQ_UsDate)}/>
+							{isDPHiredShown &&
+								<Datepicker currentSelectedValue={getValues('startDate')}
+								            RHFinputName='startDate'
+								            locale='en'
+								            setInputValue={getInputValue}
+								            hide={hideHiredDP}
+								/>
+							}
+						</div>
+					</editor-fold>
+					<editor-fold desc='CONTACT'>
+						<div className='form-section'>
+							<TextInput type='email'
+							           inputName='mail'
+							           errors={errors}
+							           errorDisplay={errors.mail}
+							           {...register('mail', RQ_validEmail)}
+							/>
+							<TextInput inputName='phone'
+							           errors={errors}
+							           errorDisplay={errors.phone}
+							           {...register('phone', RQ_validUsNumber)}
+							/>
+						</div>
+					</editor-fold>
+					<editor-fold desc='ADDRESS'>
+						<div className='form-section'>
+							<TextInput inputName='street'
+							           errors={errors}
+							           errorDisplay={errors.street}
+							           {...register('street', RQ_only)}
+							/>
+							<TextInput inputName='city'
+							           errors={errors}
+							           errorDisplay={errors.city}
+							           {...register('city', RQ_ExcludeNumbers)}
+							/>
+							<SelectInput inputName={'state'}
+							             {...register('state')}
+							             map={countryStates.map(state => (<option key={state.abbreviation} value={state.name}>{state.name}</option>))}
+							/>
+							<TextInput inputName='zip'
+							           errors={errors}
+							           errorDisplay={errors.zip}
+							           {...register('zip', RQ_validUsZip)}
+							/>
+						</div>
+					</editor-fold>
 				</div>
-				
 				<button className='form-btn align-right' disabled={isSubmitting | errors} type='submit'>Create</button>
 			</form>
 		</aside>

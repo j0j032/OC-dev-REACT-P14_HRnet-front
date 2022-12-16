@@ -1,15 +1,19 @@
 import {DarkMode} from '../../components/common/DarkMode/DarkMode'
-import {useNavigate} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom'
+import React from 'react'
 
 export const Error404 = () => {
 	const navigate = useNavigate()
 	return (
 		<>
 			<header className='error-404__header'>
-				<div className='header__logo'></div>
+				<NavLink to={'/employees'}>
+					<div className='header__logo'></div>
+				</NavLink>
 				<DarkMode/>
 			</header>
-			<section className='error-404__content'>
+			
+			<main className='error-404__content'>
 				<div className='error-404__content-layer'>
 					<h1>404</h1>
 					<div className='error-404__content-layer2'>
@@ -24,7 +28,7 @@ export const Error404 = () => {
 						<button onClick={() => navigate('/employees')}>Go Back</button>
 					</div>
 				</div>
-			</section>
+			</main>
 		</>
 	)
 }
