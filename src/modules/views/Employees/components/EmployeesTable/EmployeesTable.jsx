@@ -1,18 +1,23 @@
 import React, {useState} from 'react'
 import {useTable, useSortBy} from 'react-table/src'
-import {employeesColumns, employeesColumnsMobile} from '../../../../../config/employeesTableConfig.jsx'
+import {employeesColumns, employeesColumnsMediumScreen, employeesColumnsMobile} from '../../../../../config/employeesTableConfig.jsx'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
 import {useQueryClient} from 'react-query'
+import {mediumScreenTable, mobileScreenTable} from '../../../../../config/breakPoints.js'
 
 export const EmployeesTable = ({employees}) => {
 	const windowSize = useWindowSize()
 	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const [employeeId, setEmployeeId] = useState('')
+	
+	const columnItemsDisplay = windowSize.width < mobileScreenTable ? employeesColumnsMobile : windowSize.width > mobileScreenTable && windowSize.width < mediumScreenTable ? employeesColumnsMediumScreen : employeesColumns
+	
+	
 	const data = React.useMemo(() => [...employees], [employees])
-	const columns = React.useMemo(() => windowSize.width > 600 ? employeesColumns : employeesColumnsMobile, [windowSize.width])
+	const columns = React.useMemo(() => columnItemsDisplay, [windowSize.width])
 	const tableInstance = useTable({columns, data}, useSortBy)
 	const {getTableProps, getTableBodyProps, rows, prepareRow} = tableInstance
 	const queryClient = useQueryClient()

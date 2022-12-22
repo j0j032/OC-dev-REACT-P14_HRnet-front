@@ -21,8 +21,8 @@ export const employeesColumns =
 			accessor: 'lastname'
 		},
 		{
-			Header: 'Start date',
-			accessor: 'hired',
+			Header: 'Birthdate',
+			accessor: 'birthdate',
 			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
 		},
 		{
@@ -30,8 +30,8 @@ export const employeesColumns =
 			accessor: 'department'
 		},
 		{
-			Header: 'Birthdate',
-			accessor: 'birthdate',
+			Header: 'Start date',
+			accessor: 'hired',
 			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
 		},
 		{
@@ -52,21 +52,56 @@ export const employeesColumns =
 		}
 	]
 
-export const employeesColumnsMobile =
-	[
-		{
-			Header: '',
-			accessor: 'picture',
-			Cell: ({cell: {value}}) => (
-				<img className='employees-table__img' src={value} alt={value}/>
-			)
-		},
-		{
-			Header: 'Firstname',
-			accessor: 'firstname'
-		},
-		{
-			Header: 'Lastname',
-			accessor: 'lastname'
-		}
-	]
+export const employeesColumnsMediumScreen = [
+	{
+		Header: '',
+		accessor: 'imageUrl',
+		Cell: ({cell: {value}}) => (
+			<img className='profile-picture picture-xs' src={parseImgUrl(value) !== 'none' ? value : imgPlaceholder} alt={value}/>
+		)
+	},
+	{
+		Header: 'Firstname',
+		accessor: 'firstname'
+	},
+	{
+		Header: 'Lastname',
+		accessor: 'lastname'
+	},
+	{
+		Header: 'Birthdate',
+		accessor: 'birthdate',
+		Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+	},
+	{
+		Header: 'Department',
+		accessor: 'department'
+	},
+	{
+		Header: 'Start date',
+		accessor: 'hired',
+		Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+	}
+]
+
+export const employeesColumnsMobile = [
+	{
+		Header: '',
+		accessor: 'imageUrl',
+		Cell: ({cell: {value}}) => (
+			<img className='profile-picture picture-xs' src={parseImgUrl(value) !== 'none' ? value : imgPlaceholder} alt={value}/>
+		)
+	},
+	{
+		Header: 'Firstname',
+		accessor: 'firstname'
+	},
+	{
+		Header: 'Lastname',
+		accessor: 'lastname'
+	},
+	{
+		Header: 'Department',
+		accessor: 'department'
+	}
+]
