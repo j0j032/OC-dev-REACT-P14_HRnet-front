@@ -1,7 +1,6 @@
 .header {
   &__container--mobile {
 	position: absolute;
-	z-index: 1000;
 	@include flexRowInline;
 	left: 50%;
 	justify-content: center;

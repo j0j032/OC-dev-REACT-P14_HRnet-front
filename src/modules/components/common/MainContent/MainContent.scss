@@ -4,6 +4,11 @@
   grid-template-rows: 1fr;
   grid-template-areas:
     ". .";
+  
+  @include smallerScreenNavConfig {
+	grid-template-columns: 0.08fr 1fr;
+  }
+  
   @include mobile {
 	@include flexColumn;
   }

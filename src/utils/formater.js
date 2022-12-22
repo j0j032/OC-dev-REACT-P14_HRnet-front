@@ -1,17 +1,8 @@
-export const formatToLocale = (date, zone) => {
-	const newDate = Date.parse(date)
-	const ts = new Date(newDate)
-	return ts.toLocaleDateString(zone)
-}
-
-export function formatPhoneNumber(phoneNumberString) {
-	let cleaned = ('' + phoneNumberString).replace(/\D/g, '')
-	let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
-	if (match) {
-		let intlCode = (match[1] ? '+1 ' : '')
-		return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
-	}
-	return phoneNumberString
+export function formatTimestampToDate(date) {
+	let yyyy = date.substring(0, 4)
+	let mm = date.substring(4, 6)
+	let dd = date.substring(6, 8)
+	return mm + '/' + dd + '/' + yyyy
 }
 
 export const capitalize = value => (value && value[0].toUpperCase() + value.slice(1).toLowerCase()) || ''

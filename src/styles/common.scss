@@ -49,6 +49,12 @@ a {
   }
 }
 
+#first-layer {
+  > dialog {
+	z-index: 1000;
+  }
+}
+
 
 
 

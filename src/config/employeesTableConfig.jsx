@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatToLocale} from '../utils/formater.js'
+import {formatTimestampToDate} from '../utils/formater.js'
 import imgPlaceholder from '../assets/imgPlaceholder.svg'
 import {parseImgUrl} from '../utils/parseImgUrl.js'
 
@@ -21,18 +21,18 @@ export const employeesColumns =
 			accessor: 'lastname'
 		},
 		{
-			Header: 'Start date',
-			accessor: 'hired',
-			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+			Header: 'Birthdate',
+			accessor: 'birthdate',
+			Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 		},
 		{
 			Header: 'Department',
 			accessor: 'department'
 		},
 		{
-			Header: 'Birthdate',
-			accessor: 'birthdate',
-			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+			Header: 'Start date',
+			accessor: 'hired',
+			Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 		},
 		{
 			Header: 'Street',
@@ -52,21 +52,56 @@ export const employeesColumns =
 		}
 	]
 
-export const employeesColumnsMobile =
-	[
-		{
-			Header: '',
-			accessor: 'picture',
-			Cell: ({cell: {value}}) => (
-				<img className='employees-table__img' src={value} alt={value}/>
-			)
-		},
-		{
-			Header: 'Firstname',
-			accessor: 'firstname'
-		},
-		{
-			Header: 'Lastname',
-			accessor: 'lastname'
-		}
-	]
+export const employeesColumnsMediumScreen = [
+	{
+		Header: '',
+		accessor: 'imageUrl',
+		Cell: ({cell: {value}}) => (
+			<img className='profile-picture picture-xs' src={parseImgUrl(value) !== 'none' ? value : imgPlaceholder} alt={value}/>
+		)
+	},
+	{
+		Header: 'Firstname',
+		accessor: 'firstname'
+	},
+	{
+		Header: 'Lastname',
+		accessor: 'lastname'
+	},
+	{
+		Header: 'Birthdate',
+		accessor: 'birthdate',
+		Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
+	},
+	{
+		Header: 'Department',
+		accessor: 'department'
+	},
+	{
+		Header: 'Start date',
+		accessor: 'hired',
+		Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
+	}
+]
+
+export const employeesColumnsMobile = [
+	{
+		Header: '',
+		accessor: 'imageUrl',
+		Cell: ({cell: {value}}) => (
+			<img className='profile-picture picture-xs' src={parseImgUrl(value) !== 'none' ? value : imgPlaceholder} alt={value}/>
+		)
+	},
+	{
+		Header: 'Firstname',
+		accessor: 'firstname'
+	},
+	{
+		Header: 'Lastname',
+		accessor: 'lastname'
+	},
+	{
+		Header: 'Department',
+		accessor: 'department'
+	}
+]

@@ -19,10 +19,10 @@ export const MobileNav = ({user}) => {
 	}
 	return (
 		<section className='mobile-nav__container'>
-			<BurgerMenu toggle={toggleNav} state={isNavOpen}/>
 			<div onClick={toggleProfile} className='mobile-nav__profile'>
 				<img src={user.picture} alt={`Profile picture of ${user.firstname}`}/>
 			</div>
+			<BurgerMenu toggle={toggleNav} state={isNavOpen}/>
 			{isNavOpen ? <LateralNav/> : null}
 			{isProfileOpen ?
 				<>

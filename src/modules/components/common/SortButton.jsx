@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
-import {FiChevronDown, FiChevronUp} from 'react-icons/all.js'
+import {BsChevronExpand, FiChevronDown, FiChevronUp, HiChevronUpDown} from 'react-icons/all.js'
 
 export function SortButton({inputName, sortName, setSort}) {
 	const [sortMethod, setSortMethod] = useState(1)
 	const sortValues = [[sortName, sortMethod]]
 	
-	const sortEmployees = (arr) => {
+	const sortEmployees = (e, arr) => {
+		e.stopPropagation()
 		if (sortMethod === 1) {
 			setSortMethod(-1)
 		}
@@ -16,8 +17,8 @@ export function SortButton({inputName, sortName, setSort}) {
 		setSort(category)
 	}
 	return (
-		<button className='sort-btn' onClick={() => sortEmployees(sortValues)}>
-			{inputName} {sortMethod === 1 ? (<FiChevronDown/>) : sortMethod === -1 ? (<FiChevronUp/>) : null}
+		<button className='sort-btn' onClick={(e) => sortEmployees(e, sortValues)}>
+			{inputName} <BsChevronExpand/>
 		</button>
 	)
 }
