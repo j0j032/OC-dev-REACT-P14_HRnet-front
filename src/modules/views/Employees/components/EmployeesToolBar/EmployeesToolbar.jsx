@@ -3,12 +3,7 @@ import {ViewContext} from '../../../../../context/EmpoyeesViewContext.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {CreateEmployeeForm} from '../CreateEmployeeForm/CreateEmployeeForm'
-import {
-	BsGrid3X3Gap,
-	BsPlusLg,
-	BsSortUpAlt,
-	TbList
-} from 'react-icons/all.js'
+import {BsGrid3X3Gap, BsPlusLg, BsSortUpAlt, TbList} from 'react-icons/all.js'
 import {sortItems} from '../../../../../config/sortBtns.js'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import {SortButton} from '../../../../components/common/SortButton.jsx'
@@ -42,7 +37,7 @@ const EmployeesToolbar = ({setSearch, setSort}) => {
 					<BsPlusLg className='icon-btn icon-btn--font white'/>
 				</button>
 			</div>
-			<Modal modalId='create-employee'
+			<Modal modalId='modal'
 			       handleClose={closeModal}
 			       isOpen={isOpenModal}
 			       customBtn={{color: 'var(--FONT-color)'}}

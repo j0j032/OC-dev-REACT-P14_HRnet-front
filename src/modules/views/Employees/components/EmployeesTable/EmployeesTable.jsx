@@ -48,7 +48,7 @@ export const EmployeesTable = ({employees}) => {
 				</table>
 			</div>
 			<Modal handleClose={handleCloseModal}
-			       modalId='employee-details-modal'
+			       modalId='modal'
 			       isOpen={modalIsOpen}
 			       customBtn={{color: 'var(--FONT-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>

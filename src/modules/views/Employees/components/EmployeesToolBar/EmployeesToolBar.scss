@@ -27,19 +27,22 @@
   
   &__sortBtns-container {
 	position: absolute;
-	z-index: 10;
+	z-index: 1;
 	top: 100%;
 	left: 0;
 	display: flex;
 	justify-content: space-around;
 	flex-direction: row;
 	width: 100%;
-	padding: 0.8rem 0;
+	padding: 0.8rem 0.8rem;
 	transition: height 300ms ease-out;
-	background-color: transparent;
+	background-color: var(--BG-color);
 	box-shadow: 2px 2px 2px 0 rgba(11, 11, 11, 0.17);
-	backdrop-filter: blur(10px);
 	gap: 0.8rem;
+	@media screen and (max-width: 980px) {
+	  justify-content: flex-start;
+	  flex-wrap: wrap;
+	}
   }
 }
 

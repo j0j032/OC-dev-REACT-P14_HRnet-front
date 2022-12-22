@@ -1,6 +1,7 @@
 .employee-details {
   &__container {
 	position: relative;
+	z-index: 5;
 	display: grid;
 	width: 80vw;
 	min-width: 400px;
