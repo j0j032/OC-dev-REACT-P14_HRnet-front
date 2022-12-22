@@ -26,26 +26,23 @@ export const EmployeeCard = ({data}) => {
 				         className='emp-card__container'>
 					<div className='emp-card__top-container'>
 						<p><span>Hired: </span>{hired}</p>
-						<MdOutlineMoreHoriz className='icon company-theme-color'/>
 					</div>
 					<div className='emp-card__heading-container'>
-						<img className='profile-picture picture-l' src={picture !== 'none' ? imageUrl : imgPlaceHolder} alt='profile picture'/>
+						<img className='profile-picture picture-l card-cover' src={picture !== 'none' ? imageUrl : imgPlaceHolder} alt='profile picture'/>
 						<h1>{`${firstname} ${lastname}`}</h1>
 						<h2>{title}</h2>
 						<p>{`${department} team`}</p>
 					</div>
-					{windowSize.width > 600 &&
-						<div className='emp-card__infos'>
-							<p>{`✉️\u00A0\u00A0\u00A0${contact.mail}`}</p>
-							<p>{`📱\u00A0\u00A0${contact.phone}`}</p>
-						</div>
-					}
+					<div className='emp-card__infos'>
+						<p>{`✉️\u00A0\u00A0\u00A0${contact.mail}`}</p>
+						<p>{`📱\u00A0\u00A0${contact.phone}`}</p>
+					</div>
 				</article>
 			</div>
 			<Modal handleClose={handleCloseModal}
-			       modalId='employee-details-modal'
+			       modalId='modal'
 			       isOpen={modalIsOpen}
-			       customBtn={{color: 'var(--FONT-color)'}}
+			       customBtn={{color: 'var(--COMPANY-theme-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={_id} closeModal={handleCloseModal}/>
 			</Modal>

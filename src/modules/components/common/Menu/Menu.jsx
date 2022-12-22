@@ -10,6 +10,9 @@ import {
 	TbBriefcase,
 	VscDashboard
 } from 'react-icons/all.js'
+import React from 'react'
+import useWindowSize from '../../../../hooks/useWindowSize.jsx'
+import {smallerScreenNavConfig, mobileConfig} from '../../../../config/breakPoints.js'
 
 const profileLinks = [
 	{icon: <VscDashboard className='icon'/>, text: 'Dashboard', path: '/dashboard', disabled: true},
@@ -29,7 +32,7 @@ const organizationLinks = [
 ]
 
 export const Menu = () => {
-	
+	const windowSize = useWindowSize()
 	return (
 		<nav className='navigation__container'>
 			<div className='navigation__link-wrapper'>
@@ -40,14 +43,14 @@ export const Menu = () => {
 			</div>
 			<div className='customHR'></div>
 			<div className='navigation__link-wrapper'>
-				<h3>Recruitement</h3>
+				{windowSize.width > smallerScreenNavConfig || windowSize.width < mobileConfig ? <h3>Recruitement</h3> : null}
 				{recruitementLinks.map((link, i) => (
 					<Link key={`${i + link.text}`} icon={link.icon} text={link.text} path={link.path}/>)
 				)}
 			</div>
 			<div className='customHR'></div>
 			<div className='navigation__link-wrapper'>
-				<h3>Organization</h3>
+				{windowSize.width > smallerScreenNavConfig || windowSize.width < mobileConfig ? <h3>Organization</h3> : null}
 				{organizationLinks.map((link, i) => (
 					<Link key={`${i + link.text}`} icon={link.icon} text={link.text} path={link.path}/>)
 				)}

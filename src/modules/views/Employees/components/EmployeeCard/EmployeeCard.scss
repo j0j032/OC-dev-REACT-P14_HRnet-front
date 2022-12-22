@@ -28,7 +28,8 @@
 	  box-shadow: 4px -2px 0 0 var(--BG-color), 6px -4px 10px 0px rgba(0, 0, 0, 0.32);
 	}
 	
-	@include mobile {
+	@include smallerScreenGallery {
+	  height: 30rem;
 	  padding-bottom: 3.2rem;
 	}
   }
@@ -39,6 +40,12 @@
 	
 	> p {
 	  font-size: 1.4rem;
+	  @include smallerScreenGallery {
+		position: absolute;
+		z-index: 2;
+		right: 2.4rem;
+		bottom: 2rem;
+	  }
 	  
 	  > span {
 		font-weight: bold;
@@ -56,6 +63,15 @@
 	> h1 {
 	  font-size: 1.6rem;
 	  font-weight: bold;
+	  @include smallerScreenGallery {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		padding: 1.6rem 2.4rem 6rem 2.4rem;
+		border-radius: 0 0 8px 8px;
+		background-color: var(--BG-color);
+	  }
 	}
 	
 	> h2 {
@@ -63,13 +79,22 @@
 	  font-size: 1.6rem;
 	  font-weight: 400;
 	  color: var(--COMPANY-theme-color);
+	  @include smallerScreenGallery {
+		position: absolute;
+		bottom: 4rem;
+		left: 2.4rem;
+	  }
 	}
 	
 	> p {
 	  font-size: 1.4rem;
 	  font-weight: 400;
+	  @include smallerScreenGallery {
+		position: absolute;
+		bottom: 2rem;
+		left: 2.4rem;
+	  }
 	}
-	
   }
   
   &__infos {
@@ -80,18 +105,23 @@
 	> p {
 	  font-size: 1.4rem;
 	}
-  }
-  
-  &__address {
-	margin-top: 1.6rem;
-	@include flexRowInline;
-	gap: 1.6rem;
 	
-	> div {
-	  > p {
-		font-size: 1.2rem;
-	  }
+	@include smallerScreenGallery {
+	  display: none;
 	}
   }
+}
+
+.card-cover {
+  @include smallerScreenGallery {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+	border-radius: 8px;
+  }
+  
 }
 

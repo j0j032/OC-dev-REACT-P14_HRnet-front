@@ -41,9 +41,15 @@ input.input-error {
   width: 24rem;
   height: 3.2rem;
   padding: 0.8rem 0.8rem 0.8rem 1.6rem;
+  color: var(--FONT-color);
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   outline: 1px solid var(--FONT-color);
+  background-color: var(--MENU-color);
+  
+  &::placeholder {
+	color: var(--FONT-color);
+  }
   
   &:focus {
 	outline: 2px solid var(--COMPANY-theme-color);

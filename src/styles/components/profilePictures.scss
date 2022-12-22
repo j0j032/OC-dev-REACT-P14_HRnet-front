@@ -6,12 +6,16 @@
   
   &.picture-xs {
 	width: 4rem;
+	min-width: 4rem;
 	height: 4rem;
+	min-height: 4rem;
   }
   
   &.picture-s {
 	width: 4.8rem;
+	min-width: 4.8rem;
 	height: 4.8rem;
+	min-height: 4.8rem;
   }
   
   &.picture-m {

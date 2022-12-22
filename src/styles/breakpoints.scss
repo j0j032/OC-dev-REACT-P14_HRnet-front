@@ -45,3 +45,17 @@
 	@content;
   }
 }
+
+@mixin smallerScreenNavConfig {
+  $breakpoints: (smallerScreenNavConfig:960px);
+  @media screen and (max-width: map-get($breakpoints, smallerScreenNavConfig)) {
+	@content;
+  }
+}
+
+@mixin smallerScreenGallery {
+  $breakpoints: (smallerScreenGallery:700px);
+  @media screen and (max-width: map-get($breakpoints, smallerScreenGallery)) {
+	@content;
+  }
+}

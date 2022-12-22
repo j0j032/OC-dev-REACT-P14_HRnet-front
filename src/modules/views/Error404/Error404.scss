@@ -27,15 +27,17 @@
 	  
 	  > h1 {
 		font-size: 40rem;
-		
+		@include smallerScreenNavConfig {
+		  font-size: 20rem;
+		}
 	  }
 	}
 	
 	&-layer2 {
 	  position: absolute;
 	  top: 65%;
-	  left: 60%;
-	  width: 100%;
+	  right: 2.4rem;
+	  width: fit-content;
 	  padding: 2.4rem;
 	  
 	  > p {

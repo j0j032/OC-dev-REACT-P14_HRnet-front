@@ -4,14 +4,15 @@ import {Footer} from '../Footer/Footer.jsx'
 import {Menu} from '../Menu/Menu.jsx'
 import {motion} from 'framer-motion'
 import useWindowSize from '../../../../hooks/useWindowSize.jsx'
+import {mobileConfig} from '../../../../config/breakPoints.js'
 
 const LateralNav = () => {
 	const windowSize = useWindowSize()
 	return (
 		<motion.div initial={{x: -10}} animate={{x: 0}} exit={{x: -100}} className='lateralNav__container'>
-			{windowSize.width > 600 ? <ProfileHeader/> : null}
+			{windowSize.width > mobileConfig ? <ProfileHeader/> : null}
 			<Menu/>
-			<Footer/>
+			{windowSize.width > mobileConfig ? <Footer/> : null}
 		</motion.div>
 	)
 }

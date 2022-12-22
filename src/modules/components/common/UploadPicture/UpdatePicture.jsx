@@ -54,7 +54,7 @@ export const UpdatePicture = ({isOpen, close, employee}) => {
 	
 	
 	return (
-		<Modal modalId='handleUpload'
+		<Modal modalId='first-layer'
 		       handleClose={closeAndCancel}
 		       customBtn={{'color': 'var(--FONT-color)', 'top': '1rem', 'right': '1rem', 'fontSize': '1.4rem'}}
 		       isOpen={isOpen}>
