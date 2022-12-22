@@ -83,10 +83,10 @@ export const EmployeeDetails = ({id, closeModal}) => {
 					<editor-fold desc='_CONFIRM OR CANCEL DELETE_'>
 						{alertIsOpen
 							? <div className='confirm-container'>
-								<p>{`⚠️ Are you sure you want to delete ${data.firstname} ?`}</p>
+								<p>{`Are you sure you want to delete ${data.firstname} ?`}</p>
 								<div>
-									<button onClick={handleDelete}>Confirm</button>
-									<button onClick={closeAlert}>Cancel</button>
+									<button className='btn btn-black form-btn' onClick={handleDelete}>Confirm</button>
+									<button className='btn btn-black form-btn' onClick={closeAlert}>Cancel</button>
 								</div>
 							</div>
 							: null

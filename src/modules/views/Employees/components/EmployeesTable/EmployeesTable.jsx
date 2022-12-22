@@ -50,7 +50,7 @@ export const EmployeesTable = ({employees}) => {
 			<Modal handleClose={handleCloseModal}
 			       modalId='modal'
 			       isOpen={modalIsOpen}
-			       customBtn={{color: 'var(--FONT-color)'}}
+			       customBtn={{color: 'var(--COMPANY-theme-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={employeeId} closeModal={handleCloseModal}/>
 			</Modal>

@@ -42,7 +42,7 @@ export const EmployeeCard = ({data}) => {
 			<Modal handleClose={handleCloseModal}
 			       modalId='modal'
 			       isOpen={modalIsOpen}
-			       customBtn={{color: 'var(--FONT-color)'}}
+			       customBtn={{color: 'var(--COMPANY-theme-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={_id} closeModal={handleCloseModal}/>
 			</Modal>
