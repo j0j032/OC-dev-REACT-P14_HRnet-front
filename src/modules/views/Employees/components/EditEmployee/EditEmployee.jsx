@@ -1,4 +1,4 @@
-import {capitalize} from '../../../../../utils/formater.js'
+import {capitalize, formatTimestampToDate} from '../../../../../utils/formater.js'
 import React from 'react'
 import {useQueryClient} from 'react-query'
 import {useForm} from 'react-hook-form'
@@ -59,7 +59,7 @@ export const EditEmployee = ({employee, editMode}) => {
 					<TextInput inputName='birthdate'
 					           showPlaceholder={true}
 					           label={false}
-					           defaultValue={employee.birthdate}
+					           defaultValue={formatTimestampToDate(employee.birthdate)}
 					           errors={errors}
 					           errorDisplay={errors.birthdate}
 					           {...register('birthdate', RQ_UsDate)}
@@ -98,7 +98,7 @@ export const EditEmployee = ({employee, editMode}) => {
 					           inputName='startDate'
 					           showPlaceholder={true}
 					           showRequired={false}
-					           defaultValue={employee.hired}
+					           defaultValue={formatTimestampToDate(employee.hired)}
 					           errors={errors}
 					           errorDisplay={errors.startDate}
 					           onClick={showHiredDP}
@@ -168,8 +168,8 @@ export const EditEmployee = ({employee, editMode}) => {
 					           {...register('zip', RQ_validUsZip)}
 					/>
 				</editor-fold>
+				<button className='form-btn edit-employee__btn' disabled={isSubmitting | errors} type='submit'>Update</button>
 			</form>
-			<button className='form-btn edit-employee__btn' disabled={isSubmitting | errors} type='submit'>Update</button>
 		</>
 	)
 }

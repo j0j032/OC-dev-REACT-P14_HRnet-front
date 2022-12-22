@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatToLocale} from '../utils/formater.js'
+import {formatTimestampToDate} from '../utils/formater.js'
 import imgPlaceholder from '../assets/imgPlaceholder.svg'
 import {parseImgUrl} from '../utils/parseImgUrl.js'
 
@@ -23,7 +23,7 @@ export const employeesColumns =
 		{
 			Header: 'Birthdate',
 			accessor: 'birthdate',
-			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+			Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 		},
 		{
 			Header: 'Department',
@@ -32,7 +32,7 @@ export const employeesColumns =
 		{
 			Header: 'Start date',
 			accessor: 'hired',
-			Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+			Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 		},
 		{
 			Header: 'Street',
@@ -71,7 +71,7 @@ export const employeesColumnsMediumScreen = [
 	{
 		Header: 'Birthdate',
 		accessor: 'birthdate',
-		Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+		Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 	},
 	{
 		Header: 'Department',
@@ -80,7 +80,7 @@ export const employeesColumnsMediumScreen = [
 	{
 		Header: 'Start date',
 		accessor: 'hired',
-		Cell: ({value}) => <span>{formatToLocale(value, 'en-US')}</span>
+		Cell: ({value}) => <span>{formatTimestampToDate(value)}</span>
 	}
 ]
 

@@ -2,13 +2,11 @@ import React from 'react'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
-import useWindowSize from '../../../../../hooks/useWindowSize.jsx'
-import {MdOutlineMoreHoriz} from 'react-icons/all.js'
 import imgPlaceHolder from '../../../../../assets/imgPlaceholder.svg'
 import {useQueryClient} from 'react-query'
+import {formatTimestampToDate} from '../../../../../utils/formater'
 
 export const EmployeeCard = ({data}) => {
-	const windowSize = useWindowSize()
 	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
 	const {hired, firstname, lastname, title, department, imageUrl, picture, contact, _id} = data
 	const queryClient = useQueryClient()
@@ -25,7 +23,7 @@ export const EmployeeCard = ({data}) => {
 				<article onClick={openModal}
 				         className='emp-card__container'>
 					<div className='emp-card__top-container'>
-						<p><span>Hired: </span>{hired}</p>
+						<p><span>Hired: </span>{formatTimestampToDate(hired)}</p>
 					</div>
 					<div className='emp-card__heading-container'>
 						<img className='profile-picture picture-l card-cover' src={picture !== 'none' ? imageUrl : imgPlaceHolder} alt='profile picture'/>
