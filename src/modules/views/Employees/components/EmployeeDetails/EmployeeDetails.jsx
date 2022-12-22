@@ -1,9 +1,9 @@
 import {Loader} from '../../../../components/common/Loader/Loader.jsx'
 import {useQuery, useQueryClient} from 'react-query'
 import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requests.js'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
-import {formatToLocale} from '../../../../../utils/formater.js'
+import {formatTimestampToDate} from '../../../../../utils/formater.js'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
@@ -43,13 +43,13 @@ export const EmployeeDetails = ({id, closeModal}) => {
 									<h1>{data.firstname}</h1>
 									<h1>{data.lastname}</h1>
 								</div>
-								<p> {`Joined ${company.name} : ${formatToLocale(data.hired, 'en-US')}`}</p>
+								<p> {`Joined ${company.name} : ${formatTimestampToDate(data.hired)}`}</p>
 							</div>
 							<h3> 💼 {data.title}</h3>
 							<p> 👫 {data.department} team</p>
 							<div className='employee-details__personal'>
 								<h3>Personal details:</h3>
-								<p>🎂 {formatToLocale(data.birthdate, 'en-US')}</p>
+								<p>🎂 {formatTimestampToDate(data.birthdate)}</p>
 								<p>📱 {data.contact.phone}</p>
 								<p>✉️ {data.contact.mail}</p>
 								<p>📫 Address:</p>
