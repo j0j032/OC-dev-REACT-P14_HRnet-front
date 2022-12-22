@@ -3,6 +3,8 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {useLogin} from '../../../api/user/useLogin.js'
 import {formValidation} from '../../../utils/formValidation.js'
+import logo from '../../../assets/logoHrnetW.svg'
+import {DarkMode} from '../../components/common/DarkMode/DarkMode'
 
 export const Login = () => {
 	
@@ -11,15 +13,21 @@ export const Login = () => {
 	const {RQ_only} = formValidation
 	
 	return (
-		<main className='login__background'>
-			<section className='login__container'>
-				<h1>Hello again !</h1>
-				<form className='login-form' onSubmit={handleSubmit(refetch)}>
-					<TextInput inputName='username' errors={errors} errorDisplay={errors.username} {...register('username', RQ_only)}/>
-					<TextInput inputName='password' type='password' errors={errors} errorDisplay={errors.password} {...register('password', RQ_only)}/>
-					<button disabled={isSubmitting} className='form-btn align-right'>Login</button>
-				</form>
-			</section>
-		</main>
+		<>
+			<header className='login__header'>
+				<img src={logo} alt='logo'/>
+				<DarkMode/>
+			</header>
+			<main className='login__background'>
+				<section className='login__container'>
+					<h1>Hello again !</h1>
+					<form className='login-form' onSubmit={handleSubmit(refetch)}>
+						<TextInput inputName='username' errors={errors} errorDisplay={errors.username} {...register('username', RQ_only)}/>
+						<TextInput inputName='password' type='password' errors={errors} errorDisplay={errors.password} {...register('password', RQ_only)}/>
+						<button disabled={isSubmitting} className='form-btn align-right'>Login</button>
+					</form>
+				</section>
+			</main>
+		</>
 	)
 }
