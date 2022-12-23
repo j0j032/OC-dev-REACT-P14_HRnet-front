@@ -1,7 +1,7 @@
 import {TextInput} from '../../components/common/Inputs/TextInput.jsx'
 import React from 'react'
 import {useForm} from 'react-hook-form'
-import {user} from '../../../api/user.js'
+import {useLogin} from '../../../api/user.js'
 import {formValidation} from '../../../utils/formValidation.js'
 import logo from '../../../assets/logoHrnetW.svg'
 import {DarkMode} from '../../components/common/DarkMode/DarkMode'
@@ -9,7 +9,7 @@ import {DarkMode} from '../../components/common/DarkMode/DarkMode'
 export const Login = () => {
 	
 	const {register, handleSubmit, getValues, formState: {errors, isSubmitting}} = useForm()
-	const {refetch} = user({user: getValues('username'), pwd: getValues('password')}, {enabled: false})
+	const {refetch} = useLogin({user: getValues('username'), pwd: getValues('password')}, {enabled: false})
 	const {RQ_only} = formValidation
 	
 	return (

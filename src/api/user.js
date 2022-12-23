@@ -16,7 +16,7 @@ export const useGetUserInfos = () => {
 	return {userInfos, company}
 }
 
-export const user = (data, {enabled}) => {
+export const useLogin = (data, {enabled}) => {
 	const navigate = useNavigate()
 	return useQuery('login', () => handleLogin(data), {
 		enabled,
