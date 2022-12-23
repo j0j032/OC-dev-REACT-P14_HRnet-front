@@ -8,7 +8,8 @@ import useModal from '../../../../components/Modal/useModal.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
-import {useDeleteEmployee, useGetEmployee, useGetUserInfos} from '../../../../../api/employees.js'
+import {useDeleteEmployee, useGetEmployee} from '../../../../../api/employees.js'
+import {useGetUserInfos} from '../../../../../api/user.js'
 
 export const EmployeeDetails = ({id, closeModal}) => {
 	

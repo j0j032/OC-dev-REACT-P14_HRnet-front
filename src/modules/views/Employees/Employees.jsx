@@ -20,6 +20,7 @@ import {Error} from '../../components/common/Error/Error'
 import useWindowSize from '../../../hooks/useWindowSize.jsx'
 import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav'
+import {useGetUserInfos} from '../../../api/user.js'
 
 export const Employees = () => {
 	const windowSize = useWindowSize()
@@ -29,7 +30,7 @@ export const Employees = () => {
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
+	const {userInfos, company} = useGetUserInfos()
 	const {data, isLoading, error, isError, refetch} = employees('allEmployees', page, limit, debouncedSearch, sort, {enabled: true})
 	const {data: totalFound, isLoading: loadingLength} = employees('totalFound', 0, 0, debouncedSearch, sort, {enabled: true})
 	

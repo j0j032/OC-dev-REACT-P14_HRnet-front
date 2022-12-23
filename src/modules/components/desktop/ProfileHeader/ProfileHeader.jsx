@@ -1,23 +1,20 @@
-import {useQuery, useQueryClient} from 'react-query'
-import {handleLogout} from '../../../../api/user/requests.js'
 import {useNavigate} from 'react-router-dom'
 import {BiLogOut} from 'react-icons/all.js'
 import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 import {smallerScreenNavConfig} from '../../../../config/breakPoints.js'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
 import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
+import {useLogout, useGetUserInfos} from '../../../../api/user.js'
 
 export const ProfileHeader = () => {
 	const [isOpenMenu, {setToggle: toggleMenu}] = useBoolean(false)
 	const windowSize = useWindowSize()
-	const queryClient = useQueryClient()
 	const navigate = useNavigate()
-	const {data} = useQuery(['login'], {enabled: false})
-	const {userInfos} = data
+	const {userInfos} = useGetUserInfos()
+	const {mutate, error, isSuccess} = useLogout()
 	
 	const logout = async () => {
-		await queryClient.removeQueries('login')
-		await handleLogout()
+		await mutate()
 		navigate('/')
 	}
 	

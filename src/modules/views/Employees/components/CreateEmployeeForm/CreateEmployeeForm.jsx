@@ -10,7 +10,8 @@ import {UploadPicture} from '../../../../components/common/UploadPicture/UploadP
 import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
 import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
-import {useCreateEmployee, useGetUserInfos} from '../../../../../api/employees.js'
+import {useCreateEmployee} from '../../../../../api/employees.js'
+import {useGetUserInfos} from '../../../../../api/user.js'
 
 export const CreateEmployeeForm = () => {
 	

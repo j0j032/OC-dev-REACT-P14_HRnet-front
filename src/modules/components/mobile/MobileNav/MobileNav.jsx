@@ -1,24 +1,23 @@
 import {BurgerMenu} from '../../common/BurgerMenu/BurgerMenu'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
 import LateralNav from '../../common/LateralNav/LateralNav'
-import {handleLogout} from '../../../../api/user/requests.js'
-import {useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {DarkMode} from '../../common/DarkMode/DarkMode'
 import {BiLogOut} from 'react-icons/all.js'
 import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
+import {useLogout} from '../../../../api/user.js'
 
 export const MobileNav = ({user}) => {
-	const queryClient = useQueryClient()
 	const navigate = useNavigate()
 	const [isNavOpen, {setToggle: toggleNav}] = useBoolean(false)
 	const [isProfileOpen, {setToggle: toggleProfile}] = useBoolean(false)
+	const {mutate, error, isSuccess} = useLogout()
 	
 	const logout = async () => {
-		await queryClient.removeQueries('login')
-		await handleLogout()
+		await mutate()
 		navigate('/')
 	}
+	
 	return (
 		<section className='mobile-nav__container'>
 			<div onClick={toggleProfile} className='mobile-nav__profile'>

@@ -21,11 +21,6 @@ const updateEmployee = (formData) => axios.put(employeesURL, formData, {headers:
 
 const deleteEmployee = (id) => axios.delete(employeesURL, {data: {id}})
 
-export const useGetUserInfos = () => {
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	return {userInfos, company}
-}
-
 export const employees = (specificKey, page, limit, value, sort, {enabled}) => {
 	return useQuery(['employees', specificKey, page, limit, value, sort], () => getAllEmployees(page, limit, value, sort), {
 		enabled,
