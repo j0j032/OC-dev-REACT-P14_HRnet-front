@@ -29,17 +29,15 @@
 	  position: absolute;
 	  z-index: 1000;
 	  @include flexRowInline;
-	  top: 4rem;
-	  right: 13%;
-	  justify-content: flex-end;
-	  width: fit-content;
+	  top: 0;
+	  left: 6rem;
+	  justify-content: space-between;
+	  width: 86%;
 	  height: fit-content;
-	  padding: 0.8rem;
+	  padding: 1.2rem 0.8rem;
 	  cursor: pointer;
-	  border: 2px solid var(--COMPANY-theme-color);
 	  border-radius: 8px;
 	  background-color: var(--BG-color);
-	  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
 	  gap: 1.6rem;
 	}
   }

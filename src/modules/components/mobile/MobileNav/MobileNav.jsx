@@ -5,6 +5,7 @@ import {handleLogout} from '../../../../api/user/requests.js'
 import {useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {DarkMode} from '../../common/DarkMode/DarkMode'
+import {BiLogOut} from 'react-icons/all.js'
 
 export const MobileNav = ({user}) => {
 	const queryClient = useQueryClient()
@@ -27,6 +28,7 @@ export const MobileNav = ({user}) => {
 			{isProfileOpen ?
 				<>
 					<div className='mobile-nav__profile-menu'>
+						<BiLogOut onClick={logout} className='icon-btn icon-btn--font'/>
 						<DarkMode/>
 					</div>
 				</>
