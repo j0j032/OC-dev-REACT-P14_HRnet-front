@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
 import Modal from '../../Modal/Modal.jsx'
 import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
-import {updateEmployee} from '../../../../api/employees/requests.js'
-import {useQueryClient} from 'react-query'
 import {BsCloudUpload} from 'react-icons/all.js'
+import {useUpdateEmployee} from '../../../../api/employees.js'
 
 export const UpdatePicture = ({isOpen, close, employee}) => {
 	const currentUserPicture = employee.picture !== 'none' ? employee.imageUrl : imgPlaceholder
-	const queryClient = useQueryClient()
 	const [file, setFile] = useState({preview: currentUserPicture, data: {}})
 	const [dragActive, setDragActive] = useState(false)
+	const {mutate, error, isSuccess} = useUpdateEmployee()
 	
 	const handleDrag = function (e) {
 		e.preventDefault()
@@ -42,9 +41,7 @@ export const UpdatePicture = ({isOpen, close, employee}) => {
 			const formData = new FormData()
 			formData.append('employee', employeeUpdated)
 			formData.append('image', file.data)
-			await updateEmployee(formData)
-			await queryClient.invalidateQueries({queryKey: ['employee'], type: 'active'})
-			await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+			await mutate(formData)
 		} else {
 			alert('no file selected')
 		}

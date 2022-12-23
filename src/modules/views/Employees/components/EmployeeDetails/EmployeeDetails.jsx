@@ -1,6 +1,4 @@
 import {Loader} from '../../../../components/common/Loader/Loader.jsx'
-import {useQuery, useQueryClient} from 'react-query'
-import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requests.js'
 import React from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatTimestampToDate} from '../../../../../utils/formater.js'
@@ -10,23 +8,21 @@ import useModal from '../../../../components/Modal/useModal.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture'
+import {useDeleteEmployee, useGetEmployee, useGetUserInfos} from '../../../../../api/employees.js'
 
 export const EmployeeDetails = ({id, closeModal}) => {
 	
 	//<editor-fold desc="STARTERS">
-	const queryClient = useQueryClient()
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
 	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {data, isLoading, error, isError} = useQuery(['employee'], () => getEmployeeById(id), {
-		refetchOnWindowFocus: false
-	})
 	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
+	const {company} = useGetUserInfos()
+	const {data, isLoading, error, isError} = useGetEmployee(id)
+	const {mutate, error: deleteError, isSuccess} = useDeleteEmployee()
 	//</editor-fold>
 	
 	const handleDelete = async () => {
-		await deleteEmployee(id)
-		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+		await mutate(id)
 		closeModal()
 	}
 	

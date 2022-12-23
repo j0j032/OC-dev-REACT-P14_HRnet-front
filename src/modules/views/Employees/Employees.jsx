@@ -11,7 +11,7 @@ import {EmployeesTable} from './components/EmployeesTable/EmployeesTable.jsx'
 import PaginationLimiter from '../../components/common/PaginationLimiter/PaginationLimiter.jsx'
 import Paginator from '../../components/common/Paginator/Paginator.jsx'
 import {usePagination} from '../../../hooks/usePagination.jsx'
-import {useGetEmployees} from '../../../api/employees/useGetEmployees.js'
+import {employees} from '../../../api/employees.js'
 import {Loader} from '../../components/common/Loader/Loader'
 import {EmployeesCount} from './components/EmployeesCount/EmployeesCount'
 import {NoResult} from '../../components/common/NoResult/NoResult'
@@ -30,8 +30,8 @@ export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
-	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, {enabled: true})
-	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, sort, {enabled: true})
+	const {data, isLoading, error, isError, refetch} = employees('allEmployees', page, limit, debouncedSearch, sort, {enabled: true})
+	const {data: totalFound, isLoading: loadingLength} = employees('totalFound', 0, 0, debouncedSearch, sort, {enabled: true})
 	
 	const numberOfPages = search.length < 2
 		? Math.ceil(data?.totalEmployees / limit)

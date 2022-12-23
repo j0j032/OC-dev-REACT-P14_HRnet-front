@@ -1,29 +1,28 @@
 import {useForm} from 'react-hook-form'
 import React, {useEffect, useState} from 'react'
-import {useQuery, useQueryClient} from 'react-query'
 import {capitalize} from '../../../../../utils/formater.js'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import {formValidation} from '../../../../../utils/formValidation.js'
 import imgPlaceholder from '../../../../../assets/imgPlaceholder.webp'
-import {createEmployee} from '../../../../../api/employees/requests.js'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture'
 import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
 import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker/Datepicker.jsx'
+import {useCreateEmployee, useGetUserInfos} from '../../../../../api/employees.js'
 
 export const CreateEmployeeForm = () => {
 	
 	//<editor-fold desc="_STARTERS_">
 	const [file, setFile] = useState({preview: '', data: {}})
-	const queryClient = useQueryClient()
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
-	const {data: user} = useQuery(['login'], {enabled: false}), {userInfos} = user, {company} = userInfos
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
 	const [isOpenModal, {openModal, closeModal}] = useModal(false)
+	const {company} = useGetUserInfos()
+	const {mutate, error, isSuccess} = useCreateEmployee()
 	//</editor-fold>
 	
 	useEffect(() => {
@@ -48,8 +47,7 @@ export const CreateEmployeeForm = () => {
 		formData.append('employee', employee)
 		formData.append('company', company)
 		if (file.data?.name) formData.append('image', file.data)
-		await createEmployee(formData)
-		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
+		await mutate(formData)
 		setFile({preview: '', data: {}})
 		resetForm()
 	}

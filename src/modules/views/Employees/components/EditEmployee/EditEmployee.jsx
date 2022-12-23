@@ -1,6 +1,5 @@
 import {capitalize, formatTimestampToDate} from '../../../../../utils/formater.js'
 import React from 'react'
-import {useQueryClient} from 'react-query'
 import {useForm} from 'react-hook-form'
 import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import {formValidation} from '../../../../../utils/formValidation.js'
@@ -8,25 +7,23 @@ import Datepicker from '../../../../components/jojos-react-datepicker/Datepicker
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
 import {countryStates, teams} from '../../../../../config/formAutocomplete.js'
-import {updateEmployee} from '../../../../../api/employees/requests.js'
+import {useUpdateEmployee} from '../../../../../api/employees.js'
 
 export const EditEmployee = ({employee, editMode}) => {
 	
 	//<editor-fold desc="_STARTERS_">
-	const queryClient = useQueryClient()
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber} = formValidation
 	const {register, handleSubmit, getValues, setValue, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
+	const {mutate, error, isSuccess} = useUpdateEmployee()
 	//</editor-fold>
 	
 	const submit = async (data) => {
 		const employeeUpdated = JSON.stringify({_id: employee._id, picture: employee.picture, ...data})
 		const formData = new FormData()
 		formData.append('employee', employeeUpdated)
-		await updateEmployee(formData)
-		await queryClient.invalidateQueries({queryKey: ['employees'], type: 'active'})
-		await queryClient.invalidateQueries({queryKey: ['employee'], type: 'active'})
+		await mutate(formData)
 		editMode()
 	}
 	const getInputValue = (value, name) => {
