@@ -6,6 +6,7 @@ import {useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {DarkMode} from '../../common/DarkMode/DarkMode'
 import {BiLogOut} from 'react-icons/all.js'
+import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 
 export const MobileNav = ({user}) => {
 	const queryClient = useQueryClient()
@@ -21,7 +22,8 @@ export const MobileNav = ({user}) => {
 	return (
 		<section className='mobile-nav__container'>
 			<div onClick={toggleProfile} className='mobile-nav__profile'>
-				<img src={user.picture} alt={`Profile picture of ${user.firstname}`}/>
+				<img src={user.picture ? user.picture : imgPlaceholder}
+				     alt={`Profile picture of ${user.firstname}`}/>
 			</div>
 			<BurgerMenu toggle={toggleNav} state={isNavOpen}/>
 			{isNavOpen ? <LateralNav/> : null}

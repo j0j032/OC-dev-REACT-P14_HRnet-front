@@ -5,6 +5,7 @@ import {BiLogOut} from 'react-icons/all.js'
 import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 import {smallerScreenNavConfig} from '../../../../config/breakPoints.js'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
+import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 
 export const ProfileHeader = () => {
 	const [isOpenMenu, {setToggle: toggleMenu}] = useBoolean(false)
@@ -24,7 +25,7 @@ export const ProfileHeader = () => {
 		<div className='profile-header'>
 			<img onClick={toggleMenu}
 			     className='profile-picture picture-s toggle-user-menu'
-			     src={userInfos.picture}
+			     src={userInfos.picture ? userInfos.picture : imgPlaceholder}
 			     alt={`Profile picture of ${userInfos.firstname}`}/>
 			{windowSize.width > smallerScreenNavConfig ?
 				<div>

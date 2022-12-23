@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Modal from '../../Modal/Modal.jsx'
-import imgPlaceholder from '../../../../assets/imgPlaceholder.svg'
+import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 import {updateEmployee} from '../../../../api/employees/requests.js'
 import {useQueryClient} from 'react-query'
 import {BsCloudUpload} from 'react-icons/all.js'
