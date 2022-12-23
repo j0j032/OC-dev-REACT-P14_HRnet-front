@@ -4,7 +4,7 @@ import {deleteEmployee, getEmployeeById} from '../../../../../api/employees/requ
 import React from 'react'
 import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatTimestampToDate} from '../../../../../utils/formater.js'
-import imgPlaceholder from '../../../../../assets/imgPlaceholder.svg'
+import imgPlaceholder from '../../../../../assets/imgPlaceholder.webp'
 import useBoolean from '../../../../../hooks/useBoolean.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee'

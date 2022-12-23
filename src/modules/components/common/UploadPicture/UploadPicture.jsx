@@ -1,4 +1,4 @@
-import imgPlaceholder from '../../../../assets/imgPlaceholder.svg'
+import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 import Modal from '../../Modal/Modal.jsx'
 import {BsCloudUpload} from 'react-icons/all.js'
 import React, {useState} from 'react'

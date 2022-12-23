@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from '../../../../components/Modal/Modal.jsx'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
 import useModal from '../../../../components/Modal/useModal.jsx'
-import imgPlaceHolder from '../../../../../assets/imgPlaceholder.svg'
+import imgPlaceHolder from '../../../../../assets/imgPlaceholder.webp'
 import {useQueryClient} from 'react-query'
 import {formatTimestampToDate} from '../../../../../utils/formater'
 

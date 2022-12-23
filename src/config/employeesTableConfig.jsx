@@ -1,6 +1,6 @@
 import React from 'react'
 import {formatTimestampToDate} from '../utils/formater.js'
-import imgPlaceholder from '../assets/imgPlaceholder.svg'
+import imgPlaceholder from '../assets/imgPlaceholder.webp'
 import {parseImgUrl} from '../utils/parseImgUrl.js'
 
 export const employeesColumns =
