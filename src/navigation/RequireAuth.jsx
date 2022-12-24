@@ -5,8 +5,8 @@ const RequireAuth = () => {
 	const {data} = useQuery(['login'], {enabled: false})
 	const location = useLocation()
 	const token = data ? data.accessToken : null
-	return token !== null ? (<Outlet/>) : (<Navigate to='/' state={{from: location}} replace/>)
 	
+	return token !== null ? (<Outlet/>) : (<Navigate to='/' state={{from: location}} replace/>)
 }
 
 export default RequireAuth

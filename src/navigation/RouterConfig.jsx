@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Route, Routes, useLocation} from 'react-router-dom'
 import Layout from './Layout.jsx'
-import {Employees} from '../modules/views/Employees/Employees'
-import {Error404} from '../modules/views/Error404/Error404'
-import {Login} from '../modules/views/Login/Login'
+import {Employees} from '../pages/Employees/Employees'
+import {Error404} from '../pages/Error404/Error404'
+import {Login} from '../pages/Login/Login'
 import RequireAuth from './RequireAuth.jsx'
 import {AnimatePresence} from 'framer-motion'
 
