@@ -2,7 +2,6 @@ import {useForm} from 'react-hook-form'
 import React, {useEffect, useState} from 'react'
 import {capitalize} from '../../../../utils/formater.js'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
-import useModal from '../../../../components/Modal/useModal.jsx'
 import {formValidation} from '../../../../utils/formValidation.js'
 import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 import {countryStates, teams} from '../../../../config/selectInputs.js'
@@ -21,7 +20,7 @@ export const CreateEmployeeForm = () => {
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
-	const [isOpenModal, {openModal, closeModal}] = useModal(false)
+	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const {company} = useGetUserInfos()
 	const {mutate, error, isSuccess} = useCreateEmployee()
 	//</editor-fold>

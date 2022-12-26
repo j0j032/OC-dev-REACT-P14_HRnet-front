@@ -4,7 +4,6 @@ import {Error} from '../../../../components/common/Error/Error.jsx'
 import {formatTimestampToDate} from '../../../../utils/formater.js'
 import imgPlaceholder from '../../../../assets/imgPlaceholder.webp'
 import useBoolean from '../../../../hooks/useBoolean.jsx'
-import useModal from '../../../../components/Modal/useModal.jsx'
 import {EditEmployee} from '../EditEmployee/EditEmployee.jsx'
 import {BsTrash2, FiEdit, RiCloseFill, RiImageEditFill, TbSend} from 'react-icons/all.js'
 import {UpdatePicture} from '../../../../components/common/UploadPicture/UpdatePicture.jsx'
@@ -15,7 +14,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 	
 	//<editor-fold desc="STARTERS">
 	const [alertIsOpen, {setTrue: openAlert, setFalse: closeAlert}] = useBoolean(false)
-	const [isChangePicOpen, {openModal: openChangePic, closeModal: closeChangePic}] = useModal(false)
+	const [isUploaderOpen, {setTrue: openUploader, setFalse: closeUploader}] = useBoolean(false)
 	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
 	const {company} = useGetUserInfos()
 	const {data, isLoading, error, isError} = useGetEmployee(id)
@@ -69,9 +68,9 @@ export const EmployeeDetails = ({id, closeModal}) => {
 							}
 						</editor-fold>
 						<editor-fold desc='_OPEN UPDATE PIC_'>
-							<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openChangePic}/>
+							<RiImageEditFill className='icon-btn icon-btn--invert' onClick={openUploader}/>
 							{
-								isChangePicOpen && <UpdatePicture employee={data} isOpen={isChangePicOpen} close={closeChangePic}/>
+								isUploaderOpen && <UpdatePicture employee={data} isOpen={isUploaderOpen} close={closeUploader}/>
 							}
 						</editor-fold>
 						<BsTrash2 onClick={openAlert} className='icon-btn icon-btn--invert' alt={`Delete ${data.firstname} profile`}/>

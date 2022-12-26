@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import {ViewContext} from '../../context/EmpoyeesViewContext.jsx'
-import useModal from '../../../../components/Modal/useModal.jsx'
-import Modal from '../../../../components/Modal/Modal.jsx'
+import {Modal} from 'basic-modal-react'
 import {CreateEmployeeForm} from '../CreateEmployeeForm/CreateEmployeeForm.jsx'
 import {BsGrid3X3Gap, BsPlusLg, BsSortUpAlt, TbList} from 'react-icons/all.js'
 import {sortItems} from '../../../../config/sortBtns.js'
@@ -12,7 +11,7 @@ const EmployeesToolbar = ({setSearch, setSort}) => {
 	
 	//<editor-fold desc="_STARTERS_">
 	const {toggleTableView, tableView} = useContext(ViewContext)
-	const [isOpenModal, {openModal, closeModal}] = useModal(false)
+	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const [isFiltersOpen, {setToggle: toggleFilterBox}] = useBoolean(false)
 	const handleChange = e => e.target.value.length >= 2 ? setSearch(e.target.value) : setSearch('')
 	const viewIcon = tableView

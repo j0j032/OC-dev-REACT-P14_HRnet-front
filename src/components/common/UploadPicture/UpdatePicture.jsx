@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Modal from '../../Modal/Modal.jsx'
+import {Modal} from 'basic-modal-react'
 import imgPlaceholder from '../../../assets/imgPlaceholder.webp'
 import {BsCloudUpload} from 'react-icons/all.js'
 import {useUpdateEmployee} from '../../../api/employees.js'
