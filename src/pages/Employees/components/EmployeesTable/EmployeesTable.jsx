@@ -1,17 +1,17 @@
 import React, {useState} from 'react'
 import {useTable, useSortBy} from 'react-table/src'
 import {employeesColumns, employeesColumnsMediumScreen, employeesColumnsMobile} from '../../../../config/employeesTableConfig.jsx'
-import Modal from '../../../../components/Modal/Modal.jsx'
+import {Modal} from 'basic-modal-react'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
-import useModal from '../../../../components/Modal/useModal.jsx'
 import useWindowSize from '../../../../hooks/useWindowSize.jsx'
 import {useQueryClient} from 'react-query'
 import {mediumScreenTable, mobileScreenTable} from '../../../../config/breakPoints.js'
+import useBoolean from '../../../../hooks/useBoolean.jsx'
 
 export const EmployeesTable = ({employees}) => {
 	//<editor-fold desc="_STARTERS_">
 	const windowSize = useWindowSize()
-	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
+	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const [employeeId, setEmployeeId] = useState('')
 	const columnItemsDisplay = windowSize.width < mobileScreenTable
 		? employeesColumnsMobile
@@ -62,7 +62,7 @@ export const EmployeesTable = ({employees}) => {
 			
 			<Modal handleClose={handleCloseModal}
 			       modalId='modal'
-			       isOpen={modalIsOpen}
+			       isOpen={isOpenModal}
 			       customBtn={{color: 'var(--COMPANY-theme-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={employeeId} closeModal={handleCloseModal}/>
