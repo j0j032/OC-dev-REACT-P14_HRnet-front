@@ -1,16 +1,15 @@
 import React from 'react'
-import Modal from '../../../../components/Modal/Modal.jsx'
+import {Modal} from 'basic-modal-react'
 import {EmployeeDetails} from '../EmployeeDetails/EmployeeDetails.jsx'
-import useModal from '../../../../components/Modal/useModal.jsx'
 import imgPlaceHolder from '../../../../assets/imgPlaceholder.webp'
 import {useQueryClient} from 'react-query'
 import {formatTimestampToDate} from '../../../../utils/formater.js'
+import useBoolean from '../../../../hooks/useBoolean.jsx'
 
 export const EmployeeCard = ({data}) => {
-	const [modalIsOpen, {openModal, closeModal}] = useModal(false)
+	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const {hired, firstname, lastname, title, department, imageUrl, picture, contact, _id} = data
 	const queryClient = useQueryClient()
-	
 	
 	const handleCloseModal = async () => {
 		await queryClient.removeQueries('employee')
@@ -41,7 +40,7 @@ export const EmployeeCard = ({data}) => {
 			</div>
 			<Modal handleClose={handleCloseModal}
 			       modalId='modal'
-			       isOpen={modalIsOpen}
+			       isOpen={isOpenModal}
 			       customBtn={{color: 'var(--COMPANY-theme-color)'}}
 			       customBG={{backdropFilter: 'blur(2px)'}}>
 				<EmployeeDetails id={_id} closeModal={handleCloseModal}/>

@@ -1,5 +1,5 @@
 import imgPlaceholder from '../../../assets/imgPlaceholder.webp'
-import Modal from '../../Modal/Modal.jsx'
+import {Modal} from 'basic-modal-react'
 import {BsCloudUpload} from 'react-icons/all.js'
 import React, {useState} from 'react'
 
