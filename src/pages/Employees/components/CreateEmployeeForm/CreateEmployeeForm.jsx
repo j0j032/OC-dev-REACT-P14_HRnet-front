@@ -8,7 +8,7 @@ import {countryStates, teams} from '../../../../config/selectInputs.js'
 import {UploadPicture} from '../../../../components/common/UploadPicture/UploadPicture.jsx'
 import {SelectInput} from '../../../../components/common/Inputs/SelectInput.jsx'
 import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
-import Datepicker from '../../../../components/datepicker/Datepicker/Datepicker.jsx'
+import {Datepicker} from 'basic-datepicker-react'
 import {useCreateEmployee} from '../../../../api/employees.js'
 import {useGetUserInfos} from '../../../../api/user.js'
 
