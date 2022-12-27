@@ -12,6 +12,7 @@ import {useUpdateEmployee} from '../../../../api/employees.js'
 export const EditEmployee = ({employee, editMode}) => {
 	
 	//<editor-fold desc="_STARTERS_">
+	const storedTheme = localStorage.getItem('theme')
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber} = formValidation
 	const {register, handleSubmit, getValues, setValue, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
@@ -67,6 +68,7 @@ export const EditEmployee = ({employee, editMode}) => {
 						{isDPBirhtdayShown &&
 							<Datepicker currentSelectedValue={getValues('birthdate')}
 							            RHFinputName='birthdate'
+							            theme={storedTheme === 'dark' ? 'dark' : 'light'}
 							            locale='en'
 							            setInputValue={getInputValue}
 							            disableFuture={true}
@@ -106,6 +108,7 @@ export const EditEmployee = ({employee, editMode}) => {
 						{isDPHiredShown &&
 							<Datepicker currentSelectedValue={getValues('startDate')}
 							            RHFinputName={'startDate'}
+							            theme={storedTheme === 'dark' ? 'dark' : 'light'}
 							            locale='en'
 							            setInputValue={getInputValue}
 							            hide={hideHiredDP}

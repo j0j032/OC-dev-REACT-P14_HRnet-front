@@ -15,6 +15,7 @@ import {useGetUserInfos} from '../../../../api/user.js'
 export const CreateEmployeeForm = () => {
 	
 	//<editor-fold desc="_STARTERS_">
+	const storedTheme = localStorage.getItem('theme')
 	const [file, setFile] = useState({preview: '', data: {}})
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
 	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
@@ -83,6 +84,7 @@ export const CreateEmployeeForm = () => {
 								<Datepicker currentSelectedValue={getValues('birthdate')}
 								            RHFinputName='birthdate'
 								            locale='en'
+								            theme={storedTheme === 'dark' ? 'dark' : 'light'}
 								            setInputValue={getInputValue}
 								            disableFuture={true}
 								            hide={hideBirthDP}
@@ -111,6 +113,7 @@ export const CreateEmployeeForm = () => {
 							{isDPHiredShown &&
 								<Datepicker currentSelectedValue={getValues('startDate')}
 								            RHFinputName='startDate'
+								            theme={storedTheme === 'dark' ? 'dark' : 'light'}
 								            locale='en'
 								            setInputValue={getInputValue}
 								            hide={hideHiredDP}
