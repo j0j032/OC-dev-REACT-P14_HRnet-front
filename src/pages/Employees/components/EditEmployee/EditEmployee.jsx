@@ -17,7 +17,7 @@ export const EditEmployee = ({employee, editMode}) => {
 	const {register, handleSubmit, getValues, setValue, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
-	const {mutate, error, isSuccess} = useUpdateEmployee()
+	const {mutate} = useUpdateEmployee()
 	//</editor-fold>
 	
 	const submit = async (data) => {
