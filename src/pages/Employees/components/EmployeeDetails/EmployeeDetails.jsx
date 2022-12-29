@@ -18,7 +18,7 @@ export const EmployeeDetails = ({id, closeModal}) => {
 	const [isEditing, {setTrue: openEdit, setFalse: closeEdit, setToggle: toggleEditing}] = useBoolean(false)
 	const {company} = useGetUserInfos()
 	const {data, isLoading, error, isError} = useGetEmployee(id)
-	const {mutate, error: deleteError, isSuccess} = useDeleteEmployee()
+	const {mutate} = useDeleteEmployee()
 	//</editor-fold>
 	
 	const handleDelete = async () => {

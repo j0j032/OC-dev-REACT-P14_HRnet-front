@@ -11,7 +11,7 @@ export const ProfileHeader = () => {
 	const windowSize = useWindowSize()
 	const navigate = useNavigate()
 	const {userInfos} = useGetUserInfos()
-	const {mutate, error, isSuccess} = useLogout()
+	const {mutate} = useLogout()
 	
 	const logout = async () => {
 		await mutate()
