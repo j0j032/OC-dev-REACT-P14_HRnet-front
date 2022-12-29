@@ -33,3 +33,19 @@
 	}
   }
 }
+
+.toast-icon {
+  font-size: 3.2rem;
+  
+  &.toast-icon--success {
+	color: $success;
+  }
+  
+  &.toast-icon--warning {
+	color: $warning;
+  }
+  
+  &.toast-icon--error {
+	color: $error;
+  }
+}

@@ -11,6 +11,8 @@
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
     "axios": "^1.1.3",
+    "basic-datepicker-react": "^0.2.1",
+    "basic-modal-react": "^0.1.2",
     "framer-motion": "^7.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

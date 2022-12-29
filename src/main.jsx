@@ -6,9 +6,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {QueryClientProvider, QueryClient} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 
-
 const queryClient = new QueryClient()
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<BrowserRouter>
