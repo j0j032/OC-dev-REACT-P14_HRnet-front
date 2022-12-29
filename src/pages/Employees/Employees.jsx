@@ -32,8 +32,8 @@ export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const {userInfos, company} = useGetUserInfos()
-	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, {enabled: true})
-	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, sort, {enabled: true})
+	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, company.id, {enabled: true})
+	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, sort, company.id, {enabled: true})
 	//</editor-fold>
 	
 	const numberOfPages = search.length < 2
