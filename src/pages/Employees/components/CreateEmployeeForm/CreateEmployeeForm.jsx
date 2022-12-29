@@ -30,7 +30,7 @@ export const CreateEmployeeForm = () => {
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
 	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const {company} = useGetUserInfos()
-	const {mutate, isError: creationFailed, isLoading: isUpdating} = useCreateEmployee()
+	const {mutate, isError: creationFailed, isLoading: isCreating} = useCreateEmployee()
 	//</editor-fold>
 	
 	useEffect(() => {
@@ -61,7 +61,7 @@ export const CreateEmployeeForm = () => {
 	}
 	
 	
-	const notifUpdated = useNotification(isUpdating, 3000)
+	const notifUpdated = useNotification(isCreating, 3000)
 	const notifCreationFailed = useNotification(creationFailed, 3000)
 	
 	return (
