@@ -9,7 +9,7 @@ export const UpdatePicture = ({isOpen, close, employee}) => {
 	const currentUserPicture = employee.picture !== 'none' ? employee.imageUrl : imgPlaceholder
 	const [file, setFile] = useState({preview: currentUserPicture, data: {}})
 	const [dragActive, setDragActive] = useState(false)
-	const {mutate, error, isSuccess} = useUpdateEmployee()
+	const {mutate} = useUpdateEmployee()
 	
 	const handleDrag = function (e) {
 		e.preventDefault()

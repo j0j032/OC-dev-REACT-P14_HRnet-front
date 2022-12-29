@@ -11,6 +11,8 @@ import {TextInput} from '../../../../components/common/Inputs/TextInput.jsx'
 import {Datepicker} from 'basic-datepicker-react'
 import {useCreateEmployee} from '../../../../api/employees.js'
 import {useGetUserInfos} from '../../../../api/user.js'
+import {Toast} from '../../../../components/common/Toast/Toast'
+import useNotification from '../../../../hooks/useNotification.jsx'
 
 export const CreateEmployeeForm = () => {
 	
@@ -18,12 +20,17 @@ export const CreateEmployeeForm = () => {
 	const storedTheme = localStorage.getItem('theme')
 	const [file, setFile] = useState({preview: '', data: {}})
 	const {RQ_ExcludeNumbers, RQ_UsDate, RQ_validEmail, RQ_validUsZip, RQ_validUsNumber, RQ_only} = formValidation
-	const {register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {errors, isSubmitting}} = useForm({criteriaMode: 'all'})
+	const {
+		register, handleSubmit, getValues, setValue, setFocus, reset: resetForm, clearErrors, formState: {
+			errors,
+			isSubmitting
+		}
+	} = useForm({criteriaMode: 'all'})
 	const [isDPBirhtdayShown, {setTrue: showBirthDP, setFalse: hideBirthDP}] = useBoolean(false)
 	const [isDPHiredShown, {setTrue: showHiredDP, setFalse: hideHiredDP}] = useBoolean(false)
 	const [isOpenModal, {setTrue: openModal, setFalse: closeModal}] = useBoolean(false)
 	const {company} = useGetUserInfos()
-	const {mutate, error, isSuccess} = useCreateEmployee()
+	const {mutate, isError: creationFailed, isLoading: isCreating} = useCreateEmployee()
 	//</editor-fold>
 	
 	useEffect(() => {
@@ -53,8 +60,14 @@ export const CreateEmployeeForm = () => {
 		resetForm()
 	}
 	
+	
+	const notifCreationSuccess = useNotification(isCreating, 3000)
+	const notifCreationFailed = useNotification(creationFailed, 3000)
+	
 	return (
 		<aside className='create-employee__container'>
+			{notifCreationSuccess && <Toast type='success' message='Employee Created'/>}
+			{notifCreationFailed && <Toast type='error' message='sorry, an error has occured'/>}
 			<div className='form-heading'>
 				<img onClick={openModal} className='profile-picture picture-m' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
 				<h2>Create new employee</h2>

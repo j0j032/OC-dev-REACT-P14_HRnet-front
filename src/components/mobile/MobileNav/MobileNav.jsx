@@ -11,7 +11,7 @@ export const MobileNav = ({user}) => {
 	const navigate = useNavigate()
 	const [isNavOpen, {setToggle: toggleNav}] = useBoolean(false)
 	const [isProfileOpen, {setToggle: toggleProfile}] = useBoolean(false)
-	const {mutate, error, isSuccess} = useLogout()
+	const {mutate} = useLogout()
 	
 	const logout = async () => {
 		await mutate()
