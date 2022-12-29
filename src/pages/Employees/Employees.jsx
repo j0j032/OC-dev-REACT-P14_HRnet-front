@@ -21,7 +21,7 @@ import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader.jsx'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav.jsx'
 import {useGetUserInfos} from '../../api/user.js'
 
-export const Employees = () => {
+const Employees = () => {
 	
 	//<editor-fold desc="_STARTERS_">
 	const windowSize = useWindowSize()
@@ -82,3 +82,5 @@ export const Employees = () => {
 		</>
 	)
 }
+
+export default Employees
