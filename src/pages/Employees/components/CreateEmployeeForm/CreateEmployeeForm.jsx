@@ -61,12 +61,12 @@ export const CreateEmployeeForm = () => {
 	}
 	
 	
-	const notifUpdated = useNotification(isCreating, 3000)
+	const notifCreationSuccess = useNotification(isCreating, 3000)
 	const notifCreationFailed = useNotification(creationFailed, 3000)
 	
 	return (
 		<aside className='create-employee__container'>
-			{notifUpdated && <Toast type='success' message='Employee Created'/>}
+			{notifCreationSuccess && <Toast type='success' message='Employee Created'/>}
 			{notifCreationFailed && <Toast type='error' message='sorry, an error has occured'/>}
 			<div className='form-heading'>
 				<img onClick={openModal} className='profile-picture picture-m' src={file.preview ? file.preview : imgPlaceholder} alt='preview employee picture'/>
