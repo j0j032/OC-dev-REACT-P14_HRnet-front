@@ -7,7 +7,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.2.0
   axios: ^1.1.3
   basic-datepicker-react: ^0.2.1
-  basic-modal-react: ^0.1.0
+  basic-modal-react: ^0.1.2
   framer-motion: ^7.6.5
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -24,7 +24,7 @@ dependencies:
   '@hookform/error-message': 2.0.1_uitc6c22ofsl6jhrdjqyu3was4
   axios: 1.1.3
   basic-datepicker-react: 0.2.1_biqbaboplfbrettd7655fr4n2y
-  basic-modal-react: 0.1.0_biqbaboplfbrettd7655fr4n2y
+  basic-modal-react: 0.1.2_biqbaboplfbrettd7655fr4n2y
   framer-motion: 7.6.5_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -533,8 +533,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /basic-modal-react/0.1.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-oH6qy21Si4k2HIUx0YF8xdWTTKG+e7W8gDiUWnuiDUuMYrbVpAtrEsyPeb+bl0HtyTY6m2NuMUC9mokVSAyKWQ==}
+  /basic-modal-react/0.1.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-drFSso5EYhD8kb0TAB7YQwdpInF/LlueJLYCwCwq5dMKAcrSxaYY0AhMabbnqFV9kgI0bU9W19zESALIgCfvTA==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
