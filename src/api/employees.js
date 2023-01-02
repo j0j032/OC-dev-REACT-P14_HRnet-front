@@ -10,9 +10,10 @@ const getAllEmployees = (page = 1, limit = 12, text = '', sortMethod = {'lastnam
 	.get(employeesURL, {params: {companyId, text, page, limit, sortMethod}})
 	.then(r => {
 		const employees = text.length >= 2 ? filterMainSearch(r.data.employees, text) : r.data.employees
-		const totalEmployees = r.data.employeesLength
+		const totalOfEmployees = r.data.totalOfEmployees
+		const employeesFound = r.data.employeesFound
 		
-		return ({employees, totalEmployees})
+		return ({employees, totalOfEmployees, employeesFound})
 	})
 
 const createEmployee = (formData) => axios.post(employeesURL, formData, {headers: {'Content-Type': 'multipart/form-data'}})
