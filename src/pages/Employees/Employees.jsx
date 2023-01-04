@@ -35,14 +35,7 @@ const Employees = () => {
 	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, company.id, {enabled: true})
 	//</editor-fold>
 	
-	/*const numberOfPages = search.length < 2
-		? Math.ceil(data?.totalOfEmployees / limit)
-		: Math.ceil(data?.employeesFound / limit)
-
-	*/
-	
 	const numberOfPages = Math.ceil(data?.totalOfEmployees / limit)
-	
 	
 	const setCompanyTheme = () => {
 		localStorage.setItem('company-theme', company.name.split(' ')[0])
@@ -69,7 +62,7 @@ const Employees = () => {
 									                   setLimit={setLimit}
 									                   totalData={search.length >= 2 ? data.totalOfEmployees : data.employeesFound}
 									                   currentPage={currentPage}/>
-									<EmployeesCount total={data.totalOfEmployees} found={search.length >= 2 ? data.employeesFound : data.totalOfEmployees}/>
+									<EmployeesCount total={data.totalOfEmployees}/>
 									<Paginator totalOfPages={numberOfPages}
 									           setPage={setPage}
 									           currentPage={currentPage}
