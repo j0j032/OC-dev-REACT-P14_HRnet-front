@@ -1,8 +1,6 @@
-export const EmployeesCount = ({total, found}) => {
+export const EmployeesCount = ({total}) => {
 	
-	const text = total || found > 1 ? 'employees' : 'employee'
+	const text = total > 1 ? 'employees' : 'employee'
 	
-	return total !== found
-		? (<p className='employees__found'>Found <span> {found}</span> of <span> {total}</span> {text}</p>)
-		: (<p className='employees__total'><span>{total}</span> {text}</p>)
+	return <p className='employees__total'><span>{total}</span> {text}</p>
 }

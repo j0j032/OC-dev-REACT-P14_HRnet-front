@@ -21,7 +21,7 @@ import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader.jsx'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav.jsx'
 import {useGetUserInfos} from '../../api/user.js'
 
-export const Employees = () => {
+const Employees = () => {
 	
 	//<editor-fold desc="_STARTERS_">
 	const windowSize = useWindowSize()
@@ -32,13 +32,10 @@ export const Employees = () => {
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
 	const {userInfos, company} = useGetUserInfos()
-	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, {enabled: true})
-	const {data: totalFound, isLoading: loadingLength} = useGetEmployees('totalFound', 0, 0, debouncedSearch, sort, {enabled: true})
+	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, company.id, {enabled: true})
 	//</editor-fold>
 	
-	const numberOfPages = search.length < 2
-		? Math.ceil(data?.totalEmployees / limit)
-		: !loadingLength ? Math.ceil(totalFound.employees.length / limit) : Math.ceil(data?.totalEmployees / limit)
+	const numberOfPages = Math.ceil(data?.totalOfEmployees / limit)
 	
 	const setCompanyTheme = () => {
 		localStorage.setItem('company-theme', company.name.split(' ')[0])
@@ -57,15 +54,15 @@ export const Employees = () => {
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
 						<EmployeesToolbar setSearch={setSearch} setSort={setSort}/>
-						{isLoading || loadingLength ? <Loader/> : isError ? <Error message={error.message}/> : data.employees.length !== 0 ? (
+						{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : data.employees.length !== 0 ? (
 							<>
 								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
 								<div className='employees__pagination-container'>
 									<PaginationLimiter update={refetch}
 									                   setLimit={setLimit}
-									                   totalData={search.length >= 2 ? totalFound.employees.length : data.totalEmployees}
+									                   totalData={search.length >= 2 ? data.totalOfEmployees : data.employeesFound}
 									                   currentPage={currentPage}/>
-									<EmployeesCount total={data.totalEmployees} found={totalFound.employees.length}/>
+									<EmployeesCount total={data.totalOfEmployees}/>
 									<Paginator totalOfPages={numberOfPages}
 									           setPage={setPage}
 									           currentPage={currentPage}
@@ -76,9 +73,12 @@ export const Employees = () => {
 								</div>
 							</>
 						) : <NoResult/>}
+					
 					</section>
 				</ViewContext.Provider>
 			</MainContent>
 		</>
 	)
 }
+
+export default Employees
