@@ -6,7 +6,7 @@ import {formValidation} from '../../utils/formValidation.js'
 import logo from '../../assets/logoHrnetW.svg'
 import {DarkMode} from '../../components/common/DarkMode/DarkMode.jsx'
 
-export const Login = () => {
+const Login = () => {
 	
 	const {register, handleSubmit, getValues, formState: {errors, isSubmitting}} = useForm()
 	const {refetch} = useLogin({user: getValues('username'), pwd: getValues('password')}, {enabled: false})
@@ -38,3 +38,5 @@ export const Login = () => {
 		</>
 	)
 }
+
+export default Login

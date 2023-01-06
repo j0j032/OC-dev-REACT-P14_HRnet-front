@@ -2,7 +2,7 @@ import {DarkMode} from '../../components/common/DarkMode/DarkMode.jsx'
 import {NavLink, useNavigate} from 'react-router-dom'
 import React from 'react'
 
-export const Error404 = () => {
+const Error404 = () => {
 	const navigate = useNavigate()
 	return (
 		<>
@@ -32,3 +32,5 @@ export const Error404 = () => {
 		</>
 	)
 }
+
+export default Error404
