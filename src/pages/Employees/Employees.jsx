@@ -42,9 +42,16 @@ const Employees = () => {
 		document.documentElement.setAttribute('user-theme', company.name.split(' ')[0])
 	}
 	
+	useEffect(() => {setCompanyTheme()}, [])
+	
 	useEffect(() => {
-		setCompanyTheme()
-	}, [])
+		if (search.length > 1) {
+			setPage(1)
+			setLimit(data.totalOfEmployees)
+		} else {
+			setLimit(12)
+		}
+	}, [search])
 	
 	return (
 		<>
@@ -54,25 +61,34 @@ const Employees = () => {
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
 						<EmployeesToolbar setSearch={setSearch} setSort={setSort}/>
-						{isLoading ? <Loader/> : isError ? <Error message={error.message}/> : data.employees.length !== 0 ? (
-							<>
-								{tableView ? <EmployeesTable employees={data.employees}/> : <EmployeesGallery employees={data.employees}/>}
-								<div className='employees__pagination-container'>
-									<PaginationLimiter update={refetch}
-									                   setLimit={setLimit}
-									                   totalData={search.length >= 2 ? data.totalOfEmployees : data.employeesFound}
-									                   currentPage={currentPage}/>
-									<EmployeesCount total={data.totalOfEmployees}/>
-									<Paginator totalOfPages={numberOfPages}
-									           setPage={setPage}
-									           currentPage={currentPage}
-									           firstPage={firstPage}
-									           lastPage={lastPage(numberOfPages)}
-									           setPrev={setPrev}
-									           setNext={setNext}/>
-								</div>
-							</>
-						) : <NoResult/>}
+						{isLoading
+							? <Loader/>
+							: isError
+								? <Error message={error.message}/>
+								: data.employees.length !== 0 ? (
+									<>
+										{tableView
+											? <EmployeesTable employees={data.employees}/>
+											: <EmployeesGallery employees={data.employees}/>
+										}
+										<div className='employees__pagination-container'>
+											<PaginationLimiter update={refetch}
+											                   setLimit={setLimit}
+											                   totalData={data.totalOfEmployees}
+											                   currentPage={currentPage}/>
+											<EmployeesCount total={data.totalOfEmployees}
+											                totalFound={data.employees.length}
+											                search={debouncedSearch}/>
+											<Paginator totalOfPages={numberOfPages}
+											           setPage={setPage}
+											           currentPage={currentPage}
+											           firstPage={firstPage}
+											           lastPage={lastPage(numberOfPages)}
+											           setPrev={setPrev}
+											           setNext={setNext}/>
+										</div>
+									</>
+								) : <NoResult/>}
 					
 					</section>
 				</ViewContext.Provider>
