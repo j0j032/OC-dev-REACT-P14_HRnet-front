@@ -1,9 +1,7 @@
 import React, {useCallback} from 'react'
-import useWindowSize from '../../../hooks/useWindowSize.jsx'
 import {BiChevronLeft, BiChevronRight} from 'react-icons/all.js'
 
 const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, setNext, setPrev}) => {
-	const windowSize = useWindowSize()
 	const pagination = []
 	
 	const nextBtn =
@@ -27,10 +25,6 @@ const Paginator = ({totalOfPages, setPage, currentPage, lastPage, firstPage, set
 	
 	const createDots = () => {
 		return <span className='paginator__dots'>...</span>
-	}
-	
-	if (windowSize.width < 600) {
-		return (<div className='paginator__container'> {prevBtn}{nextBtn}</div>)
 	}
 	
 	if (!totalOfPages || totalOfPages <= 1) return <div className='paginator__empty'></div>

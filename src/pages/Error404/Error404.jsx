@@ -4,6 +4,7 @@ import React from 'react'
 
 const Error404 = () => {
 	const navigate = useNavigate()
+	
 	return (
 		<>
 			<header className='error-404__header'>

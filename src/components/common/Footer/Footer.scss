@@ -6,6 +6,8 @@
   background-color: var(--FOOTER-color);
   
   > img {
+	width: fit-content;
+	height: fit-content;
 	cursor: pointer;
 	
 	&:hover {
