@@ -119,6 +119,8 @@
 	
 	& > input {
 	  height: 3.2rem;
+	  color: var(--FONT-color);
+	  background-color: var(--BG-color);
 	  
 	  &:focus {
 		outline-color: var(--COMPANY-theme-color);
@@ -130,8 +132,10 @@
 	  font-size: 1.6rem;
 	  height: 3.2rem;
 	  padding: 0.4rem 0.8rem;
+	  color: var(--FONT-color);
 	  border: 1px solid var(--SUB-FONT-color);
 	  border-radius: 5px;
+	  background-color: var(--BG-color);
 	  
 	  &:focus {
 		outline-color: var(--COMPANY-theme-color);
