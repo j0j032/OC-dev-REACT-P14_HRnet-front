@@ -19,7 +19,7 @@ import {Error} from '../../components/common/Error/Error.jsx'
 import useWindowSize from '../../hooks/useWindowSize.jsx'
 import MobileHeader from '../../components/mobile/MobileHeader/MobileHeader.jsx'
 import {MobileNav} from '../../components/mobile/MobileNav/MobileNav.jsx'
-import {useGetUserInfos} from '../../api/user.js'
+import {mockUser} from '../../api/mockUser.js'
 
 const Employees = () => {
 	
@@ -31,18 +31,27 @@ const Employees = () => {
 	const [tableView, {setToggle: toggleTableView}] = useBoolean(false)
 	const [page, currentPage, firstPage, lastPage, {setPrev, setNext, setPage}] = usePagination()
 	const [limit, setLimit] = useState(12)
-	const {userInfos, company} = useGetUserInfos()
-	const {data, isLoading, error, isError, refetch} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, company.id, {enabled: true})
+	const companyId = '63920e583e248586c476bbd6'
+	const user = mockUser
+	const {
+		data,
+		isLoading,
+		error,
+		isError,
+		refetch
+	} = useGetEmployees('allEmployees', page, limit, debouncedSearch, sort, companyId, {enabled: true})
 	//</editor-fold>
 	
 	const numberOfPages = Math.ceil(data?.totalOfEmployees / limit)
 	
 	const setCompanyTheme = () => {
-		localStorage.setItem('company-theme', company.name.split(' ')[0])
-		document.documentElement.setAttribute('user-theme', company.name.split(' ')[0])
+		localStorage.setItem('company-theme', user?.company.name.split(' ')[0])
+		document.documentElement.setAttribute('user-theme', user?.company.name.split(' ')[0])
 	}
 	
-	useEffect(() => {setCompanyTheme()}, [])
+	useEffect(() => {
+		setCompanyTheme()
+	}, [])
 	
 	useEffect(() => {
 		if (search.length > 1) {
@@ -55,9 +64,10 @@ const Employees = () => {
 	
 	return (
 		<>
-			{windowSize.width > 600 ? <Header company={company}/> : <MobileHeader company={company}/>}
+			{windowSize.width > 600 ? <Header company={user.company}/> :
+				<MobileHeader company={user.company}/>}
 			<MainContent>
-				{windowSize.width > 600 ? <LateralNav/> : <MobileNav user={userInfos}/>}
+				{windowSize.width > 600 ? <LateralNav/> : <MobileNav user={user}/>}
 				<ViewContext.Provider value={{tableView, toggleTableView}}>
 					<section className='employees__main-section'>
 						<EmployeesToolbar setSearch={setSearch} setSort={setSort}/>
@@ -73,19 +83,19 @@ const Employees = () => {
 										}
 										<div className='employees__pagination-container'>
 											<PaginationLimiter update={refetch}
-											                   setLimit={setLimit}
-											                   totalData={data.totalOfEmployees}
-											                   currentPage={currentPage}/>
+															   setLimit={setLimit}
+															   totalData={data.totalOfEmployees}
+															   currentPage={currentPage}/>
 											<EmployeesCount total={data.totalOfEmployees}
-											                totalFound={data.employees.length}
-											                search={debouncedSearch}/>
+															totalFound={data.employees.length}
+															search={debouncedSearch}/>
 											<Paginator totalOfPages={numberOfPages}
-											           setPage={setPage}
-											           currentPage={currentPage}
-											           firstPage={firstPage}
-											           lastPage={lastPage(numberOfPages)}
-											           setPrev={setPrev}
-											           setNext={setNext}/>
+													   setPage={setPage}
+													   currentPage={currentPage}
+													   firstPage={firstPage}
+													   lastPage={lastPage(numberOfPages)}
+													   setPrev={setPrev}
+													   setNext={setNext}/>
 										</div>
 									</>
 								) : <NoResult/>}
