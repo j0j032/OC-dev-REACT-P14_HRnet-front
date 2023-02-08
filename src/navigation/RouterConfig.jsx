@@ -3,7 +3,6 @@ import {Route, Routes, useLocation} from 'react-router-dom'
 import Layout from './Layout.jsx'
 import {AnimatePresence} from 'framer-motion'
 import {Loader} from '../components/common/Loader/Loader'
-import {Hello} from '../pages/Hello.jsx'
 
 const Employees = React.lazy(() => import('../pages/Employees/Employees'))
 const Error404 = React.lazy(() => import('../pages/Error404/Error404'))
