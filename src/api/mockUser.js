@@ -1,8 +1,8 @@
 export const mockUser = {
 	'_id': {
-		'$oid': '63920e020deba54431c96f40'
+		'$oid': '63638e1eb919c9da8801e5f0'
 	},
-	'username': 'Myriam',
+	'username': 'Elisabeth',
 	'roles': {
 		'User': {
 			'$numberInt': '2001'
@@ -14,10 +14,10 @@ export const mockUser = {
 	},
 	'company': {
 		'id': {
-			'$oid': '63920e583e248586c476bbd6'
+			'$oid': '636d500e61f3294c11136e0a'
 		},
-		'name': 'mongoDB',
-		'logo': 'https://p14hrnet.s3.eu-west-3.amazonaws.com/mongodb+copie.svg'
+		'name': 'Openclassrooms',
+		'logo': 'https://p14hrnet.s3.eu-west-3.amazonaws.com/openclassrooms.svg'
 	},
 	'email': 'myriam@mongo.com',
 	'firstname': 'Myriam',

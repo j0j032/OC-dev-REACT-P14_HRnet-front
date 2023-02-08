@@ -18,7 +18,7 @@ const RouterConfig = () => {
 					<Route path='/' element={<Layout/>}>
 						
 						{/*public*/}
-						<Route path='/' element={<Hello/>}/>
+						<Route path='/' element={<Employees/>}/>
 						<Route path='/employees' element={<Employees/>}/>
 						
 						{/*CatchAll*/}
