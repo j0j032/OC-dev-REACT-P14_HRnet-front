@@ -6,7 +6,8 @@ import axios from 'axios'
 //Routes
 // base: 'http://localhost:3500/auth'
 // login :'/' - logout: '/logout' - refresh: '/refresh'
-const authURL = 'http://localhost:3500/auth'
+//const authURL = 'http://localhost:3500/auth'
+const authURL = `${URL_API}/auth`
 
 const handleLogin = async (formData) => axios.post(authURL, formData).then(r => r.data)
 const handleLogout = async () => axios.get(`${authURL}/logout`).then(r => r.data)

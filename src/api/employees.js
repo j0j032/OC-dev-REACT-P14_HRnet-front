@@ -2,7 +2,8 @@ import axios from 'axios'
 import {filterMainSearch} from '../utils/filters.js'
 import {useMutation, useQuery, useQueryClient} from 'react-query'
 
-const employeesURL = 'http://localhost:3500/employees'
+//const employeesURL = 'http://localhost:3500/employees'
+const employeesURL = `${URL_API}/employees`
 
 const getEmployeeById = (id) => axios.get(`${employeesURL}/${id}`).then(r => r.data)
 
